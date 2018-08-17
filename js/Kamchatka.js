@@ -12,7 +12,7 @@ L.Control.Watermark = L.Control.extend({
 		onAdd: function(map) {
 			var img = L.DomUtil.create('img');
 			img.src = 'logo/IVIS.png';
-			img.style.width = '90px';
+			img.style.width = '110px';
 			return img;},
 		onRemove: function(map) {} });
 
