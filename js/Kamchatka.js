@@ -64,7 +64,7 @@ var lava_attr = '<h3>{Name}<br>Holocene {Type}</h3> <b>Age</b>: {Age}\
 				  <br><b>Eruption volume</b>: {Erupt_vol} km<sup>3</sup>\
 				  <br><b>Area</b>: {Area} km<sup>2</sup><br><b>Products</b>: {Products}\
 				  <br><br><a target="_blank" rel="noopener noreferrer" href="{Hyperlink}.jpg">\
-				  <img src="{Hyperlink}.jpg" class=popupImage title="Open image in new tab" ;"/>';
+				  <img src="{Hyperlink}.jpg" class=popupImage title="Open image in new tab" onError="removeElement(this);"/>';
 function R_lava(layer) {
    return {Area: layer.feature.properties.Area.toFixed(1),
 		   Name: layer.feature.properties.Name_eng,
