@@ -1,0 +1,118 @@
+.myCSSClass {
+	  background: transparent;
+	  border: 0px;
+	  box-shadow: none;
+	  font-size:14px;
+	  font-weight: 700;
+	}
+	
+.leaflet-tooltip-left.myCSSClass::before {
+	  border-left-color: transparent;
+	}
+.leaflet-tooltip-right.myCSSClass::before {
+	  border-right-color: transparent;
+	}
+
+.leaflet-control-layers-expanded { 
+    width:160px;
+}	
+
+.marker_point {
+	  background: transparent;
+	  border: 0px;
+	  box-shadow: none;
+	  font-size:13px;
+	  font-weight: 600;
+	  font-style: italic;
+	  color: #4d4d33;
+	}
+
+.popupImage {
+		max-width: 100%;
+		max-height: 100%;
+	}
+	
+.button {
+	max-width:100%; 
+	max-height:100%;
+	padding:2px 0px 2px 0px;
+	margin:3px 0px;
+}	
+	
+.legend {
+	line-height: 22px;
+	width: 160px;
+	color: #333;;
+	font-family: 'Open Sans', Helvetica, sans-serif;
+	padding: 6px 8px;
+	background: white;
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	border: 2px solid #bfbfbf;
+	opacity: 1;
+}
+
+.legend i {
+	width: 16px;
+	height: 12px;
+	float: left;
+	margin-right: 8px;
+	margin-top: 3px;
+	opacity: 0.7;
+}
+
+.legend p {
+	font-size: 12px;
+	line-height: 20px;
+	margin: 0;
+}
+
+.legend .triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 16px solid #802b00;
+	opacity: 1;
+}
+
+.legend .triangle {
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 12px solid #ac3939;
+	margin-left: 2px;
+	opacity: 0.9;
+}
+
+.legend .hatching-deadice {
+    background: linear-gradient(135deg, #6699cc 27%, #145252 27%, #145252 33%, #6699cc 33%, #6699cc 65%, #145252 65%, #145252 70%, #6699cc 70% );
+	border: 1.2px solid #145252;
+    background-size: 16px 16px;
+}
+
+.legend .dotted { 
+	background: linear-gradient(90deg, white 2px, transparent 1%) center,
+		linear-gradient(white 2px, transparent 1%) center, #4d1300;
+	background-size: 4px 4px;
+	margin-left: 1px;
+}
+
+.legend .cross {
+	background: red;
+	height: 12px;
+	position: relative;
+	width: 3px;
+	
+}
+.legend .cross:after {
+	background: red;
+	content: "";
+	height: 3px;
+	left: -5px;
+	position: absolute;
+	top: 5px;
+	width: 12px;
+	transform: rotate(45deg);
+}
