@@ -5,7 +5,7 @@
  */
 
 // BaseMap
-var map = L.map('map').setView([57.822,160.501], 10);
+var map = L.map('map').setView([57.822,160.501], 8);
 var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 L.Control.Watermark = L.Control.extend({
@@ -124,8 +124,8 @@ var GL_attr = '<h3>{NAME_ENG} glacier &ensp;2016</h3><b>Catalog Nr.</b> {NUMBER_
 				  <br><b>Estimated ice volume</b>: {Vol} km<sup>3</sup>\
 				  <br><b>Altitude range</b>: {ZMIN} - {ZMAX} m asl\
 				  <br><b>Average slope</b>: {AVG_SLOPE}&deg\
-				  <br><br><a target="_blank" rel="noopener noreferrer" href="{URL}">\
-				  <img src="{URL}" class=popupImage title="Open image in new tab" onError="removeElement(this);"/>';
+				  <br><br><a target="_blank" rel="noopener noreferrer" href="{URL}.jpg">\
+				  <img src="{URL}.jpg" class=popupImage title="Open image in new tab" onError="removeElement(this);"/>';
 function R(layer) {
    return {SArea: layer.feature.properties.SArea_km.toFixed(1),
 		   Vol:   layer.feature.properties.Vol_km3.toFixed(1),
@@ -265,8 +265,3 @@ L.easyButton({id: 'reference',
 		sidebar.toggle(); },
 	title: 'Show/hide references',
 	icon: "<img class=button src='button/menu.png'>"}]}).addTo(map);
-
-
-
-
-
