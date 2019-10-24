@@ -116,3 +116,7 @@
 	width: 12px;
 	transform: rotate(45deg);
 }
+.ok {
+	background: transparent;
+	border: 0px;
+	box-shadow: none;

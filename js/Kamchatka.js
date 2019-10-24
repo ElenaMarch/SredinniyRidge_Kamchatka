@@ -5,7 +5,7 @@
  */
 
 // BaseMap
-var map = L.map('map').setView([57.822,160.501], 9);
+var map = L.map('map').setView([57.822,160.501], 10);
 var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 L.Control.Watermark = L.Control.extend({
@@ -30,6 +30,9 @@ L.control.coordinates({
 }).addTo(map);
 
 L.control.scale({imperial: false}).addTo(map);
+
+// Measurements
+L.control.measure({lineColor: 'red'}).addTo(map);
 
 // URL
 var lavaUrl    = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/lava_holo/FeatureServer/0";
