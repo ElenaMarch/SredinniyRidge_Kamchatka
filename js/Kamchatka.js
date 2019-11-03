@@ -5,7 +5,7 @@
  */
 
 // BaseMap
-var map = L.map('map').setView([57.822,160.501], 10);
+var map = L.map('map').setView([57.822,160.501], 11);
 var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 L.Control.Watermark = L.Control.extend({
@@ -30,6 +30,14 @@ L.control.coordinates({
 }).addTo(map);
 
 L.control.scale({imperial: false}).addTo(map);
+
+// Button for references
+L.easyButton({id: 'reference',
+  states:[{stateName: 'ref',
+	onClick: function () {
+		sidebar.toggle(); },
+	title: 'Show/hide references',
+	icon: "<img class=button src='button/menu.png'>"}]}).addTo(map);
 
 // Measurements
 L.control.measure({lineColor: 'red'}).addTo(map);
@@ -246,7 +254,7 @@ map.on('overlayremove', function (eventLayer) {
 
 
 // References
-var sidebar = L.control.sidebar('sidebar', {closeButton: true}),
+var sidebar = L.control.sidebar('sidebar', {closeButton: true, position: 'right'}),
 	content = '<h2 style="margin-bottom:-6px">References</h2>\
 			   <p class="lorem">The map layers were created using the following data sources:</p>\
 			   <h3 style="margin-bottom:-6px">Holocene volcanoes</h3>\
@@ -262,10 +270,7 @@ var sidebar = L.control.sidebar('sidebar', {closeButton: true}),
 
 map.addControl(sidebar);
 sidebar.setContent(content);
+setTimeout(function () {
+    sidebar.show();
+}, 200);
 
-L.easyButton({id: 'reference',
-  states:[{stateName: 'ref',
-	onClick: function () {
-		sidebar.toggle(); },
-	title: 'Show/hide references',
-	icon: "<img class=button src='button/menu.png'>"}]}).addTo(map);
