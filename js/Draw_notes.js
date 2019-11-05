@@ -44,9 +44,10 @@ var control = L.Control.fileLayerLoad({
                    }},
 }).addTo(map);
 control.loader.on('data:loaded', function (e) {
-	console.log(e.layer._layers);
-	e.layer.addTo(objects);
-	console.log('Objects' + objects);
+	layers = e.layer;
+	layers.eachLayer(function(l) {
+		l.addTo(objects);
+	})
 });
 
 // Download Button
@@ -115,10 +116,8 @@ map.on('draw:created', function (e) {
 });
 
 map.on('draw:edited', function (e) {
-	console.log(objects.layers)
     var layers = e.layers;
     layers.eachLayer( function (layer) {
         objects.editLayer(layer);
         });
 });
-
