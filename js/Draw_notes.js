@@ -115,9 +115,4 @@ map.on('draw:created', function (e) {
 	});
 });
 
-map.on('draw:edited', function (e) {
-    var layers = e.layers;
-    layers.eachLayer( function (layer) {
-        objects.editLayer(layer);
-        });
-});
+
