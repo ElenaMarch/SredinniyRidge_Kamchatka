@@ -44,7 +44,9 @@ var control = L.Control.fileLayerLoad({
                    }},
 }).addTo(map);
 control.loader.on('data:loaded', function (e) {
+	console.log(e.layer._layers);
 	e.layer.addTo(objects);
+	console.log('Objects' + objects);
 });
 
 // Download Button
@@ -70,12 +72,19 @@ drawIcon = new L.icon({
 	shadowAnchor: [9, 32]
 });
 
+vertIcon = new L.DivIcon({
+	iconSize: new L.Point(8, 8),
+	className: 'leaflet-div-icon leaflet-editing-icon my-own-editing-icon'
+});
+
 var drawControl = new L.Control.Draw({
 	position: 'bottomleft',
 	draw:{circle:false, circlemarker:false, rectangle:false,
 		  marker: {icon: drawIcon},
-		  polygon: {shapeOptions:{color: '#334d4d', weight: 2}},
-		  polyline: {shapeOptions:{color: '#334d4d', weight: 2}} },
+		  polygon: {shapeOptions:{color: '#334d4d', weight: 2}, 
+					  icon: vertIcon},
+		  polyline: {shapeOptions:{color: '#334d4d', weight: 2},
+					   icon: vertIcon}},
 	edit:{featureGroup: objects} });
 map.addControl(drawControl);
 
@@ -106,8 +115,10 @@ map.on('draw:created', function (e) {
 });
 
 map.on('draw:edited', function (e) {
+	console.log(objects.layers)
     var layers = e.layers;
     layers.eachLayer( function (layer) {
         objects.editLayer(layer);
         });
 });
+
