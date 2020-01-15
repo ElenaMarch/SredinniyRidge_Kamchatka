@@ -1,15 +1,16 @@
-.myCSSClass {
+.myLabels {
 	  background: transparent;
 	  border: 0px;
 	  box-shadow: none;
 	  font-size:14px;
 	  font-weight: 700;
+	  color: #273746;
 	}
 	
-.leaflet-tooltip-left.myCSSClass::before {
+.leaflet-tooltip-left.myLabels::before {
 	  border-left-color: transparent;
 	}
-.leaflet-tooltip-right.myCSSClass::before {
+.leaflet-tooltip-right.myLabels::before {
 	  border-right-color: transparent;
 	}
 

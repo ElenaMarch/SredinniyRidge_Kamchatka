@@ -1,6 +1,6 @@
 /*
 
-  Copyright (c) 2018 by Elena Marchenko
+  Copyright (c) 2018 by Elena Marchenko, Institute of Volcanology and Seismology
   
  */
 
@@ -49,7 +49,7 @@ var gl2016Url  = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/serv
 var m2016Url   = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/moraine_2016/FeatureServer/0";
 var markUrl	   = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/markers/FeatureServer/0";
 var rivUrl     = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/rivers_srh/FeatureServer/0";
-
+var volcanoQUrl= "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/Volc_Q/FeatureServer/0";
 
 
 // LAYERS
@@ -176,8 +176,8 @@ function VolcStyle(feature) {
 var volcano = L.esri.featureLayer({url: volcanoUrl, fields: ['FID','Name_eng', 'Type'],
 	pointToLayer: function (feature, latlng) {
 		return L.shapeMarker(latlng, VolcStyle(feature))
-		  .bindTooltip(feature.properties.Name_eng, {className: 'myCSSClass'}); } });
-	
+		  .bindTooltip(feature.properties.Name_eng, {className: 'myLabels'}); } });
+
 var Group_volc = L.layerGroup([volcano, lava]).addTo(map);
 
 // Markers
@@ -190,87 +190,30 @@ L.esri.featureLayer({url: markUrl, fields: ['FID','Name_eng', 'Label_scal'],
 		  .bindTooltip(feature.properties.Name_eng, {className: 'marker_point', permanent: true, offset: [-5,0]}); } })
 	.addTo(map);
 
-
-// Legend Box
-var baseLayers = {
-	  "Topographic": base,
-	  "Sattelite": L.esri.basemapLayer("ImageryClarity") },
-	overlays = {
-	  "Holocene volcanoes": Group_volc,
-	  "Glaciers 2016": Group_gl2016, };
-	  
-L.control.layers(baseLayers, overlays, {collapsed:false}).addTo(map);
-
-function getColour(d) {
-	switch (d) {
-		case 'Moving ice': return "#99ebff";
-		case 'Dead ice': return '#202020';
-		default: return '#fff';
-	}
-};
+// Quaternary volcanoes
+var Qstyle = {
+	"color": '#273746',
+	"shape": "triangle",
+	"fillOpacity": 0.8,
+	"radius": 4,
+	"pane": 'Volc',
+	"weight": 1.5
+  }
+var volcanoQ = L.esri.featureLayer({url: volcanoQUrl, fields: ['FID','Name_eng', 'Type_eng', 'H', 'Vol_type_e'],
+	pointToLayer: function (feature, latlng) {
+		return L.shapeMarker(latlng, Qstyle)
+		.bindTooltip(feature.properties.Name_eng, {className: 'myLabels', offset: [-5,0]}); } })
+	.addTo(map);
 	
-var legend_gl = L.control({position: 'topright'});
-var legend_v  = L.control({position: 'topright'});
+var Q_attr = '<h4 style="color: #641E16; font-weight: bold;">Quaternary volcanoes:<br>{Name}</h4>\
+				<b>Altitude</b>: {H} m asl\
+				<br><b>Morphology</b>: {Type}\
+				<br><b>Eruptive activity</b>: {Vol_type}';
+function Q(layer) {
+	return {Name: layer.feature.properties.Name_eng,
+			Type:   layer.feature.properties.Type_eng,
+			H: layer.feature.properties.H,
+			Vol_type:  layer.feature.properties.Vol_type_e};}
 
-legend_v.onAdd = function (map) {
-	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML += '<b>Holocene volcanoes</b><br>';
-	div.innerHTML += '<i class="triangle-up"></i><p>Stratovolcano</p>';
-	div.innerHTML += '<i class="triangle"></i><p>Monogenetic cone</p>';
-	div.innerHTML += '<b style="color: #ac3939; font-size: 10px; float: left; margin-right: 8px">&#10060</b><p>Volcanic field</p>';
-	div.innerHTML += '<hr><b>Lava flows: composition</b><br>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #905080;background-color:#ff6030;"></i><p>Basalt, andesite-basalt</p>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #ff5500;background-color:#ff8010;opacity:0.6"></i><p>Andesite-basalt</p>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #602060;background-color:#602060;"></i><p>Dacite, biotite</p>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #202020;background-color:#909090;"></i><p>Unknown</p>';
-	return div; };
-legend_v.addTo(map);
-
-legend_gl.onAdd = function (map) {
-	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML += '<b>Glaciers&nbsp 2016</b><br>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #0086b3;background-color:#99ebff;"></i><p>Moving ice</p>';
-	div.innerHTML += '<i class="hatching-deadice" ></i><p>Dead ice</p>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #4d3319;background-color:#996633;"></i><p>Lateral moraine</p>';
-	div.innerHTML += '<i class="dotted" ></i><p>Surface moraine</p>';
-	return div; };
-legend_gl.addTo(map);
-
-map.on('overlayadd', function (eventLayer) {
-	if (eventLayer.name === 'Holocene volcanoes') {
-		legend_v.addTo(map);
-	} else if (eventLayer.name === 'Glaciers 2016') { 
-		legend_gl.addTo(map);
-	}
-});
-
-map.on('overlayremove', function (eventLayer) {
-	if (eventLayer.name === 'Holocene volcanoes') {
-		map.removeControl(legend_v);
-	} else if (eventLayer.name === 'Glaciers 2016') { 
-		map.removeControl(legend_gl);
-	}
-});
-
-
-// References
-var sidebar = L.control.sidebar('sidebar', {closeButton: true, position: 'right'}),
-	content = '<h2 style="margin-bottom:-6px">References</h2>\
-			   <p class="lorem">The map layers were created using the following data sources:</p>\
-			   <h3 style="margin-bottom:-6px">Holocene volcanoes</h3>\
-			   <p class="lorem">Pevzner M.&nbsp;&nbsp 2015<br> Holocene volcanism of Sredinny Range of Kamchatka, ed. by M. Fedonkin. Transactions of the Geological Institute, vol. 608. Moscow: GEO — 252 p. \
-			   <a href="http://www.ginras.ru/library/pdf/608_pevzner2015_holocene_volcanism_kamchatka.pdf"> ISBN 978-5-89118-682-8</a></p>\
-			   <h3 style="margin-bottom:-6px">Glaciers</h3>\
-			   <p class="lorem">Glaciers outlines were mapped using <a href="https://landsat.usgs.gov/">Landsat</a> Images (L7, L8 - August 2002, 2016) and orthophotoes taken from aircraft in 1949-1951. This dataset reflects glacial retreat in the Northern Kamchatka at the second part of 20th / beginning of 21th century and has been never published before.<br>&copy; Elena Marchenko, Yaroslav Muravyev</p>\
-			   <br><hr><h2>Credits</h2>\
-			   <p class="lorem">The webb-map is built using the awesome open-source JavaScript library <a href="https://leafletjs.com/">Leaflet</a>. Besides, it makes use of a set of Leaflet plugins (incl. <a href=”https://esri.github.io/esri-leaflet/”>ESRI for Leaflet</a>) and ArcGIS basemaps. The latter two are freely distributed for non-commercial use under Essentials Developer Plan (<a href=”https://github.com/esri/esri-leaflet#terms”>ESRI’s Terms of Use</a>).</p>\
-			   <br><hr>\
-			   <p class="lorem">&copy; 2018 Elena Marchenko<br>PhD, Research fellow<br>\
-			   <a href="http://www.kscnet.ru/ivs/">Institute of Volcanology and Seismology</a><br>Far Eastern Branch of Russian Academy<br> of Sciences</p>';
-
-map.addControl(sidebar);
-sidebar.setContent(content);
-//setTimeout(function () {
-//    sidebar.show();
-//}, 200);
-
+volcanoQ.bindPopup(function (layer) {
+	return L.Util.template(Q_attr, Q(layer)); });
