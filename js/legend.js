@@ -65,3 +65,15 @@ map.on('overlayremove', function (eventLayer) {
 		map.removeControl(legend_gl);
 	}
 });
+
+map.on('zoomend', function () {
+    if (map.getZoom() < 9)
+    {
+        map.removeControl(legend_v);
+		map.removeControl(legend_gl);
+    }
+	if (map.getZoom() >= 9 ) {
+        legend_v.addTo(map);
+        legend_gl.addTo(map);
+    }
+});

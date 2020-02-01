@@ -2,9 +2,10 @@
 	  background: transparent;
 	  border: 0px;
 	  box-shadow: none;
-	  font-size:14px;
-	  font-weight: 700;
-	  color: #273746;
+	  font-size: 13px;
+	  font-weight: 600;
+	  font-family: 'Lucida Sans Unicode';
+	  color: #492622;
 	}
 	
 .leaflet-tooltip-left.myLabels::before {
@@ -14,11 +15,27 @@
 	  border-right-color: transparent;
 	}
 
+.cityLabels {
+	background: transparent;
+	border: 0px;
+	box-shadow: none;
+	font-size: 12px;
+	font-family: 'Tahoma';
+	color: #424040 ;
+	}
+	
+.leaflet-tooltip-left.cityLabels::before {
+	border-left-color: transparent;
+	}
+.leaflet-tooltip-right.cityLabels::before {
+	border-right-color: transparent;
+	}
+
 .leaflet-control-layers-expanded { 
     width:160px;
 }	
 
-.marker_point {
+.marker-point {
 	  background: transparent;
 	  border: 0px;
 	  box-shadow: none;
@@ -26,6 +43,12 @@
 	  font-weight: 600;
 	  font-style: italic;
 	  color: #4d4d33;
+	}
+.leaflet-tooltip-left.marker-point::before {
+	border-left-color: transparent;
+	}
+.leaflet-tooltip-right.marker-point::before {
+	border-right-color: transparent;
 	}
 
 .popupImage {
