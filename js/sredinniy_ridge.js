@@ -113,7 +113,7 @@ function R(layer) {
 gl2016.bindPopup(function (layer) {
   return L.Util.template(GL_attr, R(layer)); });
   
-var Group_gl2016 = L.layerGroup([gl2016, m2016]).addTo(map);
+var Group_gl2016 = L.layerGroup([gl2016, m2016]); //.addTo(map)
 
 
 // VOLCANOES
@@ -140,7 +140,7 @@ var volcano = L.esri.featureLayer({url: volcanoUrl, fields: ['FID','Name_eng', '
 		return L.shapeMarker(latlng, VolcStyle(feature))
 		  .bindTooltip(feature.properties.Name_eng, {className: 'myLabels'}); } });
 
-var Group_volc = L.layerGroup([volcano, lava]).addTo(map);
+var Group_volc = L.layerGroup([volcano, lava]); //.addTo(map)
 
 // Markers
 map.createPane('Mark');
@@ -165,7 +165,7 @@ var volcanoQ = L.esri.featureLayer({url: volcanoQUrl, fields: ['FID','Name_eng',
 	pointToLayer: function (feature, latlng) {
 		return L.shapeMarker(latlng, Qstyle)
 		.bindTooltip(feature.properties.Name_eng, {className: 'myLabels', offset: [-5,0]}); } })
-	.addTo(map);
+	.addTo(map); //
 	
 var Q_attr = '<h3 style="color: #641E16; font-weight: bold; font-family: Lucida Sans Unicode">{Name}</h3>\
 				<b>Layer</b>: Quaternary volcanoes\

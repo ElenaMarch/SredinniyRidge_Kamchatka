@@ -3,9 +3,9 @@
 "name": "active_volcanoes",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
-{ "type": "Feature", "properties": { "Id": 0, "type": 3, "type2": 6, "hyperlink": "\\Descriptions\\kambalnii.doc", "Name_eng": null }, "geometry": { "type": "Point", "coordinates": [ 156.868579739347922, 51.305961139777594 ] } },
-{ "type": "Feature", "properties": { "Id": 0, "type": 1, "type2": 3, "hyperlink": "\\Descriptions\\koshelev.doc", "Name_eng": null }, "geometry": { "type": "Point", "coordinates": [ 156.733396613477339, 51.358160564619311 ] } },
-{ "type": "Feature", "properties": { "Id": 0, "type": 1, "type2": 2, "hyperlink": "\\Descriptions\\koriakskii.doc", "Name_eng": null }, "geometry": { "type": "Point", "coordinates": [ 158.711174097177263, 53.315472856910944 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "type": 3, "type2": 6, "hyperlink": "\\Descriptions\\kambalnii.doc", "Name_eng": "Kambalniy" }, "geometry": { "type": "Point", "coordinates": [ 156.868579739347922, 51.305961139777594 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "type": 1, "type2": 3, "hyperlink": "\\Descriptions\\koshelev.doc", "Name_eng": "Koshelev" }, "geometry": { "type": "Point", "coordinates": [ 156.733396613477339, 51.358160564619311 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "type": 1, "type2": 2, "hyperlink": "\\Descriptions\\koriakskii.doc", "Name_eng": "Koryakskiy" }, "geometry": { "type": "Point", "coordinates": [ 158.711174097177263, 53.315472856910944 ] } },
 { "type": "Feature", "properties": { "Id": 0, "type": 1, "type2": 1, "hyperlink": "\\Descriptions\\avachinskii.doc", "Name_eng": "Avachinskiy" }, "geometry": { "type": "Point", "coordinates": [ 158.838905798742076, 53.249782267534762 ] } },
 { "type": "Feature", "properties": { "Id": 0, "type": 1, "type2": 6, "hyperlink": "\\Descriptions\\jypanovskii.doc", "Name_eng": "Zhupanovskiy" }, "geometry": { "type": "Point", "coordinates": [ 159.130255727549383, 53.585230045691823 ] } },
 { "type": "Feature", "properties": { "Id": 0, "type": 1, "type2": 6, "hyperlink": "\\Descriptions\\dzenzyrskii.doc", "Name_eng": "Dzenzurskiy" }, "geometry": { "type": "Point", "coordinates": [ 158.92101903546228, 53.636322726317765 ] } },
@@ -45,7 +45,7 @@
 { "type": "Feature", "properties": { "Id": 0, "type": 2, "type2": 0, "hyperlink": "\\Descriptions\\byrliawii.doc", "Name_eng": "Burlyachiy" }, "geometry": { "type": "Point", "coordinates": [ 159.988901313442142, 54.325495119402404 ] } },
 { "type": "Feature", "properties": { "Id": 0, "type": 2, "type2": 0, "hyperlink": "\\Descriptions\\spokoinii.doc", "Name_eng": "Spokoyniy" }, "geometry": { "type": "Point", "coordinates": [ 160.76591307393727, 58.091355725939941 ] } },
 { "type": "Feature", "properties": { "Id": 0, "type": 2, "type2": 0, "hyperlink": "\\Descriptions\\alney.doc", "Name_eng": "Alney" }, "geometry": { "type": "Point", "coordinates": [ 159.636725688202574, 56.694267936834642 ] } },
-{ "type": "Feature", "properties": { "Id": 0, "type": 2, "type2": 0, "hyperlink": "\\Descriptions\\gorniiinstityt.doc", "Name_eng": "Gornogo instituta" }, "geometry": { "type": "Point", "coordinates": [ 160.384713803031985, 57.46552458601257 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "type": 2, "type2": 0, "hyperlink": "\\Descriptions\\gorniiinstityt.doc", "Name_eng": "Gornogo instituta" }, "geometry": { "type": "Point", "coordinates": [ 160.195, 57.331 ] } },
 { "type": "Feature", "properties": { "Id": 0, "type": 2, "type2": 0, "hyperlink": null, "Name_eng": "Dikiy Greben'" }, "geometry": { "type": "Point", "coordinates": [ 156.990535584940858, 51.444064581623614 ] } }
 ]
 }

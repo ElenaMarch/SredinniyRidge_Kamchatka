@@ -7,11 +7,13 @@
 
 
 // URLs
-rivURL = "json/rivers.geojson"
-cityURL = "json/cities.geojson"
-avolcURL = "json/active_volcanoes.geojson"
-dangerURL = "json/danger.geojson"
-hdangerURL = "json/high_danger.geojson"
+rivURL = "json/rivers.geojson";
+cityURL = "json/cities.geojson";
+avolcURL = "json/active_volcanoes.geojson";
+dangerURL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/danger/FeatureServer/0";
+hdangerURL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/high_danger/FeatureServer/0";
+
+
 
 // Base
 var rivLayer = new L.GeoJSON.AJAX(rivURL, {style: {"color": "#3399ff", "weight": 0.3}}).addTo(map);
@@ -65,27 +67,37 @@ map.on('zoomend', function () {
 });
 
 // Volcanic danger assessment
+map.createPane('Danger');
+function dangerStyle(feature) {
+  switch (feature.properties.Type) {
+      case 1: return {"fillColor": "#D21704", "color": "#633705", "fillOpacity": 0.7, "weight": 0.5};
+      case 2: return {"fillColor": "#F05511", "color": "#633705", "fillOpacity": 0.7, "weight": 0.5}; 
+      case 3: return {"fillColor": "#FCA73C", "color": "#633705", "fillOpacity": 0.7, "weight": 0.5}; 
+      case 4: return {"fillColor": "#FFE668", "color": "#633705", "fillOpacity": 0.7, "weight": 0.5}; }
+};  
+var dangerLayer = L.esri.featureLayer({url: dangerURL,  precision: 12,  maxZoom: 8, pane: 'Danger',
+  fields: ['FID', 'Type'], style: dangerStyle});
+
+map.createPane('HighDanger');
+var stripes = new L.StripePattern({weight: 1.5, height: 4, color: 'black', spaceWeight: 2.5, spaceColor: 'none', angle: -30}); stripes.addTo(map);
+var hdangerLayer = L.esri.featureLayer({url: hdangerURL,  precision: 9,  maxZoom: 8, pane: 'HighDanger', 
+  fields: ['FID'], style: {fillPattern: stripes, weight: 0.3, fillOpacity: 0.5, color: 'grey' }});
+
+var hazard = L.layerGroup([dangerLayer, hdangerLayer]).addTo(map);
+
 function avolcStyle(feature) {
 	switch (feature.properties.type) {
-			case 1: return {"color": "red", "weight": 1.2, 'shape': "x", 'radius': 3};
-      case 2: return {"color": "black", 'weight': 1.2, 'shape': "x", 'radius': 3}; 
-      case 3: return {"color": "grey", 'weight': 1.2, 'shape': "x", 'radius': 3}; }
+      case 1: return {"color": "red", "weight": 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'HighDanger'};
+      case 2: return {"color": "black", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'HighDanger'}; 
+      case 3: return {"color": "grey", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'HighDanger'};    }
 };
-
-var avolcMarker = {
-	"color": 'red',
-	"shape": "x",
-	"fillOpacity": 0.75,
-	"radius": 3,
-	"pane": 'Volc',
-	"weight": 1.2
-  }
 var avolcLayer = new L.GeoJSON.AJAX(avolcURL,
   {pointToLayer: function (feature, latlng) {
-    var marker = L.shapeMarker(latlng, avolcMarker);
-    marker.bindTooltip(feature.properties.Name_eng, {className: 'cityLabels', interactive: true});
+    var marker = L.shapeMarker(latlng, avolcStyle(feature));
+    marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', interactive: true, offset: [-4,0]});
     return marker} }
-  ).addTo(map);
+).addTo(map);
+
 
 // Seismic activity
  

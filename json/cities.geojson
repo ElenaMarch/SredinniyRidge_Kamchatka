@@ -45,6 +45,6 @@
 { "type": "Feature", "properties": { "PPPTNAME": "Klyuchi", "PPPTFLAG": 2 }, "geometry": { "type": "Point", "coordinates": [ 160.849151611328125, 56.312934875488281 ] } },
 { "type": "Feature", "properties": { "PPPTNAME": "Mayskoye", "PPPTFLAG": 1 }, "geometry": { "type": "Point", "coordinates": [ 160.109115600585938, 56.270713806152344 ] } },
 { "type": "Feature", "properties": { "PPPTNAME": "Krutoberegovo", "PPPTFLAG": 1 }, "geometry": { "type": "Point", "coordinates": [ 162.710342407226563, 56.261512756347656 ] } },
-{ "type": "Feature", "properties": { "PPPTNAME": "UST-KAMCHATSK", "PPPTFLAG": 2 }, "geometry": { "type": "Point", "coordinates": [ 162.46929931640625, 56.227462768554688 ] } }
+{ "type": "Feature", "properties": { "PPPTNAME": "Ust'-Kamchatsk", "PPPTFLAG": 2 }, "geometry": { "type": "Point", "coordinates": [ 162.46929931640625, 56.227462768554688 ] } }
 ]
 }
