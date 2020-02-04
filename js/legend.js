@@ -77,7 +77,7 @@ legend_avolc.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
 	div.innerHTML += '<b>Active volcanoes</b><br>';
 	div.innerHTML += '<i class="triangle" style="border-bottom: 12px solid red;"></i><p>Recorded eruptions</p>';
-	div.innerHTML += '<i class="triangle" style="border-bottom: 12px solid black;"></i><p>Dormant</p>';
+	div.innerHTML += '<i class="triangle" style="border-bottom: 12px solid black;"></i><p>Potentially active</p>';
 	div.innerHTML += '<i class="triangle" style="border-bottom: 12px solid grey;"></i><p>Hydrothermal activity</p>';
 	return div;
 };
@@ -90,6 +90,8 @@ map.on('overlayadd', function (eventLayer) {
 		legend_gl.addTo(map);
 	} else if (eventLayer.name === 'Volcanic hazard zones') { 
 		legend_hazard.addTo(map);
+	} else if (eventLayer.name === 'Active volcanoes') { 
+		legend_avolc.addTo(map);
 	}
 });
 
@@ -100,6 +102,8 @@ map.on('overlayremove', function (eventLayer) {
 		map.removeControl(legend_gl);
 	} else if (eventLayer.name === 'Volcanic hazard zones') { 
 		map.removeControl(legend_hazard);
+	} else if (eventLayer.name === 'Active volcanoes') { 
+		map.removeControl(legend_avolc);
 	}
 });
 

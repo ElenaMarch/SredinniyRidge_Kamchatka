@@ -94,9 +94,37 @@ function avolcStyle(feature) {
 var avolcLayer = new L.GeoJSON.AJAX(avolcURL,
   {pointToLayer: function (feature, latlng) {
     var marker = L.shapeMarker(latlng, avolcStyle(feature));
-    marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', interactive: true, offset: [-4,0]});
+    (map.getZoom() >= 10
+        ? marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:true})
+        : marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:false} )
+    );
     return marker} }
 ).addTo(map);
+
+var lastZoom;
+map.on('zoomend', function() {
+    var zoom = map.getZoom();
+    if (zoom < 9 && (!lastZoom || lastZoom >= 9)) {
+        map.eachLayer(function(l) {
+            if (l.getTooltip() && l.options.pane!='Volc') {
+                var tooltip = l.getTooltip();
+                l.unbindTooltip().bindTooltip(tooltip, {
+                    permanent: false
+                })
+            }
+        })
+    } else if (zoom >= 9 && (!lastZoom || lastZoom < 9)) {
+        map.eachLayer(function(l) {
+            if (l.getTooltip() && l.options.pane!='Volc') {
+                var tooltip = l.getTooltip();
+                l.unbindTooltip().bindTooltip(tooltip, {
+                    permanent: true
+                })
+            }
+        });
+    }
+    lastZoom = zoom;
+});
 
 
 // Seismic activity
