@@ -63,7 +63,7 @@ legend_gl.onAdd = function (map) {
 
 legend_hazard.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML += '<b>Volcanic hazard zones (showing reoccurence of eruptions)</b><br>';
+	div.innerHTML += '<p style="line-height: 1.4"><b>Volcanic hazard zones (showing reoccurence of eruptions)</b></p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #633705;background-color:#D21704;"></i><p>1 time in 1-5 years</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #633705;background-color:#F05511;"></i><p>1 time in 10-50 years</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #633705;background-color:#FCA73C;"></i><p>1 time in 50-100 years</p>';

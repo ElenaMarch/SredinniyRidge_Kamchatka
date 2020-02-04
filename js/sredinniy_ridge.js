@@ -113,7 +113,7 @@ function R(layer) {
 gl2016.bindPopup(function (layer) {
   return L.Util.template(GL_attr, R(layer)); });
   
-var Group_gl2016 = L.layerGroup([gl2016, m2016]); //.addTo(map)
+var Group_gl2016 = L.layerGroup([gl2016, m2016], {minZoom: 9}).addTo(map);
 
 
 // VOLCANOES
@@ -135,12 +135,12 @@ function VolcStyle(feature) {
 	"weight": w
   };}
 
-var volcano = L.esri.featureLayer({url: volcanoUrl, fields: ['FID','Name_eng', 'Type'], minZoom: 9, 
+var volcano = L.esri.featureLayer({url: volcanoUrl, fields: ['FID','Name_eng', 'Type'], minZoom: 9,
 	pointToLayer: function (feature, latlng) {
 		return L.shapeMarker(latlng, VolcStyle(feature))
 		  .bindTooltip(feature.properties.Name_eng, {className: 'myLabels'}); } });
 
-var Group_volc = L.layerGroup([volcano, lava]); //.addTo(map)
+var Group_volc = L.layerGroup([volcano, lava], {minZoom: 9}).addTo(map); //
 
 // Markers
 map.createPane('Mark');

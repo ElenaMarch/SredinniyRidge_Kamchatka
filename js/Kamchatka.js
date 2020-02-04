@@ -85,11 +85,12 @@ var hdangerLayer = L.esri.featureLayer({url: hdangerURL,  precision: 9,  maxZoom
 
 var hazard = L.layerGroup([dangerLayer, hdangerLayer]).addTo(map);
 
+map.createPane('AV');
 function avolcStyle(feature) {
 	switch (feature.properties.type) {
-      case 1: return {"color": "red", "weight": 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'HighDanger'};
-      case 2: return {"color": "black", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'HighDanger'}; 
-      case 3: return {"color": "grey", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'HighDanger'};    }
+      case 1: return {"color": "red", "weight": 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'};
+      case 2: return {"color": "black", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'}; 
+      case 3: return {"color": "grey", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'};    }
 };
 var avolcLayer = new L.GeoJSON.AJAX(avolcURL,
   {pointToLayer: function (feature, latlng) {
