@@ -47,20 +47,25 @@ Copyright (c) 2018 by Elena Marchenko
   <script src="lib/leaflet.ajax.min.js"></script>
   <script src="https://unpkg.com/togeojson@0.16.0"></script>
   <script src="lib/leaflet.filelayer.js"></script>
-  <script src=https://unpkg.com/labelgun@6.0.0/lib/labelgun.js></script>
+
   
-  <!-- My style -->
+  <!-- My style --> 
   <link rel="stylesheet" href="css/Kamchatka.css"/>
   
   <style>
     html, body,
-    #map {height: 97.5%; width: 99%; margin: 0.5% 3% 0.5% 0.5% ;padding: 0; }
+    #map {height: 96%; width: 100%; margin: 50px auto 0px auto; padding: 0 ; }
   </style>
 </head>
 
 <body>
   <div id="sidebar"></div>
-  <div id="map"></div>
+  <div class="panel">
+    <p style="font-weight: 300; font-size: 26px; text-indent: 50px;">The web map of Kamchatka peninsula</p>
+    <p style="font-weight: 50; font-size: 14px; text-indent: 50px; font-style: oblique;">
+      Institute of Volcanology and Seismology, Far Eastern branch of Russian Academy of Sciences</p>
+  </div>
+  <div id="map" style="border-style: groove; border-width: 2px"></div>
   <script type="text/javascript" src="js/general.js"></script>
   <script type="text/javascript" src="js/kamchatka.js"></script>
   <script type="text/javascript" src="js/sredinniy_ridge.js"></script>
