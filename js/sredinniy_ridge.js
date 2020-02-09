@@ -165,7 +165,7 @@ var volcanoQ = L.esri.featureLayer({url: volcanoQUrl, fields: ['FID','Name_eng',
 	pointToLayer: function (feature, latlng) {
 		return L.shapeMarker(latlng, Qstyle)
 		.bindTooltip(feature.properties.Name_eng, {className: 'myLabels', offset: [-5,0]}); } })
-	.addTo(map); //
+	.addTo(map);
 	
 var Q_attr = '<h3 style="color: #641E16; font-weight: bold; font-family: Lucida Sans Unicode">{Name}</h3>\
 				<b>Layer</b>: Quaternary volcanoes\

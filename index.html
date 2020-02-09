@@ -53,19 +53,24 @@ Copyright (c) 2018 by Elena Marchenko
   <link rel="stylesheet" href="css/Kamchatka.css"/>
   
   <style>
-    html, body,
-    #map {height: 96%; width: 100%;  padding: 0 ; margin: 0}
+    body { margin:0; padding:0; }
+    #map { position: absolute; top:80px; bottom:0; right:210px; left:0; }
   </style>
 </head>
 
 <body>
   <div id="sidebar"></div>
   <div class="panel">
-    <p style="font-weight: 300; font-size: 26px; text-indent: 50px;">The web map of Kamchatka peninsula</p>
+    <p style="font-weight: 300; font-size: 26px; text-indent: 50px; ">The web map of Kamchatka peninsula</p>
     <p style="font-weight: 50; font-size: 14px; text-indent: 50px; font-style: oblique;">
       Institute of Volcanology and Seismology, Far Eastern branch of Russian Academy of Sciences</p>
   </div>
-  <div id="map" style="border-style: groove; border-width: 2px; margin: 100px 0 0 0;"></div>
+  <div class="panel2">
+    <img src="Photos_hyperlink/Kamchatka2.png" class=zoomImage title="Overview mapping of Kamchatka"/>
+    <img src="Photos_hyperlink/Glacier_308_2.jpg" class=zoomImage title="Zoom to Sredinniy Ridge"/>
+  </div>
+
+  <div id="map" style="border-style: groove; border-width: 2px;"></div>
   <script type="text/javascript" src="js/general.js"></script>
   <script type="text/javascript" src="js/kamchatka.js"></script>
   <script type="text/javascript" src="js/sredinniy_ridge.js"></script>
