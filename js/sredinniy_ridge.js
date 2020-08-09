@@ -48,7 +48,7 @@ function R_lava(layer) {
 		   Products: layer.feature.properties.Products,
 		   Hyperlink: layer.feature.properties.Hyperlink};}
 lava.bindPopup(function (layer) {
-  return L.Util.template(lava_attr, R_lava(layer)); });
+  return L.Util.template(lava_attr, R_lava(layer)); }, {'className':'popupCustom'});
 
 // Moraine
 map.createPane('Moraine2016');
@@ -71,7 +71,7 @@ function R_mor(layer) {
 		   type:   layer.feature.properties.type,
 		   NUMBER:layer.feature.properties.NUMBER_K_1};}
 m2016.bindPopup(function (layer) {
-  return L.Util.template(mor_attr, R_mor(layer)); });
+  return L.Util.template(mor_attr, R_mor(layer)); }, {'className':'popupCustom'});
   
 
 // GLACIERS
@@ -91,8 +91,9 @@ var gl2016 = L.esri.featureLayer({ url: gl2016Url, precision: 9, pane: 'Glaciers
 function removeElement(element) {
 	 element.remove(); }
 
-var GL_attr = '<h3>{NAME_ENG} glacier &ensp;2016</h3><b>Catalog Nr.</b> {NUMBER_KAT}\
-				  <br><b>Area</b>: {SArea} km<sup>2</sup>\
+var GL_attr = '<h3>{NAME_ENG} glacier</h3><b>Area</b>: {SArea} km<sup>2</sup>\
+				  <br><b>Catalog Nr.</b> {NUMBER_KAT}\
+				  <br><b>Outline</b>: 2016</sup>\
 				  <br><b>Estimated ice thickness (mean)</b>: {H_ice} m\
 				  <br><b>Estimated ice volume</b>: {Vol} km<sup>3</sup>\
 				  <br><b>Altitude range</b>: {ZMIN} - {ZMAX} m asl\
@@ -111,7 +112,7 @@ function R(layer) {
 		   URL: layer.feature.properties.URL};}
 
 gl2016.bindPopup(function (layer) {
-  return L.Util.template(GL_attr, R(layer)); });
+  return L.Util.template(GL_attr, R(layer)); }, {'className':'popupCustom'});
   
 var Group_gl2016 = L.layerGroup([gl2016, m2016], {minZoom: 9}).addTo(map);
 
@@ -167,8 +168,8 @@ var volcanoQ = L.esri.featureLayer({url: volcanoQUrl, fields: ['FID','Name_eng',
 		.bindTooltip(feature.properties.Name_eng, {className: 'myLabels', offset: [-5,0]}); } })
 	.addTo(map);
 	
-var Q_attr = '<h3 style="color: #641E16; font-weight: bold; font-family: Lucida Sans Unicode">{Name}</h3>\
-				<b>Layer</b>: Quaternary volcanoes\
+var Q_attr = '<h3 style="color: #641E16;">{Name}</h3>\
+				<b>Class</b>: Quaternary volcanoes\
 				<br><b>Altitude</b>: {H} m asl\
 				<br><b>Morphology</b>: {Type}\
 				<br><b>Eruptive activity</b>: {Vol_type}';
@@ -179,4 +180,4 @@ function Q(layer) {
 			Vol_type:  layer.feature.properties.Vol_type_e};}
 
 volcanoQ.bindPopup(function (layer) {
-	return L.Util.template(Q_attr, Q(layer)); });
+	return L.Util.template(Q_attr, Q(layer)); }, {'className':'popupCustom'});

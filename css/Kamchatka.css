@@ -60,6 +60,19 @@ body {
 	  border-right-color: transparent;
 	}
 
+.leaflet-draw-tooltip {
+	display: none;
+}
+.popupCustom .leaflet-popup-tip,
+.popupCustom .leaflet-popup-content-wrapper {
+	border-radius: 0px;
+}
+.popupCustom{
+	font-family: Verdana;
+	font-size: 12px;
+	line-height: normal;
+}
+
 .cityLabels {
 	background: transparent;
 	border: 0px;
@@ -72,6 +85,22 @@ body {
 	border-left-color: transparent;
 	}
 .leaflet-tooltip-right.cityLabels::before {
+	border-right-color: transparent;
+	}
+
+.houseLabels {
+	background: transparent;
+	border: 0px;
+	box-shadow: none;
+	font-size: 12px;
+	font-family: 'Verdana';
+	color: #424040 ;
+	font-weight: bold;
+	}
+.leaflet-tooltip-left.house::before {
+	border-left-color: transparent;
+	}
+.leaflet-tooltip-right.house::before {
 	border-right-color: transparent;
 	}
 
@@ -121,17 +150,25 @@ body {
 	max-height:100%;
 	padding:2px 0px 2px 0px;
 	margin:3px 0px;
-}	
-	
+}
+
+.leaflet-control-layers-expanded{ 
+	width: 180px;
+	font-family: Verdana;
+	font-size: 12px;
+	border-width: 1px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 0px;
+}
+
 .legend {
 	line-height: 22px;
-	width: 160px;
+	width: 180px;
 	color: #333;;
-	font-family: 'Open Sans', Helvetica, sans-serif;
+	font-family: Verdana;
+	font-size: 12px;
 	padding: 6px 8px;
 	background: white;
-	box-shadow: 0 0 15px rgba(0,0,0,0.2);
-	border-radius: 5px;
 	border: 2px solid #bfbfbf;
 	opacity: 1;
 }
@@ -143,10 +180,12 @@ body {
 	margin-right: 8px;
 	margin-top: 3px;
 	opacity: 0.7;
+	font-family: Verdana;
 }
 
 .legend p {
 	font-size: 12px;
+	font-family: Verdana;
 	line-height: 20px;
 	margin: 0;
 }
@@ -219,3 +258,25 @@ body {
 	border-radius: 5px;
 	background-color: rgb(60, 61, 60)
 }
+
+#sidebar{
+	font-size: 12px;
+	font-family: Verdana;
+	border-radius: 0px;
+}
+
+.popupTooltip .leaflet-popup-tip,
+.popupTooltip .leaflet-popup-content-wrapper {
+	border-radius: 0px;
+	padding: 0 0;
+	box-shadow: none;
+	background: transparent;
+}
+
+.popupTooltipText{
+	font-family: Verdana;
+	font-size: 10px;
+	background-color: whitesmoke;
+	padding: 2px;
+}
+

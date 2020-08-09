@@ -21,6 +21,4 @@ var sidebar = L.control.sidebar('sidebar', {position: 'right'}),
 
 map.addControl(sidebar);
 sidebar.setContent(content);
-//setTimeout(function () {
-//    sidebar.show();
-//}, 200);
+// sidebar.show();

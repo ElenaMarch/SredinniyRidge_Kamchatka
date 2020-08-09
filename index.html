@@ -13,10 +13,15 @@ Copyright (c) 2018 by Elena Marchenko
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+  <!-- <link rel="stylesheet" href="leaflet/leaflet.css"/>
+  <script src="leaflet/leaflet.js"></script> -->
   
   <!-- Esri Leaflet -->
-  <script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js" integrity="sha512-m+BZ3OSlzGdYLqUBZt3u6eA0sH+Txdmq7cqA1u8/B2aTXviGMMLOfrKyiIW7181jbzZAY0u+3jWoiL61iLcTKQ==" crossorigin=""></script>
-  
+  <!-- <script src="https://unpkg.com/esri-leaflet@2.1.4/dist/esri-leaflet.js" integrity="sha512-m+BZ3OSlzGdYLqUBZt3u6eA0sH+Txdmq7cqA1u8/B2aTXviGMMLOfrKyiIW7181jbzZAY0u+3jWoiL61iLcTKQ==" crossorigin=""></script> -->
+  <script src="https://unpkg.com/esri-leaflet@2.4.1/dist/esri-leaflet.js"
+    integrity="sha512-xY2smLIHKirD03vHKDJ2u4pqeHA7OQZZ27EjtqmuhDguxiUvdsOuXMwkg16PQrm9cgTmXtoxA6kwr8KBy3cdcw=="
+    crossorigin=""></script>
+
   <!-- Leaflet.SvgShapeMarkers -->
   <script src="https://unpkg.com/leaflet-svg-shape-markers/dist/leaflet-svg-shape-markers.min.js"></script>
   <!-- Leaflet.Pattern -->
@@ -42,41 +47,55 @@ Copyright (c) 2018 by Elena Marchenko
   <link rel="stylesheet" href="css/leaflet.draw.css"/>
   <script src="lib/leaflet.draw.js"></script>
 
+  <!-- Leaflet.TextPath -->
+  <script src="lib/leaflet.textpath.js"></script>
+
   <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
   <script src="lib/FileSaver.min.js"></script>
   <script src="lib/leaflet.ajax.min.js"></script>
   <script src="https://unpkg.com/togeojson@0.16.0"></script>
   <script src="lib/leaflet.filelayer.js"></script>
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.4/chroma.min.js"></script>
+  <script src="//d3js.org/d3.v4.min.js"></script>
+  <script src="//npmcdn.com/geotiff@0.3.6/dist/geotiff.js"></script> <!-- optional -->
+
+  <!-- Plugin -->
+  <script src="https://ihcantabria.github.io/Leaflet.CanvasLayer.Field/dist/leaflet.canvaslayer.field.js"></script>
+
   
   <!-- My style --> 
   <link rel="stylesheet" href="css/Kamchatka.css"/>
+  <link rel="icon" type="image/png" href="logo/favicon.png">
   
   <style>
     body { margin:0; padding:0; }
-    #map { position: absolute; top:80px; bottom:0; right:210px; left:0; }
+    #map { position: absolute; top:80px; bottom:0; right:0; left:0; } 
+    /* 210px */
   </style>
 </head>
 
 <body>
   <div id="sidebar"></div>
   <div class="panel">
-    <p style="font-weight: 300; font-size: 26px; text-indent: 50px; ">The web map of Kamchatka peninsula</p>
+    <p style="font-weight: 300; font-size: 26px; text-indent: 50px; ">Volcanic activity of Kamchatka peninsula</p>
     <p style="font-weight: 50; font-size: 14px; text-indent: 50px; font-style: oblique;">
       Institute of Volcanology and Seismology, Far Eastern branch of Russian Academy of Sciences</p>
   </div>
-  <div class="panel2">
+  <!-- <div class="panel2">
     <img src="Photos_hyperlink/Kamchatka2.png" class=zoomImage title="Overview mapping of Kamchatka"/>
     <img src="Photos_hyperlink/Glacier_308_2.jpg" class=zoomImage title="Zoom to Sredinniy Ridge"/>
-  </div>
+  </div> -->
 
   <div id="map" style="border-style: groove; border-width: 2px;"></div>
   <script type="text/javascript" src="js/general.js"></script>
-  <script type="text/javascript" src="js/kamchatka.js"></script>
   <script type="text/javascript" src="js/sredinniy_ridge.js"></script>
-  <script type="text/javascript" src="js/legend.js"></script>
   <script type="text/javascript" src="js/references.js"></script>
   <script type="text/javascript" src="js/Draw_notes.js"></script>
+  <script type="text/javascript" src="js/tiles.js"></script>
+  <script type="text/javascript" src="js/kluch_group.js"></script>
+  <script type="text/javascript" src="js/kamchatka.js"></script>
+  <script type="text/javascript" src="js/legend.js"></script>
 </body>
 </html>
 

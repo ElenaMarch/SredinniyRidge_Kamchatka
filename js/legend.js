@@ -6,7 +6,7 @@
 
 // Legend Box
 var baseLayers = {
-		"Topographic": base,
+		// "Topographic": base,
 	  	"Sattelite": L.esri.basemapLayer("ImageryClarity") },
 	overlays_SR = {
 		"Quarternary volcanoes": volcanoQ,
@@ -14,7 +14,8 @@ var baseLayers = {
 		"Glaciers": Group_gl2016, },
 	overlays_Kam = {
 		"Active volcanoes": avolcLayer,
-		"Volcanic hazard zones": hazard };
+		"Volcanic hazard zones": hazard 
+	};
 
 L.control.layers(baseLayers, {}, {collapsed:false, className: "ini"}).addTo(map);
 
@@ -55,7 +56,7 @@ legend_gl.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
 	div.innerHTML += '<b>Glaciers&nbsp 2016</b><br>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #0086b3;background-color:#99ebff;"></i><p>Moving ice</p>';
-	div.innerHTML += '<i class="hatching-deadice" ></i><p>Dead ice</p>';
+	div.innerHTML += '<i class="hatching-deadice" ></i><p>Passive ice</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #4d3319;background-color:#996633;"></i><p>Lateral moraine</p>';
 	div.innerHTML += '<i class="dotted" ></i><p>Surface moraine</p>';
 	return div; };
@@ -98,7 +99,7 @@ map.on('overlayadd', function (eventLayer) {
 map.on('overlayremove', function (eventLayer) {
 	if (eventLayer.name === 'Holocene volcanoes') {
 		map.removeControl(legend_v);
-	} else if (eventLayer.name === 'Glaciers 2016') { 
+	} else if (eventLayer.name === 'Glaciers') { 
 		map.removeControl(legend_gl);
 	} else if (eventLayer.name === 'Volcanic hazard zones') { 
 		map.removeControl(legend_hazard);
@@ -107,16 +108,47 @@ map.on('overlayremove', function (eventLayer) {
 	}
 });
 
+// Bounds Sredinniy, Kluchevskoy
+function checkView(group) {
+	var count = 0;
+	group.eachFeature(function (layer) {
+		if (map.hasLayer(layer)) {
+			if (map.getBounds().intersects(layer.getBounds())) {
+				count = count + 1; }
+		}
+	});
+	if (count != 0) {
+		return true;
+	} else {
+		return false;
+	}};
+
 map.on('zoomend', function () {
-    if (map.getZoom() < 9)
+    if (map.getZoom() < 9 )
     {
         map.removeControl(legend_v);
 		map.removeControl(legend_gl);
 		legend_hazard.addTo(map);
     }
-	if (map.getZoom() >= 9 ) {
-        legend_v.addTo(map);
-		legend_gl.addTo(map);
+	if (map.getZoom() >= 9) 
+	{
+		if (checkView(gl2016)) {
+			legend_v.addTo(map);
+			legend_gl.addTo(map);
+		}
 		map.removeControl(legend_hazard);
     }
+});
+
+map.on('moveend', function () {
+	if (checkView(gl2016)) {
+		legend_gl.addTo(map);
+	} else {
+		map.removeControl(legend_gl);
+	};
+	if (checkView(lava)) {
+		legend_v.addTo(map);
+	} else {
+		map.removeControl(legend_v);
+	};
 });

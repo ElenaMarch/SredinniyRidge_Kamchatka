@@ -8,8 +8,8 @@
 var objects = new L.FeatureGroup();
 map.addLayer(objects);
 
-var popup  = new L.Popup({maxWidth: 200, closeButton: false});
-var popup2 = new L.Popup({maxWidth: 200, closeButton: false, offset: L.point(1,-25)});
+var popup  = new L.Popup({maxWidth: 200, closeButton: false, className: 'popupCustom'});
+var popup2 = new L.Popup({maxWidth: 200, closeButton: false, offset: L.point(1,-25), className: 'popupCustom'});
 objects.on('click', function(e){
 	var props = e.layer.feature.properties = e.layer.feature.properties || {},
 		popup_fin = '<label><strong>Note '+ props.id +'</strong></label><br>' + props.note;
@@ -48,6 +48,7 @@ control.loader.on('data:loaded', function (e) {
 	layers.eachLayer(function(l) {
 		l.addTo(objects);
 	})
+	map.fitBounds(layers.getBounds());
 });
 
 // Download Button
@@ -103,7 +104,7 @@ map.on('draw:created', function (e) {
 				  '<div align="right">'+
 				  '<button type="button" title="Save note" class="ok" id="OK"><img src="button/ok3.png"></button>'+
 				  '</div>';
-	layer.bindPopup(content, {closeButton:false});
+	layer.bindPopup(content, {closeButton: false, className: 'popupCustom'});
 	layer.openPopup();
 
 	$(document).ready(function(){
@@ -114,5 +115,8 @@ map.on('draw:created', function (e) {
 		  layer._popup.setContent(content) });      
 	});
 });
+
+// Measurements
+L.control.measure({lineColor: 'red', position: 'bottomleft' }).addTo(map);
 
 

@@ -5,8 +5,8 @@
  */
 
 // BaseMap
-var map = L.map('map').setView([57.822,160.501], 7); // 11
-var base = L.esri.basemapLayer('Topographic').addTo(map);
+var map = L.map('map').setView([56.056,160.061], 11); // 7 ; 55.566,160.082
+// var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 L.Control.Watermark = L.Control.extend({
 		onAdd: function(map) {
@@ -39,5 +39,3 @@ L.easyButton({id: 'reference',
 	title: 'Show/hide references',
 	icon: "<img class=button src='button/menu.png'>"}]}).addTo(map);
 
-// Measurements
-L.control.measure({lineColor: 'red'}).addTo(map);
