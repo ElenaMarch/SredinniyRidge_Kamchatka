@@ -87,7 +87,9 @@ function conesStyle(feature) {
 var conesPobochPointsLayer = new L.GeoJSON.AJAX("json/cones_poboch_point.geojson",
     {pointToLayer: function (feature, latlng) {
       var marker = L.shapeMarker(latlng, conesStyle(feature));
-      marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent: false});
+      (map.getZoom() >= 10
+        ? marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:true})
+        : marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:false} ));
       return marker} 
     });
 
