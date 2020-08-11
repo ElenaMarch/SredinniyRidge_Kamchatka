@@ -48,7 +48,7 @@ body {
 	  background: transparent;
 	  border: 0px;
 	  box-shadow: none;
-	  font-size: 13px;
+	  font-size: 12px;
 	  font-weight: 600;
 	  font-family: 'Lucida Sans Unicode';
 	  color: #492622;
@@ -97,10 +97,10 @@ body {
 	color: #424040 ;
 	font-weight: bold;
 	}
-.leaflet-tooltip-left.house::before {
+.leaflet-tooltip-left.houseLabels::before {
 	border-left-color: transparent;
 	}
-.leaflet-tooltip-right.house::before {
+.leaflet-tooltip-right.houseLabels::before {
 	border-right-color: transparent;
 	}
 

@@ -5,14 +5,15 @@
  */
 
 // Layers to draw in
-var objects = new L.FeatureGroup();
+map.createPane('Draw');
+var objects = new L.FeatureGroup({pane: 'Draw'});
 map.addLayer(objects);
 
 var popup  = new L.Popup({maxWidth: 200, closeButton: false, className: 'popupCustom'});
 var popup2 = new L.Popup({maxWidth: 200, closeButton: false, offset: L.point(1,-25), className: 'popupCustom'});
 objects.on('click', function(e){
 	var props = e.layer.feature.properties = e.layer.feature.properties || {},
-		popup_fin = '<label><strong>Note '+ props.id +'</strong></label><br>' + props.note;
+		popup_fin = '<label><strong>'+ props.name +'</strong></label><br>' + props.note;
 		if (e.layer instanceof L.Marker) {
 			popup2.setLatLng(e.latlng)
 				  .setContent(popup_fin)
@@ -37,19 +38,21 @@ var style = {color:'#0073e6', opacity: 0.7, fillOpacity: 0.3, weight: 3};
 L.Control.FileLayerLoad.LABEL = "<img src='button/UL.png'>";
 var control = L.Control.fileLayerLoad({
 	position: 'bottomleft',
-    fitBounds: false,
+    fitBounds: true,
 	layerOptions: {style: style,
                    pointToLayer: function (data, latlng) {
-                      return L.marker(latlng, {icon: showIcon});
+					    var name = data.properties.name;
+						var marker = L.marker(latlng, {icon: showIcon}).bindPopup(name, {closeButton: false, className: 'popupCustom'});
+                      	return marker;
                    }},
 }).addTo(map);
-control.loader.on('data:loaded', function (e) {
-	layers = e.layer;
-	layers.eachLayer(function(l) {
-		l.addTo(objects);
-	})
-	map.fitBounds(layers.getBounds());
-});
+// control.loader.on('data:loaded', function (e) {
+// 	layers = e.layer;
+// 	layers.eachLayer(function(l) {
+// 		l.addTo(objects);
+// 	})
+// 	map.fitBounds(layers.getBounds());
+// });
 
 // Download Button
 var down = L.easyButton({id: 'get-notes',
@@ -92,14 +95,13 @@ map.addControl(drawControl);
 
 map.on('draw:created', function (e) {
 	var layer = e.layer,
-		type = e.layerType,
-		feature = layer.feature = layer.feature || {},
-		n = objects.getLayers().length + 1;
+		feature = layer.feature = layer.feature || {};
 	feature.type = feature.type || "Feature"; 
 	var props = feature.properties = feature.properties || {};
 	objects.addLayer(layer); 
 
-	var content = '<label><strong>Note '+ n +'</strong></label><br>' +
+	var content = "<form autocomplete='off'><label for='object'><strong>Name</strong></label><br>" +
+				  "<input type='text' id='name_id' name='object'></form><br><br>" +
 				  '<textarea style="width:250px;height:80px;" id="TEXT" ></textarea>'+
 				  '<div align="right">'+
 				  '<button type="button" title="Save note" class="ok" id="OK"><img src="button/ok3.png"></button>'+
@@ -110,13 +112,13 @@ map.on('draw:created', function (e) {
 	$(document).ready(function(){
 	  $("#OK").click(function(){
 		  props["note"] = $("#TEXT").val();
-		  props["id"] = n;
-		  var content = '<label><strong>Note '+ props.id +'</strong></label><br>'+props.note;
+		  props["name"] = $("#name_id").val();
+		  var content = '<label><strong>'+ props.name +'</strong></label><br><br>'+props.note;
 		  layer._popup.setContent(content) });      
 	});
 });
 
 // Measurements
-L.control.measure({lineColor: 'red', position: 'bottomleft' }).addTo(map);
+L.control.measure({lineColor: 'red', position: 'bottomleft', captureZIndex: 10000 }).addTo(map);
 
 

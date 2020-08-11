@@ -15,26 +15,9 @@ dangerURL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/
 hdangerURL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/high_danger_all/FeatureServer/0";
 
 
-
 // Base
 var rivLayer = new L.GeoJSON.AJAX(rivURL, {style: {"color": "#3399ff", "weight": 0.3}}).addTo(map);
-map.on('zoomend', function () {
-  if (map.getZoom() > 9 && map.hasLayer(rivLayer)) {
-    map.removeLayer(rivLayer)
-  }
-  if (map.getZoom() < 10 && !map.hasLayer(rivLayer)) {
-    rivLayer.addTo(map);
-  }
-});
 var reefLayer = new L.GeoJSON.AJAX(reefURL, {style: {"color": "red", "weight": 1}});
-map.on('zoomend', function () {
-  if (map.getZoom() < 9 && map.hasLayer(reefLayer)) {
-    map.removeLayer(reefLayer)
-  }
-  if (map.getZoom() > 8 && !map.hasLayer(reefLayer)) {
-    reefLayer.addTo(map);
-  }
-});
 
 var cityMarker = {
   radius: 2.2,
@@ -57,25 +40,6 @@ cityLayer.refilter(function(feature){
 });
 
 
-map.on('zoomend', function () {
-  if (map.getZoom() > 10 && map.hasLayer(cityLayer)) {
-    map.removeLayer(cityLayer)
-  }
-  if (map.getZoom() < 11 && !map.hasLayer(cityLayer)) {
-    cityLayer.addTo(map);
-  }
-  if (map.getZoom() < 11 && map.getZoom() > 8) {
-    cityLayer.refilter(function(feature){
-      return feature.properties.PPPTFLAG > 0;
-    }); 
-  }
-  if (map.getZoom() < 9 && map.hasLayer(cityLayer)) {
-    cityLayer.refilter(function(feature){
-      return feature.properties.PPPTFLAG > 1;
-    }); 
-  }
-});
-
 // Volcanic danger assessment
 map.createPane('Danger');
 function dangerStyle(feature) {
@@ -89,9 +53,9 @@ var dangerLayer = L.esri.featureLayer({url: dangerURL,  precision: 12,  maxZoom:
   fields: ['FID', 'type'], style: dangerStyle});
 
 map.createPane('HighDanger');
-var stripes = new L.StripePattern({weight: 1.5, height: 4, color: 'black', spaceWeight: 2.5, spaceColor: 'none', angle: -30}); stripes.addTo(map);
+var highstripes = new L.StripePattern({weight: 1.5, height: 4, color: 'black', spaceWeight: 2.5, spaceColor: 'none', angle: -30}); highstripes.addTo(map);
 var hdangerLayer = L.esri.featureLayer({url: hdangerURL,  precision: 9,  maxZoom: 8, pane: 'HighDanger', 
-  fields: ['FID'], style: {fillPattern: stripes, weight: 0.3, fillOpacity: 0.5, color: 'grey' }});
+  fields: ['FID'], style: {fillPattern: highstripes, weight: 0.3, fillOpacity: 0.5, color: 'grey' }});
 
 var hazard = L.layerGroup([dangerLayer, hdangerLayer], {maxZoom: 8}).addTo(map);
 
@@ -111,32 +75,6 @@ var avolcLayer = new L.GeoJSON.AJAX(avolcURL,
     );
     return marker} }
 ).addTo(map);
-
-var lastZoom;
-map.on('zoomend', function() {
-    var zoom = map.getZoom();
-    if (zoom < 9 && (!lastZoom || lastZoom >= 9)) {
-        map.eachLayer(function(l) {
-            if (l.getTooltip() && l.options.pane!='Volc') {
-                var tooltip = l.getTooltip();
-                l.unbindTooltip().bindTooltip(tooltip, {
-                    permanent: false
-                })
-            }
-        })
-    } else if (zoom >= 9 && (!lastZoom || lastZoom < 9)) {
-        map.eachLayer(function(l) {
-            if (l.getTooltip() && l.options.pane!='Volc') {
-                var tooltip = l.getTooltip();
-                l.unbindTooltip().bindTooltip(tooltip, {
-                    permanent: true
-                })
-            }
-        });
-    }
-    lastZoom = zoom;
-});
-
 
 // Seismic activity
  

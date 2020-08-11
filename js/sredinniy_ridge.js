@@ -76,7 +76,8 @@ m2016.bindPopup(function (layer) {
 
 // GLACIERS
 map.createPane('Glaciers2016');
-var stripes = new L.StripePattern({weight: 1.5, color: '#145252', spaceWeight: 6.5, spaceColor: '#6699cc', spaceOpacity: 1, angle: -30}); stripes.addTo(map);
+var stripes = new L.StripePattern({weight: 1.5, color: '#145252', spaceWeight: 6.5, spaceColor: '#6699cc', spaceOpacity: 0.7, angle: -30}); 
+stripes.addTo(map);
 
 var gl2016 = L.esri.featureLayer({ url: gl2016Url, precision: 9, pane: 'Glaciers2016', minZoom: 9,
   fields: ['FID', 'TYPE', 'NAME_ENG', 'NUMBER_KAT', 'SArea_km', 'Vol_km3',
@@ -85,7 +86,7 @@ var gl2016 = L.esri.featureLayer({ url: gl2016Url, precision: 9, pane: 'Glaciers
 		if(feature.properties.TYPE === 'moving'){
 		  return {color: '#145252', fillColor: "#99ebff", weight: 0.3, fillOpacity: 0.6 };
 		} else {
-		  return {color: '#202020', fillPattern: stripes, weight: 0.3, fillOpacity: 0.5 }; } }
+		  return {color: '#202020', fillPattern: stripes, weight: 0.3, fillOpacity: 0.6 }; } }
 });
 
 function removeElement(element) {

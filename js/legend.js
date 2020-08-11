@@ -6,7 +6,7 @@
 
 // Legend Box
 var baseLayers = {
-		"Topographic": base,
+		// "Topographic": base,
 	  	"Sattelite": L.esri.basemapLayer("ImageryClarity") },
 	overlays_SR = {
 		"Quarternary volcanoes": volcanoQ,
