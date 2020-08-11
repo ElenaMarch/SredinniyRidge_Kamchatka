@@ -6,7 +6,7 @@
 
 // BaseMap
 var map = L.map('map').setView([55.566,160.082], 7); // 7 ; 55.566,160.082
-// var base = L.esri.basemapLayer('Topographic').addTo(map);
+var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 L.Control.Watermark = L.Control.extend({
 		onAdd: function(map) {

@@ -5,9 +5,13 @@
  */
 
 // Legend Box
+var sattelite = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+      maxZoom: 21,
+      subdomains:['mt0','mt1','mt2','mt3']
+    });
 var baseLayers = {
-		// "Topographic": base,
-	  	"Sattelite": L.esri.basemapLayer("ImageryClarity") },
+		"Topographic": base,
+	  	"Sattelite": sattelite}, //L.esri.basemapLayer("ImageryClarity") },
 	overlays_SR = {
 		"Quarternary volcanoes": volcanoQ,
 	  	"Holocene volcanoes": Group_volc,
