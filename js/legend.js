@@ -9,9 +9,10 @@
 //       maxZoom: 21,
 //       subdomains:['mt0','mt1','mt2','mt3']
 //     });
+
 var baseLayers = {
 		"Topographic": base,
-	  	"Sattelite": L.esri.basemapLayer("ImageryClarity") }, //sattelite},
+	  	"Sattelite": L.esri.basemapLayer("ImageryFirefly") }, //sattelite},
 	overlays_SR = {
 		"Quarternary volcanoes": volcanoQ,
 	  	"Holocene volcanoes": Group_volc,
