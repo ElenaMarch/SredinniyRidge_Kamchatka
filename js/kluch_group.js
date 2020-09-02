@@ -78,6 +78,8 @@ var glKLuchLayer = new L.GeoJSON.AJAX("json/glaciers_kluch.geojson",
 var passKLuchLayer = new L.GeoJSON.AJAX("json/passive_ice_kluch.geojson", 
     {style: {"color": "#00A1DE", "weight": 0.7, "fillPattern": stripes, "fillOpacity": 0.6, dashArray: 2, precision: 10}, pane: 'Kluch'});
 
+var creepLayer = new L.GeoJSON.AJAX("json/creeping_fronts.geojson", {style: {"color": "#00A1DE", "weight": 2, "opacity": 0.5}, pane: 'Kluch2'});
+
 
 // houses
 var houseLayer = new L.GeoJSON.AJAX("json/house.geojson",
@@ -90,6 +92,6 @@ var houseLayer = new L.GeoJSON.AJAX("json/house.geojson",
 
 // Add all together
 var kluchGroup = new L.layerGroup([lavaVershinLayer, lavaPobochLayer, conesPobochLayer, conesPobochPointsLayer, lavaShishLayer], {minZoom: 9}),
-    glKluchGroup = new L.layerGroup([glKLuchLayer, passKLuchLayer], {minZoom: 9}),
+    glKluchGroup = new L.layerGroup([glKLuchLayer, passKLuchLayer, creepLayer], {minZoom: 9}),
     rivKluchGroup = new L.layerGroup([rivKluchLayer, rivPolyKluchLayer]);
 
