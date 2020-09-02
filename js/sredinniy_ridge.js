@@ -16,8 +16,8 @@ var volcanoQUrl= "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/serv
 
 // LAYERS
 // Rivers
-L.esri.featureLayer({url: rivUrl, fields: ['FID'], minZoom: 11,
-	style: {color: "#3399ff", weight: 0.3}}).addTo(map);
+// L.esri.featureLayer({url: rivUrl, fields: ['FID'], minZoom: 11,
+// 	style: {color: "#3399ff", weight: 0.3}}).addTo(map);
 	
 // LAVA
 map.createPane('Lava');
@@ -31,7 +31,7 @@ var lava = L.esri.featureLayer({ url: lavaUrl, precision: 8, pane: 'Lava', minZo
 		} else if(feature.properties.Composit === 'dacite, biotite'){
 		  return {color: '#602060', fillColor: "#602060", weight: 0.5, fillOpacity: 0.4 };
 		} else {
-		  return {color: '#202020', fillColor: "#909090", weight: 0.5, fillOpacity: 0.8 }; } }});
+		  return {color: '#595959', fillColor: "#b3b3b3", weight: 0.5, fillOpacity: 0.8 }; } }});
 var lava_attr = '<h3>{Name}<br>Holocene {Type}</h3> <b>Age</b>: {Age}\
 				  <br><b>Composition</b>: {Composit}\
 				  <br><b>Eruption volume</b>: {Erupt_vol} km<sup>3</sup>\

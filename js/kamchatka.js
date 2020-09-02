@@ -39,7 +39,6 @@ cityLayer.refilter(function(feature){
   return feature.properties.PPPTFLAG > 1;
 });
 
-
 // Volcanic danger assessment
 map.createPane('Danger');
 function dangerStyle(feature) {

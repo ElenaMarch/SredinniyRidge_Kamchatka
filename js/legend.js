@@ -5,13 +5,13 @@
  */
 
 // Legend Box
-var sattelite = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-      maxZoom: 21,
-      subdomains:['mt0','mt1','mt2','mt3']
-    });
+// var sattelite = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+//       maxZoom: 21,
+//       subdomains:['mt0','mt1','mt2','mt3']
+//     });
 var baseLayers = {
 		"Topographic": base,
-	  	"Sattelite": sattelite}, //L.esri.basemapLayer("ImageryClarity") },
+	  	"Sattelite": L.esri.basemapLayer("ImageryClarity") }, //sattelite},
 	overlays_SR = {
 		"Quarternary volcanoes": volcanoQ,
 	  	"Holocene volcanoes": Group_volc,
@@ -19,14 +19,18 @@ var baseLayers = {
 	overlays_Kam = {
 		"Active volcanoes": avolcLayer,
 		"Volcanic hazard zones": hazard 
+	},
+	overlays_Kluch = {
+		"Monogenetic cones and lava flows": kluchGroup,
+		"Glaciers": glKluchGroup,
+		"Shelters": houseLayer,
 	};
 
 L.control.layers(baseLayers, {}, {collapsed:false, className: "ini"}).addTo(map);
 
-L.control.layers({}, overlays_Kam, {collapsed:false}).addTo(map);
-var con_SR = L.control.layers({}, overlays_SR, {collapsed:false}).addTo(map);
-
-//$(".leaflet-control-layers-overlays-SR").prepend("<label>Sredinniy Ridge</label>");
+L.control.layers({}, overlays_Kam, {collapsed:false, className: 'KAM'}).addTo(map);
+var con_SR = L.control.layers({}, overlays_SR, {collapsed:false}).addTo(map),
+	con_Kluch = L.control.layers({}, overlays_Kluch, {collapsed:false}).addTo(map);
 
 function getColour(d) {
 	switch (d) {
@@ -36,29 +40,45 @@ function getColour(d) {
 	}
 };
 
-var legend_avolc  = L.control({position: 'topright'});
-var legend_hazard  = L.control({position: 'topright'});
-var legend_gl = L.control({position: 'topright'});
-var legend_v  = L.control({position: 'topright'});
+var legend_avolc  = L.control({position: 'topright'}),
+	legend_hazard  = L.control({position: 'topright'}),
+	legend_gl = L.control({position: 'topright'}),
+	legend_v  = L.control({position: 'topright'}),
+	legend_vKluch = L.control({position: 'topright'});
 
+legend_vKluch.onAdd = function (map) {
+	var div = L.DomUtil.create('div', 'legend');
+	div.innerHTML += '<p style="line-height: 1.4; font-weight: bold">Kluchevskoy volcano<br>Monogenetic cones and lava flows: age</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #c5072d;background-color:#F61340;"></i><p>Historical eruptions: 1900-2000 years AC</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #ff4d64;background-color:#FF7082;"></i><p>1400-1600 years AC</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #3aacf8;background-color:#7AC7FA;"></i><p>500-650 years AC</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #1c79ca;background-color:#3692E3;"></i><p>300-350 years AC</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #39ac73;background-color:#6BDE87;"></i><p>750-100 years BC</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #bac46e;background-color:#C7CF8A;"></i><p>950-800 years BC</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #8a8a5c;background-color:#a3a375;"></i><p>2000-1000 years BC</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #595959;background-color:#b3b3b3;"></i><p>Unknown</p>';
+	div.innerHTML += '<hr><i class="shish-fill"></i><p>Shield volcano Lavoviy Shish</p>';
+	div.innerHTML += '<i class="hatching-trench"></i><p>Landslide debris</p>';
+	return div; };
+// legend_vKluch.addTo(map);
 
 legend_v.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML += '<b>Holocene volcanoes</b><br>';
+	div.innerHTML += '<b>Sredinniy Ridge<br>Holocene volcanoes</b><br>';
 	div.innerHTML += '<i class="triangle-up"></i><p>Stratovolcano</p>';
 	div.innerHTML += '<i class="triangle"></i><p>Monogenetic cone</p>';
-	div.innerHTML += '<b style="color: #ac3939; font-size: 10px; float: left; margin-right: 8px">&#10060</b><p>Volcanic field</p>';
+	div.innerHTML += '<b style="color: #ac3939; font-size: 14px; float: left; margin-right: 9px; margin-left: 2px">&#10006</b><p>Volcanic field</p>';
 	div.innerHTML += '<hr><b>Lava flows: composition</b><br>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #905080;background-color:#ff6030;"></i><p>Basalt, andesite-basalt</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #ff5500;background-color:#ff8010;opacity:0.6"></i><p>Andesite-basalt</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #602060;background-color:#602060;"></i><p>Dacite, biotite</p>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #202020;background-color:#909090;"></i><p>Unknown</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #595959;background-color:#b3b3b3;"></i><p>Unknown</p>';
 	return div; };
-//legend_v.addTo(map);
+legend_v.addTo(map);
 
 legend_gl.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML += '<b>Glaciers&nbsp 2016</b><br>';
+	div.innerHTML += '<b>Glaciers</b><br>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #0086b3;background-color:#99ebff;"></i><p>Moving ice</p>';
 	div.innerHTML += '<i class="hatching-deadice" ></i><p>Passive ice</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #4d3319;background-color:#996633;"></i><p>Lateral moraine</p>';

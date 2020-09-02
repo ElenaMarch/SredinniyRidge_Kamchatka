@@ -95,7 +95,6 @@ body {
 	font-size: 12px;
 	font-family: 'Verdana';
 	color: #424040 ;
-	font-weight: bold;
 	}
 .leaflet-tooltip-left.houseLabels::before {
 	border-left-color: transparent;
@@ -208,6 +207,13 @@ body {
 	margin-left: 2px;
 	opacity: 0.9;
 }
+.legend .hatching-trench {
+	background: linear-gradient(90deg, white 2px, transparent 1%) center,
+		linear-gradient(white 2px, transparent 1%) center, #47271c;
+	background-size: 4px 4px;
+	margin-left: 1px;
+	border: 1.3px solid #47271c;
+}
 
 .legend .hatching-deadice {
     background: linear-gradient(135deg, #6699cc 27%, #145252 27%, #145252 33%, #6699cc 33%, #6699cc 65%, #145252 65%, #145252 70%, #6699cc 70% );
@@ -222,22 +228,27 @@ body {
     background-size: 16px 16px;
 }
 
+.legend .shish-fill {
+	background-image: url("images/shish_pattern.svg"); 
+	border: 1.2px solid #A87000;
+	margin-left: 1px;
+}
+
 .legend .dotted { 
 	background: linear-gradient(90deg, white 2px, transparent 1%) center,
-		linear-gradient(white 2px, transparent 1%) center, #4d1300;
+		linear-gradient(white 2px, transparent 30%) center, #7c6d68;
 	background-size: 4px 4px;
 	margin-left: 1px;
 }
 
 .legend .cross {
-	background: red;
+	background: #ac3939;
 	height: 12px;
 	position: relative;
 	width: 3px;
-	
 }
 .legend .cross:after {
-	background: red;
+	background: #ac3939;
 	content: "";
 	height: 3px;
 	left: -5px;
