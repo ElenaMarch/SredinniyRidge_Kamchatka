@@ -78,15 +78,17 @@ m2016.bindPopup(function (layer) {
 map.createPane('Glaciers2016');
 var stripes = new L.StripePattern({weight: 1.5, color: '#145252', spaceWeight: 6.5, spaceColor: '#6699cc', spaceOpacity: 0.7, angle: -30}); 
 stripes.addTo(map);
+function glacierStyle(value) {
+	if(value === 'moving'){
+	  return {color: '#00A1DE', fillColor: "#99ebff", weight: 0.3, fillOpacity: 0.5, precision: 10 };
+	} else {
+	  return {color: '#202020', fillPattern: stripes, weight: 0.3, fillOpacity: 0.5, dashArray: 2, precision: 10}; } };
 
 var gl2016 = L.esri.featureLayer({ url: gl2016Url, precision: 9, pane: 'Glaciers2016', minZoom: 9,
   fields: ['FID', 'TYPE', 'NAME_ENG', 'NUMBER_KAT', 'SArea_km', 'Vol_km3',
 		   'AVG_SLOPE', 'Avg_ASP', 'Elevation', 'H_ice', 'ZMIN', 'ZMAX', 'URL'],
-  style:function (feature) {
-		if(feature.properties.TYPE === 'moving'){
-		  return {color: '#145252', fillColor: "#99ebff", weight: 0.3, fillOpacity: 0.6 };
-		} else {
-		  return {color: '#202020', fillPattern: stripes, weight: 0.3, fillOpacity: 0.6 }; } }
+  style: function (feature) { 
+	  return glacierStyle(feature.properties.TYPE) }
 });
 
 function removeElement(element) {
