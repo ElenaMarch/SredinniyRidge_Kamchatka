@@ -61,9 +61,9 @@ var hazard = L.layerGroup([dangerLayer, hdangerLayer], {maxZoom: 8}).addTo(map);
 map.createPane('AV');
 function avolcStyle(feature) {
 	switch (feature.properties.type) {
-      case 1: return {"color": "red", "weight": 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'};
-      case 2: return {"color": "black", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'}; 
-      case 3: return {"color": "grey", 'weight': 1.2, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'};    }
+      case 1: return {"color": "#AF083D", "fillColor": "red", "weight": 1, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'};
+      case 2: return {"color": "#AF083D", "fillColor": "#FF9B00", 'weight': 0.5, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.8, "pane": 'AV'}; 
+      case 3: return {"color": "#545353", "fillColor": "grey", 'weight': 1, 'shape': "triangle", 'radius': 3, "fillOpacity": 0.75, "pane": 'AV'};    }
 };
 var avolcLayer = new L.GeoJSON.AJAX(avolcURL,
   {pointToLayer: function (feature, latlng) {

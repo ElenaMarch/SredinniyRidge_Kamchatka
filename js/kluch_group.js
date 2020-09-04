@@ -38,7 +38,7 @@ var Kluch_attr = "<h3>{Name}</h3>\
                 <b>Morphology</b>: lava flow\
                 <br><b>Area</b>: {S} km<sup>2</sup>\
 				<br><b>Eruption's date</b>: {Date}\
-				<br><b>Age group</b>: {Age}";
+				<br><b>Age</b>: {Age}";
 function Kl(layer) {
 	return {Name: layer.feature.properties.Name_eng,
 			S:   layer.feature.properties.Area_pl_km.toFixed(2), //
@@ -58,7 +58,7 @@ lavaShishLayer.bindPopup(function (layer) {
     var Shish_attr = "<h3>Lavoviy Shish</h3>\
         <b>Morphology</b>: shield volcano/lava field\
         <br><b>Area</b>: " + layer.feature.properties.Area_pl_km.toFixed(2) + " km<sup>2</sup>\
-        <br><b>Age</b>: c. 4000 years";
+        <br><b>Age</b>: c. 9000 years";
 	return Shish_attr; }, {'className':'popupCustom'});
 
 var conesPobochLayer = new L.GeoJSON.AJAX("json/cones_poboch.geojson", {style: lavaPobochStyle, pane: 'Kluch2'});

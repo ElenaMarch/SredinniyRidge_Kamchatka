@@ -2,12 +2,16 @@ var tooltipPanes = ['Volc', 'Kluch3'];
 var lastZoom;
 map.on('zoomend', function () {
     var zoom = map.getZoom();
-    if (map.hasLayer(rivLayer) && zoom >= 11) {
+    if (map.hasLayer(rivLayer) && zoom >= 10) {
         map.removeLayer(rivLayer)
+    };
+    if (!map.hasLayer(rivLayer) && zoom < 10) {
+        rivLayer.addTo(map);
+    };
+    if (!map.hasLayer(rivKluchGroup) && zoom >= 11) {
         rivKluchGroup.addTo(map);
     };
-    if (!map.hasLayer(rivLayer) && zoom < 11) {
-        rivLayer.addTo(map);
+    if (map.hasLayer(rivKluchGroup) && zoom < 11) {
         map.removeLayer(rivKluchGroup)
     };
     if (zoom >= 9 && (!lastZoom || lastZoom < 9)) {
