@@ -16,8 +16,8 @@ var volcanoQUrl= "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/serv
 
 // LAYERS
 // Rivers
-// L.esri.featureLayer({url: rivUrl, fields: ['FID'], minZoom: 11,
-// 	style: {color: "#3399ff", weight: 0.3}}).addTo(map);
+L.esri.featureLayer({url: rivUrl, fields: ['FID'], minZoom: 11,
+	style: {color: "#3399ff", weight: 0.3}}).addTo(map);
 	
 // LAVA
 map.createPane('Lava');

@@ -10,6 +10,7 @@
 //       subdomains:['mt0','mt1','mt2','mt3']
 //     });
 
+
 var baseLayers = {
 		"Topographic": base,
 	  	"Sattelite": L.esri.basemapLayer("ImageryFirefly") }, //sattelite},
@@ -27,19 +28,30 @@ var baseLayers = {
 		"Shelters": houseLayer,
 	};
 
-L.control.layers(baseLayers, {}, {collapsed:false, className: "ini"}).addTo(map);
-
-L.control.layers({}, overlays_Kam, {collapsed:false, className: 'KAM'}).addTo(map);
-var con_SR = L.control.layers({}, overlays_SR, {collapsed:false}).addTo(map),
-	con_Kluch = L.control.layers({}, overlays_Kluch, {collapsed:false}).addTo(map);
-
-function getColour(d) {
-	switch (d) {
-		case 'Moving ice': return "#99ebff";
-		case 'Dead ice': return '#202020';
-		default: return '#fff';
+var groupedOverlays = {
+	"Volcanic danger": {
+		"Active volcanoes": avolcLayer,
+		"Volcanic hazard zones": hazard 
+	},
+	"Kluchevskoy volcano": {
+		"Cinder cones, lava flows": kluchGroup,
+		"Glaciers": glKluchGroup,
+		"Shelters": houseLayer
+	},
+	"Sredinniy ridge": {
+		"Quarternary volcanoes": volcanoQ,
+		"Holocene volcanoes": Group_volc,
+	  	"Glaciers": Group_gl2016,
 	}
-};
+	};
+
+L.control.groupedLayers(baseLayers, groupedOverlays, {collapsed:false, className: "ini"}).addTo(map);
+// L.control.layers(baseLayers, {}, {collapsed:false, className: "ini"}).addTo(map);
+
+// L.control.layers({}, overlays_Kam, {collapsed:false, className: 'KAM'}).addTo(map);
+// var con_SR = L.control.layers({}, overlays_SR, {collapsed:false}).addTo(map),
+// 	con_Kluch = L.control.layers({}, overlays_Kluch, {collapsed:false}).addTo(map);
+$(".leaflet-control-layers-base").prepend('<label style="font-weight:650;margin-bottom:.1em;margin-left:3px">Base layers</label>');
 
 var legend_avolc  = L.control({position: 'topright'}),
 	legend_hazard  = L.control({position: 'topright'}),
