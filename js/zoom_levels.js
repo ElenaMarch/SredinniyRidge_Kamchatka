@@ -52,7 +52,6 @@ map.on('zoomend', function () {
         };
         map.eachLayer(function(l) {
             if (l.getTooltip() && !tooltipPanes.includes(l.options.pane)) {
-                console.log(l.options.pane in tooltipPanes);
                 var tooltip = l.getTooltip();
                 l.unbindTooltip().bindTooltip(tooltip, {
                     permanent: false

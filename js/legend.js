@@ -14,35 +14,34 @@
 var baseLayers = {
 		"Topographic": base,
 	  	"Sattelite": L.esri.basemapLayer("ImageryFirefly") }, //sattelite},
-	overlays_SR = {
-		"Quarternary volcanoes": volcanoQ,
-	  	"Holocene volcanoes": Group_volc,
-		"Glaciers": Group_gl2016, },
-	overlays_Kam = {
-		"Active volcanoes": avolcLayer,
-		"Volcanic hazard zones": hazard 
-	},
-	overlays_Kluch = {
-		"Cinder cones and lava flows": kluchGroup,
-		"Glaciers": glKluchGroup,
-		"Shelters": houseLayer,
-	};
-
-var groupedOverlays = {
+	// overlays_SR = {
+	// 	"Quarternary volcanoes": volcanoQ,
+	//   	"Holocene volcanoes": Group_volc,
+	// 	"Glaciers": Group_gl2016, },
+	// overlays_Kam = {
+	// 	"Active volcanoes": avolcLayer,
+	// 	"Volcanic hazard zones": hazard },
+	// overlays_Kluch = {
+	// 	"Cinder cones, lava flows": kluchGroup,
+	// 	"Glaciers": glKluchGroup,
+	// 	"Shelters": houseLayer,
+	// };
+	
+	groupedOverlays = {
 	"Volcanic danger": {
 		"Active volcanoes": avolcLayer,
 		"Volcanic hazard zones": hazard 
+	},
+	"Sredinniy ridge": {
+		"Quarternary volcanoes": volcanoQ,
+		"Holocene volcanoes": Group_volc,
+	  	"Glaciers": Group_gl2016
 	},
 	"Kluchevskoy volcano": {
 		"Cinder cones, lava flows": kluchGroup,
 		"Glaciers": glKluchGroup,
 		"Shelters": houseLayer
 	},
-	"Sredinniy ridge": {
-		"Quarternary volcanoes": volcanoQ,
-		"Holocene volcanoes": Group_volc,
-	  	"Glaciers": Group_gl2016,
-	}
 	};
 
 L.control.groupedLayers(baseLayers, groupedOverlays, {collapsed:false, className: "ini"}).addTo(map);
