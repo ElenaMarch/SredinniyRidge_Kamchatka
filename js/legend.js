@@ -39,7 +39,7 @@ var baseLayers = {
 	},
 	"Kluchevskoy volcano": {
 		"Cinder cones, lava flows": kluchGroup,
-		"Glaciers": glKluchGroup,
+		"Glaciers<i hidden>A</i>": glKluchGroup,
 		"Shelters": houseLayer
 	},
 	};
@@ -108,7 +108,7 @@ legend_gl_KL.onAdd = function (map) {
 	div.innerHTML += '<i class="hatching-cover" ></i><p>Ice-bound debris cover</p>';
 	div.innerHTML += '<i class="hatching-line" ></i><p>Fronts of creeping ice</p>';
 	return div; };
-legend_gl_KL.addTo(map);
+// legend_gl_KL.addTo(map);
 
 legend_hazard.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
@@ -134,7 +134,7 @@ legend_avolc.addTo(map);
 
 map.on('overlayadd', function (eventLayer) {
 	if (eventLayer.name === 'Holocene volcanoes') {
-		legend_v.addTo(map);
+		legend_v.addTo(map);	
 	} else if (eventLayer.name === 'Glaciers') { 
 		legend_gl.addTo(map);
 	} else if (eventLayer.name === 'Volcanic hazard zones') { 
@@ -143,21 +143,25 @@ map.on('overlayadd', function (eventLayer) {
 		legend_avolc.addTo(map);
 	} else if (eventLayer.name === 'Cinder cones and lava flows') { 
 		legend_vKluch.addTo(map);
-	}
+	} else if (eventLayer.name === "Glaciers<i hidden>A</i>") { 
+		legend_gl_KL.addTo(map);
+	};
 });
 
 map.on('overlayremove', function (eventLayer) {
 	if (eventLayer.name === 'Holocene volcanoes') {
 		map.removeControl(legend_v);
-	} else if (eventLayer.name === 'Glaciers') { 
-		map.removeControl(legend_gl);
 	} else if (eventLayer.name === 'Volcanic hazard zones') { 
 		map.removeControl(legend_hazard);
 	} else if (eventLayer.name === 'Active volcanoes') { 
 		map.removeControl(legend_avolc);
 	} else if (eventLayer.name === 'Cinder cones and lava flows') { 
 		map.removeControl(legend_vKluch);
-	}
+	} else if (eventLayer.name === 'Glaciers') { 
+		map.removeControl(legend_gl);
+	} else if (eventLayer.name === "Glaciers<i hidden>A</i>") { 
+		map.removeControl(legend_gl_KL);
+	};
 });
 
 // Bounds Sredinniy, Kluchevskoy
@@ -195,6 +199,7 @@ map.on('zoomend', function () {
         map.removeControl(legend_v);
 		map.removeControl(legend_gl);
 		map.removeControl(legend_vKluch);
+		map.removeControl(legend_gl_KL);
 		legend_hazard.addTo(map);
     }
 	if (map.getZoom() >= 9) 
@@ -203,8 +208,9 @@ map.on('zoomend', function () {
 			legend_v.addTo(map);
 			legend_gl.addTo(map);
 		}
-		if (checkView2(lavaPobochLayer)) {
+		if (checkView2(kluchGroup)) {
 			legend_vKluch.addTo(map);
+			legend_gl_KL.addTo(map);
 		}
 		map.removeControl(legend_hazard);
     }
@@ -221,9 +227,11 @@ map.on('moveend', function () {
 	} else {
 		map.removeControl(legend_v);
 	};
-	if (checkView2(lavaPobochLayer)) {
+	if (checkView2(kluchGroup)) { //lavaPobochLayer
 		legend_vKluch.addTo(map);
+		legend_gl_KL.addTo(map);
 	} else {
 		map.removeControl(legend_vKluch);
+		map.removeControl(legend_gl_KL);
 	};
 });
