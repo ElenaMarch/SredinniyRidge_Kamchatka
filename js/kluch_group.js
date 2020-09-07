@@ -24,7 +24,7 @@ var patternL = new L.Pattern({width: 4, height: 4}); patternL.addShape(shapeL); 
 function lavaPobochStyle(feature) {
     switch (feature.properties.Id) {
         case 4: return {"color": "#1c79ca", "weight": 0.5, "fillColor": "#3692E3", "fillOpacity": 0.7, precision: 10};
-        case 5: return {"color": "#3aacf8", "weight": 0.5, "fillColor": "#7AC7FA", "fillOpacity": 0.7, precision: 10}; 
+        case 5: return {"color": "#635976", "weight": 0.5, "fillColor": "#9386AE", "fillOpacity": 0.7, precision: 10}; 
         case 6: return {"color": "#ff4d64", "weight": 0.5, "fillColor": "#FF7082", "fillOpacity": 0.7, precision: 10};
         case 7: return {"color": "#c5072d", "weight": 0.5, "fillColor": "#F61340", "fillOpacity": 0.7, precision: 10};
         case 8: return {"color": "#595959", "weight": 0.5, "fillColor": "#b3b3b3", "fillOpacity": 0.7, precision: 10};

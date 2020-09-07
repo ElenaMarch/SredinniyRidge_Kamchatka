@@ -64,7 +64,7 @@ legend_vKluch.onAdd = function (map) {
 	div.innerHTML += '<p style="line-height: 1.4; font-weight: bold">Cinder cones and lava flows: dating</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #c5072d;background-color:#F61340;"></i><p>Historical eruptions: 1900-2000 years AC</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #ff4d64;background-color:#FF7082;"></i><p>1400-1600 years AD</p>';
-	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #3aacf8;background-color:#7AC7FA;"></i><p>500-650 years AD</p>';
+	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #635976;background-color:#9386AE;"></i><p>500-650 years AD</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #1c79ca;background-color:#3692E3;"></i><p>300-350 years AD</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #39ac73;background-color:#6BDE87;"></i><p>750-100 years BC</p>';
 	div.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #bac46e;background-color:#C7CF8A;"></i><p>950-800 years BC</p>';
