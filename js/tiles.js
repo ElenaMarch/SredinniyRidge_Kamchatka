@@ -23,11 +23,11 @@ d3.text('json/snow.asc', function (asc) {
         map.closePopup();
     });
     tileLayers['Snow accumulation'] = L.layerGroup([layer, snowLines]);
-    L.control.layers({}, tileLayers, {
-                position: 'topright',
-                collapsed: false
-            }).addTo(map);
-    // c.addBaseLayer(L.layerGroup([layer, snowLines]), 'Snow accumulation');
+    // L.control.layers({}, tileLayers, {
+    //             position: 'topright',
+    //             collapsed: false
+    //         }).addTo(map);
+    c.addBaseLayer(L.layerGroup([layer, snowLines]), 'Snow accumulation');
 });
 
 

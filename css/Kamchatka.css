@@ -160,6 +160,14 @@ body {
 	border-radius: 0px;
 }
 
+.legend-container {
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	background: white;
+	overflow: auto;
+	height: 300px;
+
+}
+
 .legend {
 	line-height: 22px;
 	width: 180px;
@@ -168,8 +176,13 @@ body {
 	font-size: 12px;
 	padding: 6px 8px;
 	background: white;
-	border: 2px solid #bfbfbf;
+	border-bottom: 0.5px solid #bfbfbf;
+	
 	opacity: 1;
+}
+.legend hr {
+	width: 100%;
+	height: 0.2px;
 }
 
 .legend i {
