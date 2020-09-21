@@ -4,6 +4,9 @@
   
  */
 
+// Measurements
+L.control.measure({lineColor: 'red', position: 'topleft', captureZIndex: 10000 }).addTo(map);
+
 // Layers to draw in
 map.createPane('Draw');
 var objects = new L.FeatureGroup({pane: 'Draw'});
@@ -24,47 +27,6 @@ objects.on('click', function(e){
 				 .openOn(map); }
 	});
 
-//Upload Button
-showIcon = new L.icon({
-	iconUrl: 'button/marker-icon.png',
-	iconSize: [19, 32],
-	iconAnchor: [9, 32],
-	popupAnchor: [1, -33],
-	shadowUrl: 'button/marker-shadow.png',
-	shadowSize: [32, 32],
-	shadowAnchor: [9, 32]
-});
-var style = {color:'#0073e6', opacity: 0.7, fillOpacity: 0.3, weight: 3};
-L.Control.FileLayerLoad.LABEL = "<img src='button/UL.png'>";
-var control = L.Control.fileLayerLoad({
-	position: 'bottomleft',
-    fitBounds: true,
-	layerOptions: {style: style,
-                   pointToLayer: function (data, latlng) {
-					    var name = data.properties.name;
-						var marker = L.marker(latlng, {icon: showIcon}).bindPopup(name, {closeButton: false, className: 'popupCustom'});
-                      	return marker;
-                   }},
-}).addTo(map);
-// control.loader.on('data:loaded', function (e) {
-// 	layers = e.layer;
-// 	layers.eachLayer(function(l) {
-// 		l.addTo(objects);
-// 	})
-// 	map.fitBounds(layers.getBounds());
-// });
-
-// Download Button
-var down = L.easyButton({id: 'get-notes',
-  position: 'bottomleft',
-  states:[{stateName: 'download',
-	onClick: function(){
-	  var data = objects.toGeoJSON(),
-		  blob = new Blob([JSON.stringify(data)], {type: "text/json;charset=utf-8"});
-	  saveAs(blob, "features.json"); 
-	  },
-	title: 'Download objects as a GeoJSON file',
-	icon: "<img src='button/DL.png'>"}]}).addTo(map);
 
 // Drawing
 drawIcon = new L.icon({
@@ -83,7 +45,7 @@ vertIcon = new L.DivIcon({
 });
 
 var drawControl = new L.Control.Draw({
-	position: 'bottomleft',
+	position: 'topleft',
 	draw:{circle:false, circlemarker:false, rectangle:false,
 		  marker: {icon: drawIcon},
 		  polygon: {shapeOptions:{color: '#334d4d', weight: 2}, 
@@ -118,7 +80,42 @@ map.on('draw:created', function (e) {
 	});
 });
 
-// Measurements
-L.control.measure({lineColor: 'red', position: 'bottomleft', captureZIndex: 10000 }).addTo(map);
+
+
+//Upload Button
+showIcon = new L.icon({
+	iconUrl: 'button/marker-icon.png',
+	iconSize: [19, 32],
+	iconAnchor: [9, 32],
+	popupAnchor: [1, -33],
+	shadowUrl: 'button/marker-shadow.png',
+	shadowSize: [32, 32],
+	shadowAnchor: [9, 32]
+});
+var style = {color:'#0073e6', opacity: 0.7, fillOpacity: 0.3, weight: 3};
+L.Control.FileLayerLoad.LABEL = "<img class=button src='button/UL.png'>";
+var control = L.Control.fileLayerLoad({
+	position: 'topleft',
+    fitBounds: true,
+	layerOptions: {style: style,
+                   pointToLayer: function (data, latlng) {
+					    var name = data.properties.name;
+						var marker = L.marker(latlng, {icon: showIcon}).bindPopup(name, {closeButton: false, className: 'popupCustom'});
+                      	return marker;
+                   }},
+}).addTo(map);
+
+// Download Button
+var down = L.easyButton({id: 'get-notes',
+  position: 'topleft',
+  states:[{stateName: 'download',
+	onClick: function(){
+	  var data = objects.toGeoJSON(),
+		  blob = new Blob([JSON.stringify(data)], {type: "text/json;charset=utf-8"});
+	  saveAs(blob, "features.json"); 
+	  },
+	title: 'Download objects as a GeoJSON file',
+	icon: "<img class=button src='button/DL.png'>"}]}).addTo(map);
+
 
 

@@ -19,29 +19,17 @@ body {
 	line-height: 5px;
 }
 
-.panel2 {
-	height: auto;
-	position:absolute;
-	top:75px;
-	bottom: 0;
-	right:0;
-	min-width: 200px;
-	width: 200px;
-	overflow:hidden;
-	z-index: 1500;
-	box-shadow:0 1px 6px rgba(0, 0, 0, 0.377);
-	padding: 5px;
-	margin: 0;
-	background: #f8f8f8;
-	line-height: 30px;
+.leaflet-center {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 10px;
 }
 
-.zoomImage {
-	max-width: 100%;
-	max-height: 100%;
-	box-shadow: 0 0 15px rgba(0,0,0,0.2);
-	border-radius: 5px;
-	border: 2px solid #bfbfbf;
+.leaflet-center .leaflet-control {
+    margin-bottom: 10px;
 }
 
 .myLabels {
@@ -119,10 +107,6 @@ body {
 	border-right-color: transparent;
 	}
 
-.leaflet-control-layers-expanded { 
-    width:160px;
-}	
-
 .marker-point {
 	  background: transparent;
 	  border: 0px;
@@ -145,13 +129,15 @@ body {
 	}
 	
 .button {
-	max-width:100%; 
-	max-height:100%;
-	padding:2px 0px 2px 0px;
-	margin:3px 0px;
+	/* max-width:100%; 
+	max-height:100%; */
+	padding: 0px 0px 4px 0px;
+	margin:5px 0px;
 }
-
-.leaflet-control-layers-expanded{ 
+.leaflet-top {
+	bottom: 0%;
+}
+.leaflet-control-layers-expanded{
 	width: 180px;
 	font-family: Verdana;
 	font-size: 12px;
@@ -161,11 +147,14 @@ body {
 }
 
 .legend-container {
+	position: relative;
+	/* bottom: -10%; */
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	background: white;
-	overflow: auto;
-	height: 300px;
-
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: auto !important;
+	max-height: calc(100% - (326px + 110px + 30px));
 }
 
 .legend {
@@ -319,5 +308,11 @@ body {
 	font-size: 10px;
 	background-color: whitesmoke;
 	padding: 2px;
+}
+
+.custom-tooltip-styling{
+	display:inline-block;
+	font-family: Verdana;
+	font-size: 11px;
 }
 

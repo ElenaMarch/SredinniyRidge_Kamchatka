@@ -60,7 +60,11 @@ Copyright (c) 2018 by Elena Marchenko
   <link rel="stylesheet" href="css/leaflet.groupedlayercontrol.min.css"/>
   <script src="lib/leaflet.groupedlayercontrol.min.js"></script>
 
+  <!-- JQuery, JQuery UI -->
   <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
   <script src="lib/FileSaver.min.js"></script>
   <script src="lib/leaflet.ajax.min.js"></script>
   <script src="https://unpkg.com/togeojson@0.16.0"></script>
@@ -80,8 +84,8 @@ Copyright (c) 2018 by Elena Marchenko
   
   <style>
     body { margin:0; padding:0; }
-    #map { position: absolute; top:80px; bottom:0; right:0; left:0; } 
-    /* 210px */
+    #map { position: absolute; top:80px; bottom:0; right:0; left:0; }
+    #mapSmall { position: absolute; bottom:10px; left:10px; height: 250px; width:160px; box-shadow:0 1px 6px rgba(0, 0, 0, 0.377)} 
   </style>
 </head>
 
@@ -92,12 +96,10 @@ Copyright (c) 2018 by Elena Marchenko
     <p style="font-weight: 50; font-size: 14px; text-indent: 50px; font-style: oblique;">
       Institute of Volcanology and Seismology, Far Eastern branch of Russian Academy of Sciences</p>
   </div>
-  <!-- <div class="panel2">
-    <img src="Photos_hyperlink/Kamchatka2.png" class=zoomImage title="Overview mapping of Kamchatka"/>
-    <img src="Photos_hyperlink/Glacier_308_2.jpg" class=zoomImage title="Zoom to Sredinniy Ridge"/>
-  </div> -->
   <div id="map" style="border-style: groove; border-width: 2px;"></div>
+  <div id="mapSmall" title="Click to navigate the map" style="border-style:groove; border-width: 1px; z-index:5000;"></div>
   <script type="text/javascript" src="js/general.js"></script>
+  <script type="text/javascript" src="js/navigation.js"></script>
   <script type="text/javascript" src="js/references.js"></script>
   <script type="text/javascript" src="js/sredinniy_ridge.js"></script>
   <script type="text/javascript" src="js/kluch_group.js"></script>
