@@ -9,15 +9,6 @@ var map = L.map('map', {attributionControl: false}).setView([55.566,160.082], 7)
 var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 // Coordinates and Scale
-L.control.coordinates({
-	position:"bottomright",
-	decimals:3,
-	decimalSeperator:".",
-	labelTemplateLat:"N {y}&#176;&nbsp;&nbsp",
-	labelTemplateLng:"&nbspE {x}&#176",
-	useLatLngOrder:true
-}).addTo(map);
-
 function addControlPlaceholders(map) {
     var corners = map._controlCorners,
         l = 'leaflet-',
@@ -29,7 +20,16 @@ function addControlPlaceholders(map) {
     }
     createCorner('bottom', 'center');
 }
-addControlPlaceholders(map);  
+addControlPlaceholders(map);
+
+L.control.coordinates({
+	position:"bottomleft",
+	decimals:3,
+	decimalSeperator:".",
+	labelTemplateLat:"N {y}&#176;&nbsp;&nbsp",
+	labelTemplateLng:"&nbspE {x}&#176",
+	useLatLngOrder:true
+}).addTo(map);
 
 L.control.scale({imperial: false, position: 'bottomcenter'}).addTo(map);
 

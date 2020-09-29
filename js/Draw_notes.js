@@ -93,7 +93,7 @@ showIcon = new L.icon({
 	shadowAnchor: [9, 32]
 });
 var style = {color:'#0073e6', opacity: 0.7, fillOpacity: 0.3, weight: 3};
-L.Control.FileLayerLoad.LABEL = "<img class=button src='button/UL.png'>";
+L.Control.FileLayerLoad.LABEL = "<img class=button1 src='button/UL.png'>";
 var control = L.Control.fileLayerLoad({
 	position: 'topleft',
     fitBounds: true,
