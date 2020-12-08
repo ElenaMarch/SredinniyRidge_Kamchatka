@@ -155,7 +155,7 @@ body {
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: auto !important;
-	max-height: calc(100% - (326px + 110px + 15px));
+	max-height: calc(100% - (326px + 60px + 30px));
 }
 
 .legend {

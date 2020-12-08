@@ -28,7 +28,7 @@ var baseLayers = {
 	// };
 	
 	groupedOverlays = {
-	"Volcanic danger": {
+	"Volcanic hazard": {
 		"Active volcanoes": avolcLayer,
 		"Volcanic hazard zones": hazard 
 	},
