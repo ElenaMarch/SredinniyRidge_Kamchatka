@@ -80,7 +80,17 @@ map.on('draw:created', function (e) {
 	});
 });
 
-
+// Download Button
+var down = L.easyButton({id: 'get-notes',
+  position: 'topleft',
+  states:[{stateName: 'download',
+	onClick: function(){
+	  var data = objects.toGeoJSON(),
+		  blob = new Blob([JSON.stringify(data)], {type: "text/json;charset=utf-8"});
+	  saveAs(blob, "features.json"); 
+	  },
+	title: 'Download objects as a GeoJSON file',
+	icon: "<img class=button src='button/DL.png'>"}]}).addTo(map);
 
 //Upload Button
 showIcon = new L.icon({
@@ -105,17 +115,7 @@ var control = L.Control.fileLayerLoad({
                    }},
 }).addTo(map);
 
-// Download Button
-var down = L.easyButton({id: 'get-notes',
-  position: 'topleft',
-  states:[{stateName: 'download',
-	onClick: function(){
-	  var data = objects.toGeoJSON(),
-		  blob = new Blob([JSON.stringify(data)], {type: "text/json;charset=utf-8"});
-	  saveAs(blob, "features.json"); 
-	  },
-	title: 'Download objects as a GeoJSON file',
-	icon: "<img class=button src='button/DL.png'>"}]}).addTo(map);
+
 
 
 

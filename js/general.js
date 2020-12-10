@@ -44,12 +44,21 @@ L.control.scale({imperial: false, position: 'bottomright'}).addTo(map);
 
 // L.control.watermark = function(opts) {return new L.Control.Watermark(opts); }
 // L.control.watermark({ position: 'bottomright' }).addTo(map);
+var help_content = "<img class=helpImage src='button/Webmap_instructions_eng.png'>"
+var win =  L.control.window(map, {content: help_content, modal: true, position: 'top'})
 
 // Button for references
 L.easyButton({id: 'reference',
-  states:[{stateName: 'ref',
-	onClick: function () {
-		sidebar.toggle(); },
+	states:[{stateName: 'ref',
+		onClick: function () {
+			sidebar.toggle(); },
 	title: 'Show/hide references',
-	icon: "<img class=button src='button/menu.png'>"}]}).addTo(map);
+	icon: "<img class=button src='button/book.png'>"}]}).addTo(map);
+
+L.easyButton({id: 'help',
+	states:[{stateName: 'help',
+		onClick: function () {
+			win.show(); },
+	title: 'Show help',
+	icon: "<img class=button src='button/question.png'>"}]}).addTo(map);
 
