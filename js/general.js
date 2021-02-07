@@ -44,7 +44,7 @@ L.control.scale({imperial: false, position: 'bottomright'}).addTo(map);
 
 // L.control.watermark = function(opts) {return new L.Control.Watermark(opts); }
 // L.control.watermark({ position: 'bottomright' }).addTo(map);
-var help_content = "<img class=helpImage src='button/Webmap_instructions_eng.png'>"
+var help_content = "<img class=helpImage src='Webmap_instructions_eng.png'>"
 var win =  L.control.window(map, {content: help_content, modal: true, position: 'top'})
 
 // Button for references

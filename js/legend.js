@@ -42,6 +42,9 @@ var baseLayers = {
 		"Glaciers<i hidden>A</i>": glKluchGroup,
 		"Shelters": houseLayer
 	},
+	"": {
+		"Geological samples": sampleLayer
+	}
 	};
 
 var c = L.control.groupedLayers(baseLayers, groupedOverlays, {collapsed:false, className: "ini"}).addTo(map);

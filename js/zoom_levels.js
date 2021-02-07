@@ -1,4 +1,4 @@
-var tooltipPanes = ['Volc', 'Kluch3'];
+var tooltipPanes = ['Volc', 'Kluch3', 'Samples'];
 var lastZoom;
 map.on('zoomend', function () {
     var zoom = map.getZoom();
