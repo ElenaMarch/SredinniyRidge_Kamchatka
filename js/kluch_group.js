@@ -64,13 +64,15 @@ lavaShishLayer.bindPopup(function (layer) {
 var conesPobochLayer = new L.GeoJSON.AJAX("json/cones_poboch.geojson", {style: lavaPobochStyle, pane: 'Kluch2'});
 var Cones_attr = "<h3>{Name}</h3>\
                 <b>Morphology</b>: cinder cone\
+                <br><b>Altitude</b>: {Altitude} m\
 				<br><b>Eruption's date</b>: {Date}\
                 <br><b>Age group</b>: {Age}";
 
 function Con(layer) {
     return {Name: layer.feature.properties.Name_eng,
             Date: layer.feature.properties.Eruption_d,
-            Age:  layer.feature.properties.Eruption_a};}
+            Age:  layer.feature.properties.Eruption_a,
+            Altitude: layer.feature.properties.Altitude};}
 
 conesPobochLayer.bindPopup(function (layer) {
 	return L.Util.template(Cones_attr, Con(layer)); }, {'className':'popupCustom'});
