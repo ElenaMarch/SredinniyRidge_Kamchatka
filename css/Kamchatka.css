@@ -131,11 +131,11 @@ body {
 	
 .button {
 	margin: 4px 2px 0px -1px;
-	z-index: 1000;
+	clear: none;
 }
 .button1 {
 	margin: 5px 2px 0px 1px;
-	z-index: 1000;
+	clear: none;
 }
 .leaflet-top {
 	bottom: 0%;
@@ -157,7 +157,7 @@ body {
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: auto !important;
-	max-height: calc(100% - (326px + 60px + 60px));
+	max-height: calc(100% - (326px + 60px + 100px));
 }
 
 .legend {
