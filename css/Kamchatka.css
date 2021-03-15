@@ -129,14 +129,15 @@ body {
 		max-height: 100%;
 	}
 	
-.button {
+.leaflet-control.button {
 	margin: 4px 2px 0px -1px;
 	clear: none;
 }
-.button1 {
+.leaflet-control.button1 {
 	margin: 5px 2px 0px 1px;
 	clear: none;
 }
+
 .leaflet-top {
 	bottom: 0%;
 }
@@ -157,7 +158,7 @@ body {
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: auto !important;
-	max-height: calc(100% - (326px + 60px + 100px));
+	max-height: calc(100% - (326px + 60px + 120px));
 }
 
 .legend {
