@@ -1,5 +1,8 @@
 // Kluchevskaya Group
 // General layers
+let date = new Date();
+console.log();
+
 map.createPane('Kluch');
 function rivStyle(feature) {
     switch (feature.properties.Type) {
@@ -28,6 +31,7 @@ function lavaPobochStyle(feature) {
         case 6: return {"color": "#ff4d64", "weight": 0.5, "fillColor": "#FF7082", "fillOpacity": 0.7, precision: 10};
         case 7: return {"color": "#c5072d", "weight": 0.5, "fillColor": "#F61340", "fillOpacity": 0.7, precision: 10};
         case 8: return {"color": "#595959", "weight": 0.5, "fillColor": "#b3b3b3", "fillOpacity": 0.7, precision: 10};
+        case 9: return {"color": "#9B373D", "weight": 0.5, "fillColor": "#B26045", "fillOpacity": 0.7, precision: 10};
         case 0: return {"color": "#4D1300", "weight": 0.5, "fillPattern": patternL, "fillOpacity": 0.7, precision: 10};
         case 1: return {"color": "#8a8a5c", "weight": 0.5, "fillColor": "#a3a375", "fillOpacity": 0.7, precision: 10}; 
         case 2: return {"color": "#bac46e", "weight": 0.5, "fillColor": "#C7CF8A", "fillOpacity": 0.7, precision: 10}; 
@@ -38,12 +42,18 @@ var Kluch_attr = "<h3>{Name}</h3>\
                 <b>Morphology</b>: lava flow\
                 <br><b>Area</b>: {S} km<sup>2</sup>\
 				<br><b>Eruption's date</b>: {Date}\
-				<br><b>Age</b>: {Age}";
+				<br><b>Age</b>: {Age} years";
 function Kl(layer) {
+    let a;
+    if (layer.feature.properties.Eruption_a.includes('00')) {
+        a = layer.feature.properties.Eruption_a
+    } else {
+        a = date.getFullYear() - layer.feature.properties.Eruption_d
+    }
 	return {Name: layer.feature.properties.Name_eng,
 			S:   layer.feature.properties.Area_pl_km.toFixed(2), //
 			Date: layer.feature.properties.Eruption_d,
-			Age:  layer.feature.properties.Eruption_a};}
+			Age:  a};}
 
 lavaPobochLayer.bindPopup(function (layer) {
 	return L.Util.template(Kluch_attr, Kl(layer)); }, {'className':'popupCustom'});

@@ -12,7 +12,7 @@
 
 
 var baseLayers = {
-		"Topographic": base,
+		// "Topographic": base,
 	  	"Sattelite": L.esri.basemapLayer("ImageryFirefly") }, //sattelite},
 	// overlays_SR = {
 	// 	"Quarternary volcanoes": volcanoQ,
@@ -37,7 +37,7 @@ var baseLayers = {
 		"Holocene volcanoes": Group_volc,
 	  	"Glaciers": Group_gl2016
 	},
-	"Kluchevskoy volcano": {
+	"Kluchevskaya group of volcanoes": {
 		"Cinder cones, lava flows": kluchGroup,
 		"Glaciers<i hidden>A</i>": glKluchGroup,
 		"Shelters": houseLayer
@@ -62,6 +62,7 @@ div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px soli
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #39ac73;background-color:#6BDE87;"></i><p>750-100 years BC</p>';
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #bac46e;background-color:#C7CF8A;"></i><p>950-800 years BC</p>';
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #8a8a5c;background-color:#a3a375;"></i><p>2000-1000 years BC</p>';
+div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #9B373D;background-color:#B26045;"></i><p>before 2000 years BC</p>';
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #595959;background-color:#b3b3b3;"></i><p>Unknown</p>';
 div_vKluch.innerHTML += '<hr><i class="shish-fill"></i><p>Shield volcano</p>';
 div_vKluch.innerHTML += '<i class="hatching-trench"></i><p>Landslide debris</p>';

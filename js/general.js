@@ -6,7 +6,7 @@
 
 // BaseMap
 var map = L.map('map', {attributionControl: false}).setView([55.566,160.082], 7);
-var base = L.esri.basemapLayer('Topographic').addTo(map);
+// var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 // Coordinates and Scale
 // function addControlPlaceholders(map) {
