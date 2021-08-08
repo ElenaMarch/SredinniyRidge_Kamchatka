@@ -33,22 +33,6 @@ body {
     margin-bottom: 10px;
 }
 
-.myLabels {
-	  background: transparent;
-	  border: 0px;
-	  box-shadow: none;
-	  font-size: 12px;
-	  font-weight: 600;
-	  font-family: 'Lucida Sans Unicode';
-	  color: #492622;
-	}
-.leaflet-tooltip-left.myLabels::before {
-	  border-left-color: transparent;
-	}
-.leaflet-tooltip-right.myLabels::before {
-	  border-right-color: transparent;
-	}
-
 .leaflet-draw-tooltip {
 	display: none;
 }
@@ -61,66 +45,36 @@ body {
 	font-size: 12px;
 	line-height: normal;
 }
-
-.cityLabels {
+.myLabels, .avolcLabels, .cityLabels, .marker-point {
 	background: transparent;
 	border: 0px;
 	box-shadow: none;
 	font-size: 12px;
+  }
+.myLabels {
+	font-weight: 600;
+	font-family: 'Lucida Sans Unicode';
+	color: #492622;
+}
+.cityLabels, .houseLabels {
 	font-family: 'Tahoma';
 	color: #424040 ;
 	}
-.leaflet-tooltip-left.cityLabels::before {
-	border-left-color: transparent;
-	}
-.leaflet-tooltip-right.cityLabels::before {
-	border-right-color: transparent;
-	}
-
-.houseLabels {
-	background: transparent;
-	border: 0px;
-	box-shadow: none;
-	font-size: 12px;
-	font-family: 'Verdana';
-	color: #424040 ;
-	}
-.leaflet-tooltip-left.houseLabels::before {
-	border-left-color: transparent;
-	}
-.leaflet-tooltip-right.houseLabels::before {
-	border-right-color: transparent;
-	}
-
 .avolcLabels {
-	background: transparent;
-	border: 0px;
-	box-shadow: none;
 	font-size: 11px;
 	font-weight: bold;
 	font-family: 'Tahoma';
 	color: #424040 ;
 	}
-.leaflet-tooltip-left.avolcLabels::before {
-	border-left-color: transparent;
-	}
-.leaflet-tooltip-right.avolcLabels::before {
-	border-right-color: transparent;
-	}
-
 .marker-point {
-	  background: transparent;
-	  border: 0px;
-	  box-shadow: none;
-	  font-size:12px;
-	  font-weight: 500;
-	  font-style: italic;
-	  color: #4d4d33;
-	}
-.leaflet-tooltip-left.marker-point::before {
+	font-weight: 500;
+	font-style: italic;
+	color: #4d4d33;
+  }
+.leaflet-tooltip-left.cityLabels, .houseLabels, .avolcLabels, .myLabels, .marker-point::before {
 	border-left-color: transparent;
 	}
-.leaflet-tooltip-right.marker-point::before {
+.leaflet-tooltip-right.cityLabels, .houseLabels, .avolcLabels, .myLabels, .marker-point::before {
 	border-right-color: transparent;
 	}
 
@@ -293,11 +247,13 @@ body {
 	background-color: rgb(60, 61, 60)
 }
 
-#sidebar{
+#sidebar, #sidebar-geo {
 	font-size: 12px;
 	font-family: Verdana;
 	border-radius: 0px;
+	line-height: 16px;
 }
+
 
 .popupTooltip .leaflet-popup-tip,
 .popupTooltip .leaflet-popup-content-wrapper {
@@ -307,14 +263,14 @@ body {
 	background: transparent;
 }
 
-.popupTooltipText{
+.popupTooltipText {
 	font-family: Verdana;
 	font-size: 10px;
 	background-color: whitesmoke;
 	padding: 2px;
 }
 
-.custom-tooltip-styling{
+.custom-tooltip-styling {
 	display:inline-block;
 	font-family: Verdana;
 	font-size: 11px;
@@ -323,4 +279,19 @@ body {
 .helpImage {
 	max-width: 100%;
 	max-height: 100%;
+}
+.geoTable {
+    border-collapse: collapse;
+	border: 2px solid #928374 ;
+    margin: 20px 0;
+    font-size: 12px; 
+	width: 100%;
+}
+
+.geoTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.geoTable th,
+.geoTable td {
+    padding: 5px 6px;
 }
