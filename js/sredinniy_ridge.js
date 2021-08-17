@@ -20,8 +20,7 @@ L.esri.featureLayer({url: rivUrl, fields: ['FID'], minZoom: 11,
 	style: {color: "#3399ff", weight: 0.3}}).addTo(map);
 	
 // LAVA
-map.createPane('Lava');
-var lava = L.esri.featureLayer({ url: lavaUrl, precision: 8, pane: 'Lava', minZoom: 9,
+var lava = L.esri.featureLayer({ url: lavaUrl, precision: 8, pane: 'Local2', minZoom: 9,
   fields: ['FID', 'Name_eng', 'Composit', 'Age', 'Erupt_vol', 'Area', 'Products', 'Type', 'Hyperlink'],
   style: function (feature) {
 		if(feature.properties.Composit === 'andesite-basalt'){
@@ -51,11 +50,10 @@ lava.bindPopup(function (layer) {
   return L.Util.template(lava_attr, R_lava(layer)); }, {'className':'popupCustom'});
 
 // Moraine
-map.createPane('Moraine2016');
 var shape = new L.PatternCircle({ x: 1, y: 1, radius: 1, fill: true, color: '#4d1300', weight: 0.5}); 
 var pattern = new L.Pattern({width: 4, height: 4}); pattern.addShape(shape); pattern.addTo(map);
 
-var m2016 = L.esri.featureLayer({ url: m2016Url, precision: 9, pane: 'Moraine2016', minZoom: 9,
+var m2016 = L.esri.featureLayer({ url: m2016Url, precision: 9, pane: 'Local2', minZoom: 9,
    fields: ['FID', 'type', 'NUMBER_K_1', 'SArea_km'],
    style:function (feature) {
 		if(feature.properties.type === 'lateral'){
@@ -75,7 +73,6 @@ m2016.bindPopup(function (layer) {
   
 
 // GLACIERS
-map.createPane('Glaciers2016');
 var stripes = new L.StripePattern({weight: 1.5, color: '#145252', spaceWeight: 6.5, spaceColor: '#6699cc', spaceOpacity: 0.7, angle: -30}); 
 stripes.addTo(map);
 function glacierStyle(value) {
@@ -84,7 +81,7 @@ function glacierStyle(value) {
 	} else {
 	  return {color: '#202020', fillPattern: stripes, weight: 0.3, fillOpacity: 0.5, dashArray: 2, precision: 10}; } };
 
-var gl2016 = L.esri.featureLayer({ url: gl2016Url, precision: 9, pane: 'Glaciers2016', minZoom: 9,
+var gl2016 = L.esri.featureLayer({ url: gl2016Url, precision: 9, pane: 'Local1', minZoom: 9,
   fields: ['FID', 'TYPE', 'NAME_ENG', 'NUMBER_KAT', 'SArea_km', 'Vol_km3',
 		   'AVG_SLOPE', 'Avg_ASP', 'Elevation', 'H_ice', 'ZMIN', 'ZMAX', 'URL'],
   style: function (feature) { 
@@ -121,7 +118,6 @@ var Group_gl2016 = L.layerGroup([gl2016, m2016], {minZoom: 9}).addTo(map);
 
 
 // VOLCANOES
-map.createPane('Volc');
 function VolcStyle(feature) {
   var colorToUse; var radius; var shape; var w;
   var v = feature.properties.Type;
@@ -135,7 +131,7 @@ function VolcStyle(feature) {
 	"shape": shape,
 	"fillOpacity": 1,
 	"radius": radius,
-	"pane": 'Volc',
+	"pane": 'Local3',
 	"weight": w
   };}
 
@@ -147,7 +143,6 @@ var volcano = L.esri.featureLayer({url: volcanoUrl, fields: ['FID','Name_eng', '
 var Group_volc = L.layerGroup([volcano, lava], {minZoom: 9}).addTo(map); //
 
 // Markers
-map.createPane('Mark');
 L.esri.featureLayer({url: markUrl, fields: ['FID','Name_eng', 'Label_scal'], 
 	minZoom: 8,
 	pointToLayer: function (feature, latlng) {
@@ -162,7 +157,7 @@ var Qstyle = {
 	"shape": "triangle",
 	"fillOpacity": 0.75,
 	"radius": 3,
-	"pane": 'Volc',
+	"pane": 'Overview3',
 	"weight": 1.2
   }
 var volcanoQ = L.esri.featureLayer({url: volcanoQUrl, fields: ['FID','Name_eng', 'Type_eng', 'H', 'Vol_type_e'],

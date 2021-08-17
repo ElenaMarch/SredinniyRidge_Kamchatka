@@ -8,7 +8,6 @@
 L.control.measure({lineColor: 'red', position: 'topleft', captureZIndex: 10000 }).addTo(map);
 
 // Layers to draw in
-map.createPane('Draw');
 var objects = new L.FeatureGroup({pane: 'Draw'});
 map.addLayer(objects);
 

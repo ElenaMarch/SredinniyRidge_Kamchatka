@@ -6,7 +6,7 @@
 
 // BaseMap
 var map = L.map('map', {attributionControl: false}).setView([55.566,160.082], 7);
-// var base = L.esri.basemapLayer('Topographic').addTo(map);
+var base = L.esri.basemapLayer('Topographic').addTo(map);
 
 // Coordinates and Scale
 // function addControlPlaceholders(map) {
@@ -62,3 +62,22 @@ L.easyButton({id: 'help',
 	title: 'Show help',
 	icon: "<img class=button src='button/question.png'>"}]}).addTo(map);
 
+// Panes
+map.createPane('Overview1');
+map.getPane('Overview1').style.zIndex = 500;
+map.createPane('Overview2');
+map.getPane('Overview2').style.zIndex = 510;
+map.createPane('Overview3');
+map.getPane('Overview3').style.zIndex = 610;
+
+map.createPane('Local1');
+map.getPane('Local1').style.zIndex = 600;
+map.createPane('Local2');
+map.getPane('Local2').style.zIndex = 605;
+map.createPane('Local3');
+map.getPane('Local3').style.zIndex = 620;
+
+map.createPane('Samples');
+map.getPane('Samples').style.zIndex = 690;
+map.createPane('Draw');
+map.getPane('Draw').style.zIndex = 695;

@@ -1,24 +1,22 @@
 // Kluchevskaya Group
 // General layers
 let date = new Date();
-console.log();
 
-map.createPane('Kluch');
 function rivStyle(feature) {
     switch (feature.properties.Type) {
         case 'wide': return {"color": "#3399ff", "weight": 0.3};
         case 'normal': return {"color": "#3399ff", "weight": 0.3}; 
         case 'temporary': return {"color": "#3399ff", "weight": 0.3, dashArray: 3};  }
   };
-map.createPane('Kluch2');
-var rivKluchLayer = new L.GeoJSON.AJAX("json/kluch_rivers.geojson", {style: rivStyle, pane: 'Kluch'});
+var rivKluchLayer = new L.GeoJSON.AJAX("json/kluch_rivers.geojson", {style: rivStyle, pane: 'Local2'});
 var rivPolyKluchLayer = new L.GeoJSON.AJAX("json/kluch_rivers_poly.geojson", 
-    {style: {"color": "#3399ff", "weight": 0.5, "fillColor": "#BEE8FF", "fillOpacity": 0.7}, pane: 'Kluch2'});
+    {style: {"color": "#3399ff", "weight": 0.5, "fillColor": "#BEE8FF", "fillOpacity": 0.7}, pane: 'Local1'});
 
 
 // Lava flows
+
 var lavaVershinLayer = new L.GeoJSON.AJAX("json/lava_vershin.geojson", 
-    {style: {"color": "#F61340", "weight": 0.5, "fillColor": "#F61340", "fillOpacity": 0.7, precision: 10}, pane: 'Kluch2'});
+    {style: {"color": "#F61340", "weight": 0.5, "fillColor": "#F61340", "fillOpacity": 0.7, precision: 10}, pane: 'Local2'});
 lavaVershinLayer.bindPopup(function (layer) {
     var attr = "Summit lava flows in<br><b>" + layer.feature.properties.Name + "</b>";
     return attr; }, {'className':'popupCustom'});
@@ -37,7 +35,7 @@ function lavaPobochStyle(feature) {
         case 2: return {"color": "#bac46e", "weight": 0.5, "fillColor": "#C7CF8A", "fillOpacity": 0.7, precision: 10}; 
         case 3: return {"color": "#39ac73", "weight": 0.5, "fillColor": "#6BDE87", "fillOpacity": 0.7, precision: 10}; };
     };
-var lavaPobochLayer = new L.GeoJSON.AJAX("json/lava_poboch.geojson", {style: lavaPobochStyle, pane: 'Kluch2'});
+var lavaPobochLayer = new L.GeoJSON.AJAX("json/lava_poboch.geojson", {style: lavaPobochStyle, pane: 'Local2'});
 var Kluch_attr = "<h3>{Name}</h3>\
                 <b>Morphology</b>: lava flow\
                 <br><b>Area</b>: {S} km<sup>2</sup>\
@@ -62,7 +60,7 @@ lavaPobochLayer.bindPopup(function (layer) {
 var shapeShish = new L.PatternPath({ d: 'M1 1 L 5 6 L 9 1', color: '#A87000', weight: 0.6});
 var patternShish = new L.Pattern({width: 12, height: 8}); patternShish.addShape(shapeShish); patternShish.addTo(map);
 var lavaShishLayer = new L.GeoJSON.AJAX("json/lavoviy_shish.geojson", 
-    {style: {"color": "#A87000", "weight": 0.6, "fillPattern": patternShish, "fillOpacity": 1, precision: 10}, pane: 'Kluch2'});
+    {style: {"color": "#A87000", "weight": 0.6, "fillPattern": patternShish, "fillOpacity": 1, precision: 10}, pane: 'Local2'});
 
 lavaShishLayer.bindPopup(function (layer) {
     var Shish_attr = "<h3>Lavoviy Shish</h3>\
@@ -71,7 +69,7 @@ lavaShishLayer.bindPopup(function (layer) {
         <br><b>Age</b>: c. 9000 years";
 	return Shish_attr; }, {'className':'popupCustom'});
 
-var conesPobochLayer = new L.GeoJSON.AJAX("json/cones_poboch.geojson", {style: lavaPobochStyle, pane: 'Kluch2'});
+var conesPobochLayer = new L.GeoJSON.AJAX("json/cones_poboch.geojson", {style: lavaPobochStyle, pane: 'Local2'});
 var Cones_attr = "<h3>{Name}</h3>\
                 <b>Morphology</b>: cinder cone\
                 <br><b>Altitude</b>: {Altitude} m\
@@ -87,12 +85,11 @@ function Con(layer) {
 conesPobochLayer.bindPopup(function (layer) {
 	return L.Util.template(Cones_attr, Con(layer)); }, {'className':'popupCustom'});
 
-map.createPane('Kluch3');
 function conesStyle(feature) {
 	switch (feature.properties.Type) {
-      case 'large': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Kluch3'};
-      case 'small': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Kluch3'}; 
-      case 'sheet': return {"color": "#595959", 'shape': "x", 'radius': 5, "weight":2, "fillOpacity": 0.75, 'pane': 'Kluch3'};    }
+      case 'large': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'};
+      case 'small': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'}; 
+      case 'sheet': return {"color": "#595959", 'shape': "x", 'radius': 5, "weight":2, "fillOpacity": 0.75, 'pane': 'Local3'};    }
 };
 
 var conesPobochPointsLayer = new L.GeoJSON.AJAX("json/cones_poboch_point.geojson",
@@ -108,10 +105,10 @@ var conesPobochPointsLayer = new L.GeoJSON.AJAX("json/cones_poboch_point.geojson
 var shapeI = new L.PatternCircle({ x: 1, y: 1, radius: 1, fill: true, color: '#00A1DE', spaceColor: "transparent", weight: 0.5}); 
 var patternI = new L.Pattern({width: 4, height: 4}); patternI.addShape(shapeI); patternI.addTo(map);
 var iceCoverLayer = new L.GeoJSON.AJAX("json/cover_ice_kluch.geojson", 
-    {style: {"color": "transparent", "weight": 0, "fillPattern": patternI, "fillOpacity": 0.7, precision: 10}, pane: 'Kluch'});
+    {style: {"color": "transparent", "weight": 0, "fillPattern": patternI, "fillOpacity": 0.7, precision: 10}, pane: 'Local1'});
 
 var glKLuchLayer = new L.GeoJSON.AJAX("json/glaciers_kluch.geojson", 
-    {style: function (feature) {return glacierStyle(feature.properties.Type) }, pane: 'Kluch'});
+    {style: function (feature) {return glacierStyle(feature.properties.Type) }, pane: 'Local1'});
 var glKluch_attr = "<h3>{Name} glacier</h3><b>Area</b>: {S} km<sup>2</sup>";
 function glKl(layer) {
     return {Name: layer.feature.properties.Name_eng,
@@ -122,16 +119,16 @@ glKLuchLayer.bindPopup(function (layer) {
 var stripes2 = new L.StripePattern({weight: 1.2, color: '#00A1DE', spaceWeight: 3, spaceColor: 'transparent', angle: -30}); 
 stripes2.addTo(map);
 var passKLuchLayer = new L.GeoJSON.AJAX("json/passive_ice_kluch.geojson", 
-    {style: {"color": "#00A1DE", "weight": 0.7, "fillPattern": stripes2, "fillOpacity": 0.5, dashArray: 2, precision: 10}, pane: 'Kluch'});
+    {style: {"color": "#00A1DE", "weight": 0.7, "fillPattern": stripes2, "fillOpacity": 0.5, dashArray: 2, precision: 10}, pane: 'Local1'});
 
-var creepLayer = new L.GeoJSON.AJAX("json/creeping_fronts.geojson", {style: {"color": "#00cc7a", "weight": 2, "opacity": 0.6}, pane: 'Kluch3'});
+var creepLayer = new L.GeoJSON.AJAX("json/creeping_fronts.geojson", {style: {"color": "#00cc7a", "weight": 2, "opacity": 0.6}, pane: 'Local3'});
 
 
 // houses
 var houseLayer = new L.GeoJSON.AJAX("json/house.geojson",
     {pointToLayer: function (feature, latlng) {
         var marker = L.shapeMarker(latlng, {shape: 'square', radius: 3, color: "orange", fillColor: "yellow", weight: 0.7, 
-            fillOpacity: 0.9, pane: 'Kluch3'});
+            fillOpacity: 0.9, pane: 'Local3'});
         marker.bindTooltip(feature.properties.Name_eng, {className: 'houseLabels', interactive: true});
         return marker}, minZoom: 9
 });

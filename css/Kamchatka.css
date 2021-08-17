@@ -71,10 +71,10 @@ body {
 	font-style: italic;
 	color: #4d4d33;
   }
-.leaflet-tooltip-left.cityLabels, .houseLabels, .avolcLabels, .myLabels, .marker-point::before {
+.leaflet-tooltip-left.cityLabels::before, .houseLabels::before, .avolcLabels::before, .myLabels::before, .marker-point::before {
 	border-left-color: transparent;
 	}
-.leaflet-tooltip-right.cityLabels, .houseLabels, .avolcLabels, .myLabels, .marker-point::before {
+.leaflet-tooltip-right.cityLabels::before, .houseLabels::before, .avolcLabels::before, .myLabels::before, .marker-point::before {
 	border-right-color: transparent;
 	}
 
@@ -234,6 +234,14 @@ body {
 	width: 12px;
 	transform: rotate(45deg);
 }
+.legend .circle {
+        border:1px solid black;
+        height: 10px;
+        border-radius: 50%;
+        -moz-border-radius:50%;
+        -webkit-border-radius: 50%;
+        width: 10px;
+}
 .ok {
 	background: transparent;
 	border: 0px;
@@ -282,7 +290,7 @@ body {
 }
 .geoTable {
     border-collapse: collapse;
-	border: 2px solid #928374 ;
+	border: 1px solid #928374 ;
     margin: 20px 0;
     font-size: 12px; 
 	width: 100%;
@@ -294,4 +302,10 @@ body {
 .geoTable th,
 .geoTable td {
     padding: 5px 6px;
+}
+.geoTable caption {
+	color: #641E16;
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
 }

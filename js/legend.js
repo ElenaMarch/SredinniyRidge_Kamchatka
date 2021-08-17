@@ -12,7 +12,7 @@
 
 
 var baseLayers = {
-		// "Topographic": base,
+		"Topographic": base,
 	  	"Sattelite": L.esri.basemapLayer("ImageryFirefly") }, //sattelite},
 	// overlays_SR = {
 	// 	"Quarternary volcanoes": volcanoQ,
@@ -42,8 +42,8 @@ var baseLayers = {
 		"Glaciers<i hidden>A</i>": glKluchGroup,
 		"Shelters": houseLayer
 	},
-	"": {
-		"Geological samples": sampleLayer
+	"Geological samples": {
+		"Rocktype": sampleLayer
 	}
 	};
 
@@ -107,6 +107,18 @@ div_avolc.innerHTML += '<i class="triangle" style="border-bottom: 12px solid red
 div_avolc.innerHTML += '<i class="triangle" style="border-bottom: 12px solid #FF9B00;"></i><p>Potentially active</p>';
 div_avolc.innerHTML += '<i class="triangle" style="border-bottom: 12px solid grey;"></i><p>Hydrothermal activity</p>';
 
+var div_geosamples_rocktype = L.DomUtil.create('div', 'legend'),
+	sio2_array = ['Basalt', 'Andesi-basalt', 'Andesite', 'Dacite', 'Riodacite', 'Riolite']
+div_geosamples_rocktype.innerHTML += '<b>Geosamples - rocktype</b><br>';
+
+var rainbow = new Rainbow(); 
+rainbow.setNumberRange(1, sio2_array.length);
+for (i = 0; i < sio2_array.length; i++) {
+	div_geosamples_rocktype.innerHTML += '<i class="circle" style="background-color: #' + rainbow.colourAt(i+1) + ';"></i><p>'+ sio2_array[i] + '</p>';
+};
+div_geosamples_rocktype.innerHTML += '<i class="circle" style="background-color: grey;"></i><p>Undefined</p>';
+
+
 // var div = document.createElement('div');
 var div = L.DomUtil.create('div', 'legend-container');
 
@@ -141,6 +153,8 @@ map.on('overlayadd', function (eventLayer) {
 		setContent(div, [div_vKluch], 'add');
 	} else if (eventLayer.name === "Glaciers<i hidden>A</i>") { 
 		setContent(div, [div_glKluch], 'add');
+	} else if (eventLayer.name === "Rocktype") { 
+		setContent(div, [div_geosamples_rocktype], 'add');
 	};
 });
 
@@ -148,15 +162,17 @@ map.on('overlayremove', function (eventLayer) {
 	if (eventLayer.name === 'Holocene volcanoes') {
 		setContent(div, [div_v], 'remove');
 	} else if (eventLayer.name === 'Volcanic hazard zones') { 
-		setContent(div, [div_gl], 'remove');
-	} else if (eventLayer.name === 'Active volcanoes') { 
 		setContent(div, [div_hazard], 'remove');
-	} else if (eventLayer.name === 'Cinder cones and lava flows') { 
+	} else if (eventLayer.name === 'Active volcanoes') { 
 		setContent(div, [div_avolc], 'remove');
-	} else if (eventLayer.name === 'Glaciers') { 
+	} else if (eventLayer.name === 'Cinder cones and lava flows') { 
 		setContent(div, [div_vKluch], 'remove');
+	} else if (eventLayer.name === 'Glaciers') { 
+		setContent(div, [div_gl], 'remove');
 	} else if (eventLayer.name === "Glaciers<i hidden>A</i>") { 
 		setContent(div, [div_glKluch], 'remove');
+	} else if (eventLayer.name === "Rocktype") { 
+		setContent(div, [div_geosamples_rocktype], 'remove');
 	};
 });
 
