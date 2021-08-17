@@ -78,6 +78,6 @@ map.createPane('Local3');
 map.getPane('Local3').style.zIndex = 620;
 
 map.createPane('Samples');
-map.getPane('Samples').style.zIndex = 690;
+map.getPane('Samples').style.zIndex = 640;
 map.createPane('Draw');
-map.getPane('Draw').style.zIndex = 695;
+map.getPane('Draw').style.zIndex = 645;
