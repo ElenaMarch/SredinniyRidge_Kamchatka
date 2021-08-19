@@ -45,16 +45,23 @@ body {
 	font-size: 12px;
 	line-height: normal;
 }
-.myLabels, .avolcLabels, .cityLabels, .marker-point {
+.avolcLabels, .cityLabels, .marker-point, .houseLabels {
 	background: transparent;
-	border: 0px;
+	border-width: 0px;
 	box-shadow: none;
 	font-size: 12px;
   }
 .myLabels {
+	background: rgb(238, 230, 217);
+	border: 0.5px solid white;
+	border-radius: 0px;
+	box-shadow: none;
+	font-size: 12px;
 	font-weight: 600;
 	font-family: 'Lucida Sans Unicode';
 	color: #492622;
+	margin: 0em;
+	padding: 2px 4px;
 }
 .cityLabels, .houseLabels {
 	font-family: 'Tahoma';
@@ -64,7 +71,7 @@ body {
 	font-size: 11px;
 	font-weight: bold;
 	font-family: 'Tahoma';
-	color: #424040 ;
+	color: #492622 ;
 	}
 .marker-point {
 	font-weight: 500;
@@ -309,3 +316,81 @@ body {
 	font-size: 12px;
 	font-weight: bold;
 }
+.cluster {
+	fill-opacity: 0.7;
+    background: #a5a5a5;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    border: 1px solid white;
+    font-family: monospace;
+	font-size: 11px;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
+    margin-top: -9px;
+    margin-left: -9px;
+  }
+
+.styleeditor-container {
+	position: absolute;
+	top: 0px;
+	left: 40px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	background: white;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: auto !important;
+    padding: 10px;
+	margin: 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	line-height: 12px;
+	width: 200px;
+	color: #333;;
+	font-family: Verdana;
+	font-size: 12px;
+}
+.styleeditor-container h3 {
+	margin-top: 4px;
+}
+.styleeditor-container h4 {
+	margin-bottom: 4px;
+}
+
+.styleeditor-slider {
+    width: 100%;
+}
+.styleeditor-input-span {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+}
+.styleeditor-colorpicker {
+    width: 100%;
+    display: inline-block;
+}
+.styleeditor-color {
+    height: 25px;
+    width: 25px;
+    float: left;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.styleeditor-color:hover {
+    border: 1px solid red;
+}
+.slider-container {
+	width: 100%;
+}
+.tooltips-control label input {
+	padding-right: 10px !important;
+	margin-right: 10px !important; 
+	vertical-align: middle;
+}
+
+
+

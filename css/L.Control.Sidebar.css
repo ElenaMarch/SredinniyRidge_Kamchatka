@@ -81,7 +81,7 @@
         right: 460px; } }
   .leaflet-sidebar .close {
     position: absolute;
-    right: 20px;
+    right: 25px;
     top: 20px;
     width: 31px;
     height: 31px;
@@ -89,7 +89,7 @@
     font-size: 25px;
     line-height: 1em;
     text-align: center;
-    background: white;
+    background: transparent;
     -webkit-border-radius: 16px;
     border-radius: 16px;
     cursor: pointer;

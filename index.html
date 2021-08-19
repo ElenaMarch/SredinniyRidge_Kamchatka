@@ -80,16 +80,25 @@ Copyright (c) 2018 by Elena Marchenko
 
   <!-- Plugin -->
   <script src="https://ihcantabria.github.io/Leaflet.CanvasLayer.Field/dist/leaflet.canvaslayer.field.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+
+  <!-- MarkerCluster and Esri Leaflet Cluster -->
+  <link rel="stylesheet" type="text/css"
+    href="https://unpkg.com/leaflet.markercluster@1.5.0/dist/MarkerCluster.Default.css"
+    integrity="sha512-6ZCLMiYwTeli2rVh3XAPxy3YoR5fVxGdH/pz+KMCzRY2M65Emgkw00Yqmhh8qLGeYQ3LbVZGdmOX9KUjSKr0TA=="
+    crossorigin="">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.5.0/dist/MarkerCluster.css"
+    integrity="sha512-mQ77VzAakzdpWdgfL/lM1ksNy89uFgibRQANsNneSTMD/bj0Y/8+94XMwYhnbzx8eki2hrbPpDm0vD0CiT2lcg=="
+    crossorigin="">
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.0/dist/leaflet.markercluster.js"
+    integrity="sha512-pWPELjRaw2ZdoT0PDi7iRpRlk1XX3rtnfejJ/HwskyojpHei+9hKpwdphC4yssNt4FM0TjMQOmMrk6ZYSn274w=="
+    crossorigin=""></script>
+  <script src="https://unpkg.com/esri-leaflet-cluster@2.1.0/dist/esri-leaflet-cluster.js"
+    integrity="sha512-fEdNFHisleVtEYdLhW4Z2RsR7TN6hLutE/+O4D+skfTNY2rlHm8HOZARPWkdrFFy/+i2KjFxcZAKTUWaVfbV0g=="
+    crossorigin=""></script>
+
 
   <!-- Custom Style Control-->
   <script src="lib/rainbowvis.js"></script>
-  <!-- <link rel="stylesheet" href="css/Leaflet.StyleEditor.min.css"> -->
-  
-  <!-- <script src="lib/Leaflet.StyleEditor.min.js"></script> -->
-  <link rel="stylesheet" href="css/leaflet-beautify-marker-icon.css">
-  <script src="lib/leaflet-beautify-marker-icon.js"></script>
-  
 
   <!-- My style --> 
   <link rel="stylesheet" href="css/Kamchatka.css"/>
@@ -115,7 +124,7 @@ Copyright (c) 2018 by Elena Marchenko
   <div id="map" style="border-style: groove; border-width: 1px;"></div>
   <div id="mapSmall" title="Click to navigate the map" style="border-style:groove; border-width: 1px; z-index:500;"></div>
   <script type="text/javascript" src="js/general.js"></script>
-  <script type="text/javascript" src="js/navigation.js"></script> -->
+  <script type="text/javascript" src="js/navigation.js"></script>
   <script type="text/javascript" src="js/references.js"></script>
   <script type="text/javascript" src="js/sredinniy_ridge.js"></script>
   <script type="text/javascript" src="js/kluch_group.js"></script>

@@ -4,56 +4,46 @@ var geo_database_URL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/res
 // var geo_database_URL = "json/Rock_samples_Churikova.geojson",
   sidebar_geo = L.control.sidebar('sidebar-geo', {position: 'right', closeButton: true});
 map.addControl(sidebar_geo);
-  
-// var sampleLayer = new L.GeoJSON.AJAX(geo_database_URL,
-//   {pointToLayer: function (feature, latlng) {
-    // var marker = L.circleMarker(latlng, {
-    //   radius: 5,
-    //   fillColor: sampleStyle_Composition(feature.properties.sio2, [41, 52, 57, 63, 69, 73]),
-    //   color: 'white',
-    //   weight: 1,
-    //   opacity: 1,
-    //   fillOpacity: 0.7,
-    //   pane: 'Samples',
-    // })
-//     .on('click', function(e) {
-//       if (sidebar.isVisible() === false) {
-//         sidebar_geo.show();
-//       }; 
-//       sidebar_geo.setContent(setContentGeoSamples(feature.properties))
-//     })
-//     .on('mouseover', function(e) {e.target.setRadius(8);})
-//     .on('mouseout', function(e) {e.target.setRadius(4);})
-//     .bindTooltip(feature.properties.sample, {className: 'myLabels', permanent:false});
-//     return marker} }
-//   ).addTo(map);
 
-
-var sampleLayer = L.esri.featureLayer({url: geo_database_URL,
+var sampleLayer = L.esri.Cluster.featureLayer({url: geo_database_URL,
+  showCoverageOnHover: false,
+  removeOutsideVisibleBounds: true,
+  maxClusterRadius: 0.5,
+  iconCreateFunction: function (cluster) {
+    var count = cluster.getChildCount();
+    return L.divIcon({
+      html: count,
+      className: 'cluster',
+      iconSize: null
+    });
+  },
   pointToLayer: function (feature, latlng) {
-    var marker = L.marker(latlng, {
-      icon: L.BeautifyIcon.icon({
-        iconSize: [13, 13],
-        iconShape: 'circle',
-        borderWidth: 2,
-        borderColor: 'white',
-        backgroundColor: sampleStyle_Composition(feature.properties.sio2, [41, 52, 57, 63, 69, 73])
-      }),
-      draggable: true,
-      opacity: 0.7,
+    var marker = L.circleMarker(latlng, {
+      radius: 6,
+      fillColor: sampleStyle_Composition(feature.properties.sio2, [41, 52, 57, 63, 69, 73]),
+      color: 'white',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.7,
       pane: 'Samples',
     })
     .on('click', function(e) {
       if (sidebar_geo.isVisible() === false) {
         sidebar_geo.show();
       }; 
-      sidebar_geo.setContent(setContentGeoSamples(feature.properties))
+      sidebar_geo.setContent(setContentGeoSamples(feature.properties));
+      var r = e.target.getRadius();
+      e.target.setRadius(parseInt(r)-4);
     })
-    // .on('mouseover', function(e) {e.target.setIcon(iconHover);})
-    // .on('mouseout', function(e) {e.target.setIcon(iconDefault);})
-    .bindTooltip(feature.properties.sample, {className: 'myLabels', permanent:false});
+    .on('mouseover', function(e) {
+      var r = e.target.getRadius();
+      e.target.setRadius(parseInt(r) + 4);})
+    .on('mouseout', function(e) {
+      var r = e.target.getRadius();
+      e.target.setRadius(parseInt(r)-4);})
+    .bindTooltip(feature.properties.sample, {className: 'myLabels', permanent:false, offset: [10,-10]});
     return marker} }
-  );
+);
 
 
 function sampleStyle_Composition(field, array) {
@@ -119,32 +109,18 @@ function setContentGeoSamples(p) {
 
   var major_names = ['SiO<sub>2</sub>', 'TiO<sub>2</sub>', 'Al<sub>2</sub>O<sub>3</sub>', 'Fe<sub>2</sub>O<sub>3</sub>',
   'FeO', 'MnO', 'MgO', 'CaO', 'Na<sub>2</sub>O', 'K<sub>2</sub>O', 'P<sub>2</sub>O<sub>5</sub>', 'H<sub>2</sub>O'];
-  var major_values = [p.sio2, p.tio2, p.al2o3, p.fe2o3, p.feo, p.mno, p.mgo, p.cao, p.na2o, p.k2o, p.p2o5, (p.loi + p.h2ominus + p.h2oplus)]
-
+  var major_values = [p.sio2, p.tio2, p.al2o3, p.fe2o3, p.feo, p.mno, p.mgo, p.cao, p.na2o, p.k2o, p.p2o5, (p.loi + p.h2ominus + p.h2oplus)],
+  n = 0;
   for (let i = 0; i < major_names.length; i++) {
     if (!isNaN(major_values[i]) && major_values[i] > 0) {
+      n += 1;
       c += '<td><b>' + major_names[i] + '</b></td><td>' + major_values[i] +'</td>';
-      if (i > 0 && i % 2 != 0) {
+      if (n > 0 && n % 2 == 0) {
         c += '</tr><tr>'
       } 
     }
   };
   c += '</tr><tr style="background-color: #fff7ef;"><td></td><td></td><td><b>Sum</b></td><td>' + p.sum_ +'</td></tr></table>';
-
-  // var trace_names = ['Nb', 'Zr', 'Y', 'Sr', 'Rb', 'Pb', 'Ga', 'Zn', 'Cu', 'Ni', 'Co', 'Cr', 'V', 'Ba', 'Sc', 'Ce', 'Hf', 'La', 'Mo', 'Nd',
-  // 'Sx', 'Sm', 'Th', 'U',	'Yb',	'Cl',	'Cs', 'Be',	'Li', 'Cd', 'Pr', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm', 'Lu', 'Ta', 'W', 'Tl', 'Sn', 'Sb',
-  // 'Te', 'Ti', 'Mn', 'Bi']
-  // var trace_values = [[p.nbxrf, p.nbicpms], [p.zrxrf, p.zricpms], [p.yxrf, p.yicpms],	[p.srxrf, p.sricpms],	[p.rbxrf, p.rbicpms],	
-  //     [p.pbxrf, p.pbicpms], [p.gaxrf, null],	[p.znxrf, p.znicpms], [p.cuxrf, p.cuicpms],	
-  //     [p.nixrf, p.niicpms],	[p.coxrf, p.coicpms],
-  //   	[p.crxrf, null],	[p.vxrf, p.vicpms],	[p.baxrf, p.baicpms],	[p.scxrf, p.scicpms], [p.cexrf, p.ceicpms],	[p.Hfxrf, p.hficpms],	
-  //     [p.Laxrf, p.laicpms],	[p.Moxrf, p.moicpms],	[p.Ndxrf, p.ndicpms], [p.Sxrf, null], [p.Smxrf, p.smicpms], [p.Thxrf, p.thicpms],	
-  //     [p.Uxrf, p.uicpms], [p.Ybxrfp.ybicpms],	[p.Clxrf, null],	[p.Csxrf, p.csicpms], [null, p.beicpms], [null, p.liicpms], 
-  //     [null, p.cdicpms], [null, p.pricpms], 
-  //     [null, p.gdicpms], [null, p.tbicpms], [null, p.dyicpms], [null, p.hoicpms], [null, p.ericpms], [null, p.tmicpms],
-  //     [null, p.luicpms], [null, p.taicpms], [null, p.wicpms], [null, p.tlicpms], [null, p.tmicpms], [null, p.snicpms],
-  //     [null, p.sbicpms], [null, p.teicpms], [null, p.ticpms], [null, p.mnicpms], [null, p.bicpms],
-  //   ];
 
   var trace_names = ['Ba', 'Be', 'Bi', 'Cd', 'Ce', 'Cl', 'Co', 'Cr', 'Cs', 'Cu', 'Dy', 'Er', 'Ga', 'Gd', 'Hf', 'Ho', 'In',
   'La', 'Li', 'Lu', 'Mn', 'Mo', 'Nb', 'Nd', 'Ni', 'Pb', 'Pr', 'Rb', 'Sb', 'Sc', 'Sm', 'Sn', 'Sr', 'Sx', 'Ta', 'Tb', 
@@ -201,7 +177,7 @@ function setContentGeoSamples(p) {
     [p.zrxrf, p.zricpms, p.Zr], 
     ];
 
-  // if (trace_values.some(x => !isNaN(x) && x > 0)) {
+  if (trace_values.some(x => x.some(y => !isNaN(y) && y > 0))) {
 
     c += '<table width="100%" class="geoTable">\
       <caption>Trace elements, ppm</caption>\
@@ -222,9 +198,9 @@ function setContentGeoSamples(p) {
       }
     };
     c += cc + '</table>'; 
-  // } else {
-  //   c += '<p>No trace elements data are available for the sample.</p>'
-  // };
+  } else {
+    c += '<p>No trace elements data are available for the sample.</p>'
+  };
 
   var trace_ratios_names = ['La/Sm', 'La/Yb', 'Sr/Y', 'Sm/Yb', 'Dy/Yb'];
   var trace_ratios_values = [p.lasm,	p.layb,	p.sry,	p.smyb,	p.dyyb];
@@ -276,9 +252,68 @@ function setContentGeoSamples(p) {
 };
 
 
-var styleEditor  = L.control({position: 'topright'}),
-  div_styleEditor = L.DomUtil.create('div', 'styleEditor'),
-  style_content = '';
+
+// Style control
+var styleEditor  = L.control({position: 'topleft'}),
+    div_styleEditor = L.DomUtil.create('div', 'styleeditor-container');
+div_styleEditor.innerHTML += '<h3 style="color: #641E16;line-height:15px">Style geological samples</h3>'
+
+var slider_container = L.DomUtil.create('div', 'slider-container', div_styleEditor);
+slider_container.innerHTML += '<h4>Marker size</h4>'
+    slider = L.DomUtil.create('input', 'styleeditor-slider', slider_container);
+slider.type = 'range';
+slider.max = 20;
+slider.min = 1;
+slider.step = 1;
+slider.value = 6;
+slider_label = L.DomUtil.create('span', 'styleeditor-input-span', slider_container);
+slider_label.innerHTML = slider.value;
+
+slider.oninput = function() {
+  slider_label.innerHTML = this.value;
+  sampleLayer.setStyle({
+    radius: this.value
+  });
+};
+
+var colorpicker = L.DomUtil.create('div', 'styleeditor-colorpicker', div_styleEditor);
+colorpicker.innerHTML = '<h4>Border color</h4><div class="styleeditor-color" style="background-color: black;" onclick="switchColor(1);"></div>\
+  <div class="styleeditor-color" style="background-color: white;" onclick="switchColor(2);"></div>';
+
+function switchColor(c) {
+  var cc;
+  if (c == 1) {
+    cc = 'black';
+  } else {
+    cc = 'white';
+  }
+  console.log(cc);
+  sampleLayer.setStyle({
+    color: cc
+  });
+};
+
+var tooltips_control = L.DomUtil.create('div', 'tooltips-control', div_styleEditor);
+tooltips_control.innerHTML = '<br><label for="tooltips-control">\
+  <input type="checkbox" id="tooltips-control" class="tooltips-control" onclick="handleClick(this);">\
+  Show labels</label>';
+
+function handleClick(checkbox) {
+  if (checkbox.checked) {
+    sampleLayer.eachFeature(function (l) {
+      l.unbindTooltip().bindTooltip(l.feature.properties.sample, {className: 'myLabels', permanent:true, offset: [10,-10]}); });
+  } else {
+    sampleLayer.eachFeature(function (l) {
+      l.unbindTooltip().bindTooltip(l.feature.properties.sample, {className: 'myLabels', permanent:false, offset: [10,-10]}); });
+      };
+}; 
+
+
+styleEditor.onAdd = function (map) {
+	return div_styleEditor;
+};
+
+
 
 
 

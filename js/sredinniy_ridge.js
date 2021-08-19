@@ -138,7 +138,7 @@ function VolcStyle(feature) {
 var volcano = L.esri.featureLayer({url: volcanoUrl, fields: ['FID','Name_eng', 'Type'], minZoom: 9,
 	pointToLayer: function (feature, latlng) {
 		return L.shapeMarker(latlng, VolcStyle(feature))
-		  .bindTooltip(feature.properties.Name_eng, {className: 'myLabels'}); } });
+		  .bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels'}); } });
 
 var Group_volc = L.layerGroup([volcano, lava], {minZoom: 9}).addTo(map); //
 
@@ -157,13 +157,13 @@ var Qstyle = {
 	"shape": "triangle",
 	"fillOpacity": 0.75,
 	"radius": 3,
-	"pane": 'Overview3',
+	"pane": 'Local3',
 	"weight": 1.2
   }
 var volcanoQ = L.esri.featureLayer({url: volcanoQUrl, fields: ['FID','Name_eng', 'Type_eng', 'H', 'Vol_type_e'],
 	pointToLayer: function (feature, latlng) {
 		return L.shapeMarker(latlng, Qstyle)
-		.bindTooltip(feature.properties.Name_eng, {className: 'myLabels', offset: [-5,0]}); } })
+		.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', offset: [-5,0]}); } })
 	.addTo(map);
 	
 var Q_attr = '<h3 style="color: #641E16;">{Name}</h3>\

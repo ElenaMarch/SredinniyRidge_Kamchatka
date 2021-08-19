@@ -155,6 +155,7 @@ map.on('overlayadd', function (eventLayer) {
 		setContent(div, [div_glKluch], 'add');
 	} else if (eventLayer.name === "Rocktype") { 
 		setContent(div, [div_geosamples_rocktype], 'add');
+		styleEditor.addTo(map);
 	};
 });
 
@@ -173,6 +174,7 @@ map.on('overlayremove', function (eventLayer) {
 		setContent(div, [div_glKluch], 'remove');
 	} else if (eventLayer.name === "Rocktype") { 
 		setContent(div, [div_geosamples_rocktype], 'remove');
+		map.removeControl(styleEditor);
 	};
 });
 
