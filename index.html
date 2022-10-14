@@ -7,7 +7,7 @@ Copyright (c) 2018 by Elena Marchenko
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>The webmap of Kamchatka</title>
+  <title>Volcanoes in Cryosphere, Kuril-Kamchatka</title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   
   <!-- Leaflet -->
@@ -96,6 +96,14 @@ Copyright (c) 2018 by Elena Marchenko
     integrity="sha512-fEdNFHisleVtEYdLhW4Z2RsR7TN6hLutE/+O4D+skfTNY2rlHm8HOZARPWkdrFFy/+i2KjFxcZAKTUWaVfbV0g=="
     crossorigin=""></script>
 
+  <!-- ESRI Cedar for charts -->
+  <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+  <script src="https://www.amcharts.com/lib/3/xy.js"></script>
+  <script src="https://unpkg.com/@esri/arcgis-rest-request"></script>
+  <script src="https://unpkg.com/@esri/cedar/dist/umd/cedar.js"></script>
+
+  <!-- Load Chart.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
   <!-- Custom Style Control-->
   <script src="lib/rainbowvis.js"></script>
@@ -106,34 +114,37 @@ Copyright (c) 2018 by Elena Marchenko
   
   <style>
     body { margin:0; padding:0; }
-    #map { position: absolute; top:80px; bottom:0; right:0; left:0; min-height:70%}
+    #map { position: absolute; top:80px; bottom:0; right:0; left:0;}
     #mapSmall { position: absolute; bottom:10px; left:10px; height: 23%; width:8%; box-shadow:0 1px 6px rgba(0, 0, 0, 0.377)} 
   </style>
 </head>
 
 <body>
   <div id="sidebar"></div>
-  <div id="sidebar-geo"></div>
   <div class="panel">
           <table width='100%'><tr><td width = 8%>
-          <center><a href='http://www.kscnet.ru/ivs/eng' target='_blank'><img height='72px' alt='logo' src='logo//IVIS.png'></a></center></td>
-          <td width = 92%><p style="font-weight: 300; font-size: 26px; text-indent: 10px; ">Volcanoes in Cryosphere, Kuril-Kamchatka arc</p>
-          <p style="font-weight: 50; font-size: 14px; text-indent: 10px; font-style: oblique;">
-          Institute of Volcanology and Seismology, Far Eastern branch of Russian Academy of Sciences</p></td></tr></table><br>";
+          <a href='http://www.kscnet.ru/ivs/eng' target='_blank'><img height='72px' alt='logo' src='logo//IVIS.png'></a></td>
+          <td width = 92%><span style="font-weight: 300; font-size: 26px; text-indent: 10px; ">Volcanoes in Cryosphere, Kuril-Kamchatka arc</span>
+          <br><span style="font-weight: 50; font-size: 14px; text-indent: 10px; font-style: oblique;">
+          Institute of Volcanology and Seismology, Far Eastern branch of Russian Academy of Sciences</span></td></tr></table><br>";
   </div>
-  <div id="map" style="border-style: groove; border-width: 1px;"></div>
+  <div id="map"></div>
   <div id="mapSmall" title="Click to navigate the map" style="border-style:groove; border-width: 1px; z-index:500;"></div>
+  <div id="chart-pane"></div>
+  
+  
   <script type="text/javascript" src="js/general.js"></script>
   <script type="text/javascript" src="js/navigation.js"></script>
   <script type="text/javascript" src="js/references.js"></script>
   <script type="text/javascript" src="js/sredinniy_ridge.js"></script>
   <script type="text/javascript" src="js/kluch_group.js"></script>
   <script type="text/javascript" src="js/kamchatka.js"></script>
+  <script type="text/javascript" src="js/Draw_notes.js"></script>
   <script type="text/javascript" src="js/geological_samples.js"></script>
   <script type="text/javascript" src="js/legend.js"></script>
   <script type="text/javascript" src="js/tiles.js"></script>
   <script type="text/javascript" src="js/zoom_levels.js"></script>
-  <script type="text/javascript" src="js/Draw_notes.js"></script>
+  
 
 </body>
 </html>

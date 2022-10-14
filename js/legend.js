@@ -14,18 +14,6 @@
 var baseLayers = {
 		"Topographic": base,
 	  	"Sattelite": L.esri.basemapLayer("ImageryFirefly") }, //sattelite},
-	// overlays_SR = {
-	// 	"Quarternary volcanoes": volcanoQ,
-	//   	"Holocene volcanoes": Group_volc,
-	// 	"Glaciers": Group_gl2016, },
-	// overlays_Kam = {
-	// 	"Active volcanoes": avolcLayer,
-	// 	"Volcanic hazard zones": hazard },
-	// overlays_Kluch = {
-	// 	"Cinder cones, lava flows": kluchGroup,
-	// 	"Glaciers": glKluchGroup,
-	// 	"Shelters": houseLayer,
-	// };
 	
 	groupedOverlays = {
 	"Volcanic hazard": {
@@ -49,9 +37,6 @@ var baseLayers = {
 
 var c = L.control.groupedLayers(baseLayers, groupedOverlays, {collapsed:false, className: "ini"}).addTo(map);
 
-// $(".leaflet-control-layers-base").prepend('<label style="font-weight:650;margin-bottom:.1em;margin-left:3px">Base layers</label>');
-
-var legend  = L.control({position: 'topright'});
 
 var div_vKluch = L.DomUtil.create('div', 'legend');
 div_vKluch.innerHTML += '<p style="line-height: 1.4; font-weight: bold">Cinder cones and lava flows: dating</p>';
@@ -64,7 +49,7 @@ div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px soli
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #8a8a5c;background-color:#a3a375;"></i><p>2000-1000 years BC</p>';
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #9B373D;background-color:#B26045;"></i><p>before 2000 years BC</p>';
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #595959;background-color:#b3b3b3;"></i><p>Unknown</p>';
-div_vKluch.innerHTML += '<hr><i class="shish-fill"></i><p>Shield volcano</p>';
+div_vKluch.innerHTML += '<br><i class="shish-fill"></i><p>Shield volcano</p>';
 div_vKluch.innerHTML += '<i class="hatching-trench"></i><p>Landslide debris</p>';
 
 var div_v = L.DomUtil.create('div', 'legend');
@@ -72,7 +57,7 @@ div_v.innerHTML += '<b>Holocene volcanoes</b><br>';
 div_v.innerHTML += '<i class="triangle-up"></i><p>Stratovolcano</p>';
 div_v.innerHTML += '<i class="triangle"></i><p>Monogenetic cone</p>';
 div_v.innerHTML += '<b style="color: #ac3939; font-size: 14px; float: left; margin-right: 9px; margin-left: 2px">&#10006</b><p>Volcanic field</p>';
-div_v.innerHTML += '<hr><b>Lava flows: composition</b><br>';
+div_v.innerHTML += '<br><b>Lava flows: composition</b><br>';
 div_v.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #905080;background-color:#ff6030;"></i><p>Basalt, andesite-basalt</p>';
 div_v.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #ff5500;background-color:#ff8010;opacity:0.6"></i><p>Andesite-basalt</p>';
 div_v.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #602060;background-color:#602060;"></i><p>Dacite, biotite</p>';
@@ -120,9 +105,13 @@ div_geosamples_rocktype.innerHTML += '<i class="circle" style="background-color:
 
 
 // var div = document.createElement('div');
-var div = L.DomUtil.create('div', 'legend-container');
+var div = L.DomUtil.create('div', 'legend-container'),
+	contentLegend = div;
+let h2 = document.createElement("h2"); h2.innerText='Legend';
+div.prepend(h2);
 
 function setContent(div, childList, flag) {
+	// div.innerHTML = '<h2>Legend</h2>'
 	var children = Array.from(div.childNodes), i;
 	for (i = 0; i < childList.length; i++) {
 		child = childList[i];
@@ -132,13 +121,14 @@ function setContent(div, childList, flag) {
 			div.removeChild(child);
 		}
 	  };
+	  if (activeTab === 'tab-Legend') {
+		activeTab = sidebar.setTab('tab-Legend', div);
+	  }
+	 
 };
 
-legend.onAdd = function (map) {
-	setContent(div, [div_avolc, div_hazard], 'add');
-	return div;
-};
-legend.addTo(map);
+setContent(div, [div_avolc, div_hazard], 'add');
+
 
 map.on('overlayadd', function (eventLayer) {
 	if (eventLayer.name === 'Holocene volcanoes') {
@@ -149,7 +139,7 @@ map.on('overlayadd', function (eventLayer) {
 		setContent(div, [div_hazard], 'add');
 	} else if (eventLayer.name === 'Active volcanoes') { 
 		setContent(div, [div_avolc], 'add');
-	} else if (eventLayer.name === 'Cinder cones and lava flows') { 
+	} else if (eventLayer.name === 'Cinder cones, lava flows') { 
 		setContent(div, [div_vKluch], 'add');
 	} else if (eventLayer.name === "Glaciers<i hidden>A</i>") { 
 		setContent(div, [div_glKluch], 'add');

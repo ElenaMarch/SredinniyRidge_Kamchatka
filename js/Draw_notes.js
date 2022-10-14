@@ -8,12 +8,12 @@
 L.control.measure({lineColor: 'red', position: 'topleft', captureZIndex: 10000 }).addTo(map);
 
 // Layers to draw in
-var objects = new L.FeatureGroup({pane: 'Draw'});
-map.addLayer(objects);
+var drawnObjects = new L.FeatureGroup({pane: 'Draw'});
+map.addLayer(drawnObjects);
 
 var popup  = new L.Popup({maxWidth: 200, closeButton: false, className: 'popupCustom'});
 var popup2 = new L.Popup({maxWidth: 200, closeButton: false, offset: L.point(1,-25), className: 'popupCustom'});
-objects.on('click', function(e){
+drawnObjects.on('click', function(e){
 	var props = e.layer.feature.properties = e.layer.feature.properties || {},
 		popup_fin = '<label><strong>'+ props.name +'</strong></label><br>' + props.note;
 		if (e.layer instanceof L.Marker) {
@@ -51,7 +51,7 @@ var drawControl = new L.Control.Draw({
 					  icon: vertIcon},
 		  polyline: {shapeOptions:{color: '#334d4d', weight: 2},
 					   icon: vertIcon}},
-	edit:{featureGroup: objects} });
+	edit:{featureGroup: drawnObjects} });
 map.addControl(drawControl);
 
 map.on('draw:created', function (e) {
@@ -59,11 +59,11 @@ map.on('draw:created', function (e) {
 		feature = layer.feature = layer.feature || {};
 	feature.type = feature.type || "Feature"; 
 	var props = feature.properties = feature.properties || {};
-	objects.addLayer(layer); 
+	drawnObjects.addLayer(layer); 
 
 	var content = "<form autocomplete='off'><label for='object'><strong>Name</strong></label><br>" +
-				  "<input type='text' id='name_id' name='object'></form><br><br>" +
-				  '<textarea style="width:250px;height:80px;" id="TEXT" ></textarea>'+
+				  "<input type='text' id='name_id' name='object'></form>" +
+				  '<label><strong>Note</strong></label><textarea id="TEXT" ></textarea>'+
 				  '<div align="right">'+
 				  '<button type="button" title="Save note" class="ok" id="OK"><img src="button/ok3.png"></button>'+
 				  '</div>';
@@ -75,7 +75,8 @@ map.on('draw:created', function (e) {
 		  props["note"] = $("#TEXT").val();
 		  props["name"] = $("#name_id").val();
 		  var content = '<label><strong>'+ props.name +'</strong></label><br><br>'+props.note;
-		  layer._popup.setContent(content) });      
+		  layer._popup.setContent(content);
+		});     
 	});
 });
 
@@ -84,11 +85,11 @@ var down = L.easyButton({id: 'get-notes',
   position: 'topleft',
   states:[{stateName: 'download',
 	onClick: function(){
-	  var data = objects.toGeoJSON(),
+	  var data = drawnObjects.toGeoJSON(),
 		  blob = new Blob([JSON.stringify(data)], {type: "text/json;charset=utf-8"});
 	  saveAs(blob, "features.json"); 
 	  },
-	title: 'Download objects as a GeoJSON file',
+	title: 'Download drawnObjects as a GeoJSON file',
 	icon: "<img class=button src='button/DL.png'>"}]}).addTo(map);
 
 //Upload Button

@@ -5,8 +5,7 @@
  */
 
 // References
-var sidebar = L.control.sidebar('sidebar', {position: 'right'}),
-	content = '<h2 style="margin-bottom:-6px">References</h2>\
+var	contentReferences = '<h2>References</h2>\
 			   <p class="lorem">The map layers were created using the following data sources:</p>\
 			   \
 			   <h4 style="margin-bottom:-6px">Active volcanoes and volcanic hazard zones</h4>\
@@ -40,6 +39,3 @@ var sidebar = L.control.sidebar('sidebar', {position: 'right'}),
 			   Laboratory of Informatic Technologies and Geoecology<br>\
 			   <a href="http://www.kscnet.ru/ivs/ target="_blank"">Institute of Volcanology and Seismology</a><br>Far Eastern Branch of Russian Academy of Sciences</p>';
 
-map.addControl(sidebar);
-sidebar.setContent(content);
-// sidebar.show();

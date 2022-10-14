@@ -51,8 +51,11 @@ var win =  L.control.window(map, {content: help_content, modal: true, position: 
 L.easyButton({id: 'reference',
 	states:[{stateName: 'ref',
 		onClick: function () {
-			sidebar.toggle(); },
-	title: 'Show/hide references',
+			if (sidebar.isVisible() === false) {
+				sidebar.show();
+			}; 
+		},
+	title: 'Show sidebar',
 	icon: "<img class=button src='button/book.png'>"}]}).addTo(map);
 
 L.easyButton({id: 'help',
@@ -81,3 +84,36 @@ map.createPane('Samples');
 map.getPane('Samples').style.zIndex = 640;
 map.createPane('Draw');
 map.getPane('Draw').style.zIndex = 645;
+
+// Sidebar
+getActiveTab = (id) => {
+	activeTab = id;
+}
+
+var sidebar = L.control.sidebar('sidebar', {position: 'right', autoPan: false}),
+	tabList = {'Legend': 'layers', 'References': 'book', 'Geosamples': 'hammer-rock-small', 'Chart':'chart'};
+	sidebarContent = '<div id="tabs-list" class="tab">';
+for (i in tabList){
+	sidebarContent += '<button class="tablinks" id="tab-'+ i +'" onclick="sidebar.setTab(this.id, content'+ i +');getActiveTab(this.id);" title="'+ i +'"><img src="button/'+ tabList[i] +'.png"></button>';
+}
+sidebarContent += '</div><div class="tab-content"></div>';
+var activeTab = 'tab-Legend';
+
+sidebar.setContent(sidebarContent);
+map.addControl(sidebar);
+sidebar.show();
+
+let charDiv = document.getElementById('chart-pane'); 
+charDiv.innerHTML = "<h2>Geological samples - charts</h2><form id='fields-selection' enctype='multipart/form-data'></form><div class='chart-container'><canvas id='chart'></canvas></div>";
+var contentChart = charDiv;
+
+L.LayerGroup.include({
+    customGetLayer: function (name) {
+        for (var i in this._layers) {
+            if (this._layers[i].feature.properties.name == name) {
+               return this._layers[i];
+            }
+        }
+    }
+});
+

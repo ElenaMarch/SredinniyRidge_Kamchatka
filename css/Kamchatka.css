@@ -7,17 +7,15 @@ body {
     height: 80px;
 	position:absolute;
 	top:0;
-	bottom:0;
 	width:100%;
 	overflow:hidden;
 	z-index: 2000;
-	box-shadow:0 1px 6px rgba(0, 0, 0, 0.377);
 	margin: 0;
-	background: #f8f8f8;
+	background-color: #f8f8f8;
 	font-family: 'Verdana';
 	color: #7a3b34;
-	line-height: 5px;
-	vertical-align: top;
+	line-height: 25px;
+	border-bottom: 0.5px solid #7a3b3463;
 }
 
 .leaflet-center {
@@ -42,8 +40,7 @@ body {
 }
 .popupCustom{
 	font-family: Verdana;
-	font-size: 12px;
-	line-height: normal;
+	background-color: #f8f8f8;
 }
 .avolcLabels, .cityLabels, .marker-point, .houseLabels {
 	background: transparent;
@@ -107,32 +104,31 @@ body {
 	font-family: Verdana;
 	font-size: 12px;
 	border-width: 1px;
-	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	box-shadow: 0 1px 6px rgb(0 0 0 / 38%);
 	border-radius: 0px;
+	background-color: #f8f8f8;
 }
 
-.legend-container {
+/* .legend-container {
 	position: relative;
-	/* bottom: -10%; */
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	background: white;
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: auto !important;
 	max-height: calc(100% - (326px + 60px + 100px));
-}
+} */
 
 .legend {
 	line-height: 22px;
-	width: 180px;
 	color: #333;;
 	font-family: Verdana;
 	font-size: 12px;
-	padding: 6px 8px;
-	background: white;
-	border-bottom: 0.5px solid #bfbfbf;
-	
+	padding: 6px 0px;
+	background-color: #f8f8f8;;
+	/* border-bottom: 0.5px solid #bfbfbf; */
 	opacity: 1;
+	margin-top: 10px;
 }
 .legend hr {
 	width: 100%;
@@ -253,6 +249,17 @@ body {
 	background: transparent;
 	border: 0px;
 	box-shadow: none;
+	cursor: pointer;
+}
+.ok:hover {
+	background: rgb(175, 175, 175);
+}
+.popupCustom textarea{
+	width:300px;
+	height:80px;
+	resize: none;
+	border: 1px solid rgb(175, 175, 175);
+	outline: 0px;
 }
 
 .my-own-editing-icon { 
@@ -262,13 +269,48 @@ body {
 	background-color: rgb(60, 61, 60)
 }
 
-#sidebar, #sidebar-geo {
+#sidebar {
 	font-size: 12px;
 	font-family: Verdana;
 	border-radius: 0px;
 	line-height: 16px;
+	background-color: #f8f8f8;
 }
-
+#sidebar h2 {
+	color: #7a3b34;
+	text-decoration: underline;
+	font-family: "Segoe UI",Arial,sans-serif;
+	font-size: 20px;
+	font-weight: 500;
+}
+#sidebar .tab {
+	overflow: hidden;
+	padding-top: 10px;
+}
+#sidebar .tab button {
+	background-color: #f1f1f1;;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 5px 10px;
+	transition: 0.3s;
+	width: 20%;
+	margin: 1px;
+}
+#sidebar .tab button:hover {
+	background-color: #ddd;
+}
+#sidebar .tab button:focus {
+	background-color: #ccc;
+	box-shadow:0px 0px 0px 2px #7a3b3481 inset;
+}
+#sidebar .tab button img {
+	height: 16px;
+}
+#sidebar .tab-content {
+	margin-top: 20px;
+}
 
 .popupTooltip .leaflet-popup-tip,
 .popupTooltip .leaflet-popup-content-wrapper {
@@ -298,7 +340,7 @@ body {
 .geoTable {
     border-collapse: collapse;
 	border: 1px solid #928374 ;
-    margin: 20px 0;
+    margin: 15px 0;
     font-size: 12px; 
 	width: 100%;
 }
@@ -308,7 +350,7 @@ body {
 }
 .geoTable th,
 .geoTable td {
-    padding: 5px 6px;
+    padding: 4px 10px;
 }
 .geoTable caption {
 	color: #641E16;
@@ -334,9 +376,6 @@ body {
   }
 
 .styleeditor-container {
-	position: absolute;
-	top: 0px;
-	left: 40px;
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	background: white;
 	overflow-y: auto;
@@ -348,7 +387,7 @@ body {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 	line-height: 12px;
-	width: 200px;
+	width: 196px;
 	color: #333;;
 	font-family: Verdana;
 	font-size: 12px;
@@ -390,6 +429,37 @@ body {
 	padding-right: 10px !important;
 	margin-right: 10px !important; 
 	vertical-align: middle;
+}
+
+.chart-container {
+	height: 300px;
+	width: 100%;
+}
+
+#fields-selection {
+	font-family: Verdana;
+	font-size: 13px;
+	font-weight: bold;
+	padding-bottom: 15px;
+	padding-right: 10px;
+}
+#fields-selection select, #fields-selection input, .popupCustom input{
+	padding:  0px 5px;
+	margin-right: 15px;
+	margin-bottom: 15px;
+	height: 20px;
+	width: 38%;
+	appearance: none; 
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: 1px solid rgb(175, 175, 175);
+	outline: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+#fields-selection label {
+	padding-right: 3px;
+	padding-left: 0px;
 }
 
 

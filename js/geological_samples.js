@@ -1,9 +1,8 @@
 // Geological darabase of Tatiana Churikova - visualisation
 
-var geo_database_URL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/rocksamples/FeatureServer/0",
+var geo_database_URL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/rocksamples/FeatureServer/0";
 // var geo_database_URL = "json/Rock_samples_Churikova.geojson",
-  sidebar_geo = L.control.sidebar('sidebar-geo', {position: 'right', closeButton: true});
-map.addControl(sidebar_geo);
+var contentGeosamples = '<h2>Geological samples - data</h2>Choose a geological sample to see rock properties;';
 
 var sampleLayer = L.esri.Cluster.featureLayer({url: geo_database_URL,
   showCoverageOnHover: false,
@@ -28,10 +27,11 @@ var sampleLayer = L.esri.Cluster.featureLayer({url: geo_database_URL,
       pane: 'Samples',
     })
     .on('click', function(e) {
-      if (sidebar_geo.isVisible() === false) {
-        sidebar_geo.show();
-      }; 
-      sidebar_geo.setContent(setContentGeoSamples(feature.properties));
+      if (sidebar.isVisible() === false) {
+        sidebar.show();
+      };
+      contentGeosamples = setContentGeoSamples(feature.properties);
+      activeTab = sidebar.setTab('tab-Geosamples', contentGeosamples);
       var r = e.target.getRadius();
       e.target.setRadius(parseInt(r)-4);
     })
@@ -43,7 +43,7 @@ var sampleLayer = L.esri.Cluster.featureLayer({url: geo_database_URL,
       e.target.setRadius(parseInt(r)-4);})
     .bindTooltip(feature.properties.sample, {className: 'myLabels', permanent:false, offset: [10,-10]});
     return marker} }
-);
+); //.addTo(map)
 
 
 function sampleStyle_Composition(field, array) {
@@ -90,7 +90,7 @@ function setContentGeoSamples(p) {
     ref = p.refchem + ', ' + p.refage;
   }
   
-  var c = '<h3 style="color: #641E16;line-height:20px"><u>' + p.sample + '</u> - '+ p.volcanoes + ', ' + p.pbdomain + '</h3>\
+  var c = '<h2>Geological samples - data</h2><h3 style="color: #641E16;line-height:20px"><u>' + p.sample + '</u> - '+ p.volcanoes + ', ' + p.pbdomain + '</h3>\
   <table width="100%" class="geoTable">\
   <tr><td width = 30%><b>Location</b></td><td width = 70%>' + p.structural_location + ': ' + p.location + ', ' + p.altitude + ' m asl</td></tr>\
   <tr><td><b>Rocktype</b></td><td>' + p.rocktype + ', ' + p.rocktype_div +'</td></tr>\
@@ -254,7 +254,7 @@ function setContentGeoSamples(p) {
 
 
 // Style control
-var styleEditor  = L.control({position: 'topleft'}),
+var styleEditor  = L.control({position: 'topright'}),
     div_styleEditor = L.DomUtil.create('div', 'styleeditor-container');
 div_styleEditor.innerHTML += '<h3 style="color: #641E16;line-height:15px">Style geological samples</h3>'
 
@@ -269,11 +269,13 @@ slider.value = 6;
 slider_label = L.DomUtil.create('span', 'styleeditor-input-span', slider_container);
 slider_label.innerHTML = slider.value;
 
+var defaultRadius = 6;
 slider.oninput = function() {
   slider_label.innerHTML = this.value;
   sampleLayer.setStyle({
     radius: this.value
   });
+  defaultRadius = parseInt(this.value);
 };
 
 var colorpicker = L.DomUtil.create('div', 'styleeditor-colorpicker', div_styleEditor);
@@ -287,7 +289,6 @@ function switchColor(c) {
   } else {
     cc = 'white';
   }
-  console.log(cc);
   sampleLayer.setStyle({
     color: cc
   });
@@ -308,10 +309,284 @@ function handleClick(checkbox) {
       };
 }; 
 
-
 styleEditor.onAdd = function (map) {
 	return div_styleEditor;
 };
+
+
+
+// CHART - Scatter plot
+
+names_vs_alias = {
+  'age': 'Age', 
+  'longitude': 'Longitude', 
+  'latitude' : 'Latitude', 
+  'sio2': 'SiO\u2082', 
+  'tio2': 'TiO\u2082', 
+  'al2o3': 'Al\u2082O\u2083', 
+  'loi': 'H\u2082O', 
+  'sumnowater': 'Sum - no water', 
+  'zrxrf': 'Zr - xrf', 
+  'fisrxrf': 'Sr - xrf', 
+  'gaxrf': 'Ga - xrf', 
+  'znxrf' : 'Zn - xrf', 
+  'nixrf' : 'Ni - xrf', 
+  'coxrf' : 'Co - xrf', 
+  'crxrf': 'Cr - xrf', 
+  'vxrf': 'Vf - xrf', 
+  'baxrf': 'Ba - xrf', 
+  'scxrf': 'Sc - xrf', 
+  'beicpms': 'Be - icpms', 
+  'yicpms': 'Y - icpms', 
+  'nbicpms': 'Nb - icpms', 
+  'laicpms': 'La - icpms', 
+  'ceicpms': 'Ce - icpms', 
+  'pricpms': 'Pr - icpms', 
+  'ndicpms': 'Nd - icpms', 
+  'smicpms': 'Sm - icpms', 
+  'euicpms': 'Eu - icpms', 
+  'gdicpms': 'Gd - icpms', 
+  'tbicpms': 'Tb - icpms', 
+  'dyicpms': 'Dy - icpms', 
+  'hoicpms': 'Ho - icpms', 
+  'ericpms': 'Er - icpms', 
+  'tmicpms': 'Tm - icpms', 
+  'ybicpms': 'Yb - icpms', 
+  'luicpms': 'Lu - icpms', 
+  'hficpms': 'Hf - icpms', 
+  'taicpms': 'Ta - icpms', 
+  'tlicpms': 'Tl - icpms', 
+  'pbicpms': 'Pb - icpms', 
+  'thicpms': 'Th - icpms', 
+  'uicpms': 'U - icpms', 
+  'lasm': 'La/Sm', 
+  'layb': 'La/Yb', 
+  'sry': 'Sr/Y', 
+  'smyb': 'Sm/Yb', 
+  'dyyb': 'Dy/Yb', 
+  'F143_144Nd': 'Nd143 / Nd144', 
+  'F206_204Pb': 'Pb206 / Pb204', 
+  'F207_204Pb': 'Pb207 / Pb204', 
+  'F208_204Pb': 'Pb208 / Pb204', 
+  'F18_16O': 'O18 / O16', 
+  'F176_177Hf': 'Hf176 / Hf177', 
+  'EpslHf': 'Epsilon Hf', 
+  'Zr': 'Zr - mass spectr.', 
+  'Hf': 'Hf - mass spectr.', 
+  'Nb': 'Nb - mass spectr.', 
+  'Lu': 'Lu - mass spectr.', 
+  'F176Lu_177': 'Lu176 / Hr177', 
+  'Delta_Epsl': 'Delta epsilon Nd', 
+  'fe2o3': 'Fe\u2082O\u2083', 
+  'feo': 'FeO', 
+  'mno': 'MnO', 
+  'cao': 'CaO', 
+  'na2o': 'Na\u2082O', 
+  'k2o': 'K\u2082O', 
+  'p2o5': 'P\u2082O\u2085',
+  'sum_': 'Sum - macro elem.', 
+  'mgo': 'MgO', 
+  'nbxrf': 'Nb - xrf', 
+  'yxrf': 'Y - xrf', 
+  'rbxrf': 'Rb - xrf', 
+  'pbxrf': 'Pb - xrf', 
+  'fcuxrf': 'Cu - xrf', 
+  'liicpms': 'Li - icpms', 
+  'scicpms': 'Sc - icpms', 
+  'vicpms': 'V - icpms', 
+  'coicpms': 'Co - icpms', 
+  'niicpms': 'Ni - icpms', 
+  'cuicpms': 'Cu - icpms', 
+  'znicpms': 'Zn - icpms', 
+  'rbicpms': 'Rb - icpms', 
+  'sricpms': 'Sr - icpms', 
+  'zricpms': 'Zr - icpms', 
+  'moicpms': 'Mo - icpms', 
+  'csicpms': 'Cs - icpms', 
+  'cdicpms': 'Cd - icpms', 
+  'baicpms': 'Ba - icpms', 
+  'wicpms': 'Wi - icpms', 
+  'F87_86Sr': 'Sr87 / Sr86', 
+  'Ta': 'Ta - mass spectr.', 
+  'Cu': 'Cu - mass spectr.', 
+  'delta_65Cu': 'Delta Cu65>', 
+  'cexrf': 'Ce - xrf', 
+  'Hfxrf': 'Hf - xrf', 
+  'Laxrf': 'La - xrf', 
+  'Moxrf': 'Mo - xrf', 
+  'Ndxrf': 'Nd - xrf', 
+  'Sxrf': 'S - xrf', 
+  'Smxrf': 'Sm - xrf', 
+  'Thxrf': 'Th - xrf', 
+  'Uxrf': 'U - xrf', 
+  'Ybxrf': 'Yb - xrf', 
+  'Clxrf': 'Cl - xrf', 
+  'Csxrf': 'Cs - xrf', 
+  'snicpms': 'Sn - icpms', 
+  'sbicpms': 'Sb - icpms', 
+  'Teicpms': 'Te - icpms', 
+  'Tiicpms': 'Ti - icpms', 
+  'Mnicpms': 'Mn - icpms', 
+  'Biicpms': 'Bi - icpms', 
+  'F87Rb_86Sr': 'Rb87 / Sr86', 
+  'Rb': 'Rb - mass spectr.', 
+  'Sr': 'Sr - mass spectr.', 
+  'Ba': 'Ba - mass spectr.', 
+  'cricpms': 'Cr - icpms', 
+  'inicpms': 'In - icpms',
+  'h2oplus': 'H\u2082O+', 
+  'h2ominus': 'H\u2082O-'
+};
+
+var axisDialog = document.getElementById("fields-selection"),
+    select_x = document.createElement('select'),
+    select_y = document.createElement('select'),
+    select_area = document.createElement('input'),
+    x = document.createElement('label'),
+    area = document.createElement('label'),
+    y = document.createElement('label');
+
+x.innerText = 'X: ';
+y.innerText = 'Y: ';
+area.innerText = 'Spatial query: ';
+
+sampleLayer.metadata(function (error, metadata) {
+  if (error) { return; }
+  metadata.fields.forEach(f => {
+    if ((f.actualType == "float" || f.actualType == "real") && !f.alias.includes('error')) {
+      select_x.add(new Option(names_vs_alias[f.name],f.name));
+      select_y.add(new Option(names_vs_alias[f.name],f.name));
+    }; })
+});
+
+// var updateSpatialOptions = () => {
+//   while (select_area.options.length > 1) {             
+//     select_area.remove(-1);
+//   };
+//   drawnObjects.getLayers().forEach ( f => {
+//     let n = f.feature.properties.name;
+//     select_area.add(new Option(n, n));
+//   })
+// };
+
+[x, select_x, y, select_y, area, select_area ].forEach(
+  f  => axisDialog.appendChild(f)
+);
+
+var initialChartData = {
+  datasets: [{
+    data: []
+  }]
+};
+
+var chartOptions = {
+  elements: {
+    point: {
+      backgroundColor: 'rgba(81, 243, 148, 0.5)',
+      hoverRadius: 7,
+      redius: 4,
+      borderColor: 'rgba(43, 100, 67, 0.9)',
+    },
+  },
+  scales: {
+    xAxes: [{ scaleLabel: { display: true, labelString: "" } }],
+    yAxes: [{ scaleLabel: { display: true, labelString: "" } }],
+  },
+  legend: {
+    display: false
+  },
+  title: {
+    display: true,
+    text: "",
+  },
+  maintainAspectRatio: false,
+  animation: {duration: 0},
+  onHover: handleChartHover
+};
+
+var chart = new Chart('chart', {
+  type: 'scatter',
+  data: initialChartData,
+  options: chartOptions
+});
+Chart.defaults.global.legend.display = false;
+
+const updateChartWrap = () => {
+  if (!select_area.value) {
+    updateChart(select_x.value, select_y.value, sampleLayer, 'no_query');
+  } else {
+    let a = drawnObjects.customGetLayer(select_area.value);
+    console.log(a);
+    sampleLayer.query().within(a).run(function (error, featureCollection, response){
+      updateChart(select_x.value, select_y.value, featureCollection.features, 'query')
+    });
+  }
+};
+
+const updateChart = (x, y, layer, flag) => {
+  var scatterPlotDataArray = [];
+  if (flag === 'query') {
+    layer.forEach(e => {
+      var p = e.properties;
+      if (p[x] != 0 && p[y] != 0) {
+        scatterPlotDataArray.push({
+          x: p[x],
+          y: p[y],
+          featureId: e.id,
+        });
+
+      };
+    })
+  } else {
+    layer.eachFeature(function (e) {
+      var p = e.feature.properties;
+      if (p[x] != 0 && p[y] != 0) {
+        scatterPlotDataArray.push({
+          x: p[x],
+          y: p[y],
+          featureId: e.feature.id,
+        });
+  
+      };
+    });
+  }
+  
+  chart.data.datasets[0].data = scatterPlotDataArray;
+  console.log(scatterPlotDataArray.length);
+  
+  if (names_vs_alias[x] !== undefined && names_vs_alias[y] !== undefined) {
+    chart.options.title.text = names_vs_alias[x] + '  |  ' + names_vs_alias[y];
+    chart.options.scales.xAxes[0].scaleLabel.labelString = names_vs_alias[x];
+    chart.options.scales.yAxes[0].scaleLabel.labelString = names_vs_alias[y];
+  };
+  chart.update();
+};
+
+function handleChartHover (e) {
+  var chartHoverData = chart.getElementsAtEvent(e);
+  if (!chartHoverData.length) {
+    sampleLayer.eachFeature(function (e) {
+      e.setRadius(defaultRadius);
+      e.closeTooltip();
+    });
+    return;
+  }
+  var hoverFeatureIds = chartHoverData.map(function (datum) {
+    return chart.data.datasets[0].data[datum._index].featureId;
+  });
+  sampleLayer.eachFeature(function (e, idx) {
+    if ( hoverFeatureIds.indexOf(e.feature.id) > -1) {
+      e.setRadius(defaultRadius + 4);
+      e.openTooltip();
+    };
+  });
+};
+
+axisDialog.onchange = function () {
+  updateChartWrap();
+};
+
+
 
 
 
