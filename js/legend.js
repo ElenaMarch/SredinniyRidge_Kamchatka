@@ -156,7 +156,7 @@ map.on('overlayremove', function (eventLayer) {
 		setContent(div, [div_hazard], 'remove');
 	} else if (eventLayer.name === 'Active volcanoes') { 
 		setContent(div, [div_avolc], 'remove');
-	} else if (eventLayer.name === 'Cinder cones and lava flows') { 
+	} else if (eventLayer.name === 'Cinder cones, lava flows') { 
 		setContent(div, [div_vKluch], 'remove');
 	} else if (eventLayer.name === 'Glaciers') { 
 		setContent(div, [div_gl], 'remove');
