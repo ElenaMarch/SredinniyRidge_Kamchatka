@@ -51,9 +51,7 @@ var win =  L.control.window(map, {content: help_content, modal: true, position: 
 L.easyButton({id: 'reference',
 	states:[{stateName: 'ref',
 		onClick: function () {
-			if (sidebar.isVisible() === false) {
-				sidebar.show();
-			}; 
+			sidebar.toggle();
 		},
 	title: 'Show sidebar',
 	icon: "<img class=button src='button/book.png'>"}]}).addTo(map);

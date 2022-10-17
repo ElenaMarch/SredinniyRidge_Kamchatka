@@ -49,8 +49,15 @@ div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px soli
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #8a8a5c;background-color:#a3a375;"></i><p>2000-1000 years BC</p>';
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #9B373D;background-color:#B26045;"></i><p>before 2000 years BC</p>';
 div_vKluch.innerHTML += '<i style="height: 12px; width: 16px; border: 1.2px solid #595959;background-color:#b3b3b3;"></i><p>Unknown</p>';
-div_vKluch.innerHTML += '<br><i class="shish-fill"></i><p>Shield volcano</p>';
+div_vKluch.innerHTML += '<br><i class="triangle" style="border-bottom: 8px solid #595959; margin-top: 6px;"></i><p>Cinder cone</p>';
+div_vKluch.innerHTML += '<i class="shish-fill"></i><p>Shield volcano</p>';
 div_vKluch.innerHTML += '<i class="hatching-trench"></i><p>Landslide debris</p>';
+
+var div_shelters = L.DomUtil.create('div', 'legend');
+div_shelters.innerHTML += '<i class="square"></i><p>Shelters</p>';
+
+var div_qv = L.DomUtil.create('div', 'legend');
+div_qv.innerHTML += '<i class="triangle" style="border-bottom: 12px solid #492622;"></i><p>Quarternary volcanoes</p>';
 
 var div_v = L.DomUtil.create('div', 'legend');
 div_v.innerHTML += '<b>Holocene volcanoes</b><br>';
@@ -127,71 +134,67 @@ function setContent(div, childList, flag) {
 	 
 };
 
-setContent(div, [div_avolc, div_hazard], 'add');
+setContent(div, [div_avolc, div_hazard, div_qv], 'add');
 
+var legendItems = {
+	'Holocene volcanoes': div_v,
+	'Glaciers': div_gl,
+	'Volcanic hazard zones': div_hazard,
+	'Active volcanoes': div_avolc,
+	'Cinder cones, lava flows': div_vKluch,
+	"Glaciers<i hidden>A</i>": div_glKluch,
+	'Rocktype': div_geosamples_rocktype,
+	'Shelters': div_shelters,
+	'Quarternary volcanoes': div_qv,
+}
 
 map.on('overlayadd', function (eventLayer) {
-	if (eventLayer.name === 'Holocene volcanoes') {
-		setContent(div, [div_v], 'add');	
-	} else if (eventLayer.name === 'Glaciers') { 
-		setContent(div, [div_gl], 'add');
-	} else if (eventLayer.name === 'Volcanic hazard zones') { 
-		setContent(div, [div_hazard], 'add');
-	} else if (eventLayer.name === 'Active volcanoes') { 
-		setContent(div, [div_avolc], 'add');
-	} else if (eventLayer.name === 'Cinder cones, lava flows') { 
-		setContent(div, [div_vKluch], 'add');
-	} else if (eventLayer.name === "Glaciers<i hidden>A</i>") { 
-		setContent(div, [div_glKluch], 'add');
-	} else if (eventLayer.name === "Rocktype") { 
-		setContent(div, [div_geosamples_rocktype], 'add');
-		styleEditor.addTo(map);
-	};
+	for (item in legendItems) {
+		if (eventLayer.name === item) {
+			setContent(div, [legendItems[item]], 'add');	
+		};
+		if (eventLayer.name === "Rocktype") { 
+			styleEditor.addTo(map);
+		};
+	}
 });
 
 map.on('overlayremove', function (eventLayer) {
-	if (eventLayer.name === 'Holocene volcanoes') {
-		setContent(div, [div_v], 'remove');
-	} else if (eventLayer.name === 'Volcanic hazard zones') { 
-		setContent(div, [div_hazard], 'remove');
-	} else if (eventLayer.name === 'Active volcanoes') { 
-		setContent(div, [div_avolc], 'remove');
-	} else if (eventLayer.name === 'Cinder cones and lava flows') { 
-		setContent(div, [div_vKluch], 'remove');
-	} else if (eventLayer.name === 'Glaciers') { 
-		setContent(div, [div_gl], 'remove');
-	} else if (eventLayer.name === "Glaciers<i hidden>A</i>") { 
-		setContent(div, [div_glKluch], 'remove');
-	} else if (eventLayer.name === "Rocktype") { 
-		setContent(div, [div_geosamples_rocktype], 'remove');
-		map.removeControl(styleEditor);
-	};
+	for (item in legendItems) {
+		if (eventLayer.name === item) {
+			setContent(div,  [legendItems[item]], 'remove');	
+		};
+		if (eventLayer.name === "Rocktype") { 
+			map.removeControl(styleEditor);
+		};
+	}
 });
 
 // Bounds Sredinniy, Kluchevskoy
 function checkView(group) {
 	var count = 0;
-	group.eachFeature(function (layer) {
+	group.eachActiveFeature(function (layer) {
 		if (map.hasLayer(layer)) {
 			if (map.getBounds().intersects(layer.getBounds())) {
-				count = count + 1; }
+				count += 1; }
 		}
 	});
-	if (count != 0) {
+	if (count > 0) {
 		return true;
 	} else {
 		return false;
-	}};
+	};
+};
 
 function checkView2(group) {
 	var count = 0;
 	group.eachLayer(function (layer) {
 		if (map.hasLayer(layer)) {
 			if (map.getBounds().intersects(layer.getBounds())) {
-				count = count + 1; }
+				count += 1; }
 		}
 	});
-	if (count != 0) {
+	if (count > 0) {
 		return true;
 	} else {
 		return false;
@@ -200,7 +203,7 @@ function checkView2(group) {
 map.on('zoomend', function () {
     if (map.getZoom() < 9 )
     {   
-		setContent(div, [div_vKluch, div_glKluch, div_gl, div_v], 'remove');
+		setContent(div, [div_vKluch, div_glKluch, div_gl, div_v, div_shelters], 'remove');
 		setContent(div, [div_hazard], 'add');
     }
 	if (map.getZoom() >= 9) 
@@ -209,7 +212,7 @@ map.on('zoomend', function () {
 			setContent(div, [div_v, div_gl], 'add');
 		}
 		if (checkView2(kluchGroup)) {
-			setContent(div, [div_vKluch, div_glKluch], 'add');
+			setContent(div, [div_vKluch, div_glKluch, div_shelters], 'add');
 		}
 		setContent(div, [div_hazard], 'remove');
     }
@@ -227,8 +230,8 @@ map.on('moveend', function () {
 		setContent(div, [div_v], 'remove');
 	};
 	if (checkView2(kluchGroup)) { //lavaPobochLayer
-		setContent(div, [div_vKluch, div_glKluch], 'add');
+		setContent(div, [div_vKluch, div_glKluch, div_shelters], 'add');
 	} else {
-		setContent(div, [div_vKluch, div_glKluch], 'remove');
+		setContent(div, [div_vKluch, div_glKluch, div_shelters], 'remove');
 	};
 });

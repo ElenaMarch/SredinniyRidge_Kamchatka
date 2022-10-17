@@ -170,6 +170,16 @@ body {
 	margin-left: 2px;
 	opacity: 0.9;
 }
+.legend .square {
+	background: yellow;
+	width: 8px;
+	height: 8px;
+	outline: 2px solid orange;
+	opacity: 0.7;
+	margin-left: 6px;
+	margin-right: 13px;
+	margin-top: 5px;
+}
 .legend .hatching-trench {
 	background: linear-gradient(90deg, white 2px, transparent 1%) center,
 		linear-gradient(white 2px, transparent 1%) center, #47271c;
@@ -199,6 +209,7 @@ body {
     background: linear-gradient(0deg, white 50%, #00cc7a 50%,  #00cc7a 75%, white 75% );
 	border: 1.2px solid transparent;
     background-size: 16px 16px;
+	margin-left: 1px;
 }
 
 .legend .hatching-hazard {
@@ -445,7 +456,6 @@ body {
 }
 #fields-selection select, #fields-selection input, .popupCustom input{
 	padding:  0px 5px;
-	margin-right: 15px;
 	margin-bottom: 15px;
 	height: 20px;
 	width: 38%;
@@ -458,8 +468,12 @@ body {
 	-webkit-box-shadow: none;
 }
 #fields-selection label {
-	padding-right: 3px;
+	padding-right: 15px;
 	padding-left: 0px;
+}
+#fields-selection input{
+	margin-right: 0px;
+	width: auto;
 }
 
 

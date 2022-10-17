@@ -316,147 +316,162 @@ styleEditor.onAdd = function (map) {
 
 
 // CHART - Scatter plot
-
 names_vs_alias = {
+  '1': '1',
   'age': 'Age', 
   'longitude': 'Longitude', 
   'latitude' : 'Latitude', 
   'sio2': 'SiO\u2082', 
   'tio2': 'TiO\u2082', 
-  'al2o3': 'Al\u2082O\u2083', 
-  'loi': 'H\u2082O', 
-  'sumnowater': 'Sum - no water', 
-  'zrxrf': 'Zr - xrf', 
-  'fisrxrf': 'Sr - xrf', 
-  'gaxrf': 'Ga - xrf', 
-  'znxrf' : 'Zn - xrf', 
-  'nixrf' : 'Ni - xrf', 
-  'coxrf' : 'Co - xrf', 
-  'crxrf': 'Cr - xrf', 
-  'vxrf': 'Vf - xrf', 
+  'al2o3': 'Al\u2082O\u2083',
+  'fe2o3': 'Fe\u2082O\u2083', 
+  'feo': 'FeO', 
+  'mno': 'MnO',
+  'mgo': 'MgO',
+  'cao': 'CaO', 
+  'na2o': 'Na\u2082O', 
+  'k2o': 'K\u2082O', 
+  'p2o5': 'P\u2082O\u2085',   
+  'loi': 'H\u2082O',
+  'sum_': 'Sum - macro elem.', 
+  'sumnowater': 'Sum - no water',   
   'baxrf': 'Ba - xrf', 
-  'scxrf': 'Sc - xrf', 
+  'cexrf': 'Ce - xrf', 
+  'Clxrf': 'Cl - xrf',
+  'coxrf' : 'Co - xrf', 
+  'crxrf': 'Cr - xrf',  
+  'Csxrf': 'Cs - xrf',
+  'fcuxrf': 'Cu - xrf', 
+  'Hfxrf': 'Hf - xrf',
+  'gaxrf': 'Ga - xrf',  
+  'Laxrf': 'La - xrf', 
+  'Moxrf': 'Mo - xrf', 
+  'nbxrf': 'Nb - xrf', 
+  'nixrf' : 'Ni - xrf', 
+  'Ndxrf': 'Nd - xrf',
+  'pbxrf': 'Pb - xrf',
+  'rbxrf': 'Rb - xrf',
+  'Sxrf': 'S - xrf', 
+  'scxrf': 'Sc - xrf',
+  'Smxrf': 'Sm - xrf', 
+  'fisrxrf': 'Sr - xrf', 
+  'Thxrf': 'Th - xrf', 
+  'Uxrf': 'U - xrf',  
+  'vxrf': 'Vf - xrf', 
+  'yxrf': 'Y - xrf', 
+  'Ybxrf': 'Yb - xrf', 
+  'znxrf' : 'Zn - xrf', 
+  'zrxrf': 'Zr - xrf', 
+  'baicpms': 'Ba - icpms', 
   'beicpms': 'Be - icpms', 
-  'yicpms': 'Y - icpms', 
-  'nbicpms': 'Nb - icpms', 
-  'laicpms': 'La - icpms', 
+  'Biicpms': 'Bi - icpms',
   'ceicpms': 'Ce - icpms', 
-  'pricpms': 'Pr - icpms', 
-  'ndicpms': 'Nd - icpms', 
-  'smicpms': 'Sm - icpms', 
+  'cdicpms': 'Cd - icpms',
+  'coicpms': 'Co - icpms',  
+  'csicpms': 'Cs - icpms', 
+  'cricpms': 'Cr - icpms',
+  'cuicpms': 'Cu - icpms',
+  'dyicpms': 'Dy - icpms',  
+  'ericpms': 'Er - icpms',
   'euicpms': 'Eu - icpms', 
-  'gdicpms': 'Gd - icpms', 
-  'tbicpms': 'Tb - icpms', 
-  'dyicpms': 'Dy - icpms', 
-  'hoicpms': 'Ho - icpms', 
-  'ericpms': 'Er - icpms', 
-  'tmicpms': 'Tm - icpms', 
-  'ybicpms': 'Yb - icpms', 
+  'gdicpms': 'Gd - icpms',  
+  'hficpms': 'Hf - icpms',  
+  'hoicpms': 'Ho - icpms',
+  'inicpms': 'In - icpms', 
+  'laicpms': 'La - icpms', 
+  'liicpms': 'Li - icpms', 
   'luicpms': 'Lu - icpms', 
-  'hficpms': 'Hf - icpms', 
-  'taicpms': 'Ta - icpms', 
-  'tlicpms': 'Tl - icpms', 
-  'pbicpms': 'Pb - icpms', 
+  'moicpms': 'Mo - icpms', 
+  'Mnicpms': 'Mn - icpms',
+  'nbicpms': 'Nb - icpms', 
+  'ndicpms': 'Nd - icpms', 
+  'niicpms': 'Ni - icpms', 
+  'pbicpms': 'Pb - icpms',
+  'pricpms': 'Pr - icpms', 
+  'rbicpms': 'Rb - icpms', 
+  'sbicpms': 'Sb - icpms', 
+  'scicpms': 'Sc - icpms', 
+  'smicpms': 'Sm - icpms', 
+  'snicpms': 'Sn - icpms',
+  'sricpms': 'Sr - icpms',  
+  'taicpms': 'Ta - icpms',
+  'tbicpms': 'Tb - icpms',  
+  'Teicpms': 'Te - icpms', 
   'thicpms': 'Th - icpms', 
-  'uicpms': 'U - icpms', 
+  'Tiicpms': 'Ti - icpms', 
+  'tlicpms': 'Tl - icpms', 
+  'tmicpms': 'Tm - icpms', 
+  'uicpms': 'U - icpms',
+  'vicpms': 'V - icpms', 
+  'wicpms': 'Wi - icpms',
+  'yicpms': 'Y - icpms', 
+  'ybicpms': 'Yb - icpms', 
+  'znicpms': 'Zn - icpms', 
+  'zricpms': 'Zr - icpms', 
+  'Ba': 'Ba - mass spectr.', 
+  'Cu': 'Cu - mass spectr.', 
+  'Hf': 'Hf - mass spectr.', 
+  'Lu': 'Lu - mass spectr.',
+  'Nb': 'Nb - mass spectr.', 
+  'Ta': 'Ta - mass spectr.', 
+  'Rb': 'Rb - mass spectr.', 
+  'Sr': 'Sr - mass spectr.', 
+  'Zr': 'Zr - mass spectr.', 
   'lasm': 'La/Sm', 
   'layb': 'La/Yb', 
   'sry': 'Sr/Y', 
   'smyb': 'Sm/Yb', 
   'dyyb': 'Dy/Yb', 
+  'F87_86Sr': 'Sr87 / Sr86', 
+  'F87Rb_86Sr': 'Rb87 / Sr86', 
   'F143_144Nd': 'Nd143 / Nd144', 
   'F206_204Pb': 'Pb206 / Pb204', 
   'F207_204Pb': 'Pb207 / Pb204', 
   'F208_204Pb': 'Pb208 / Pb204', 
   'F18_16O': 'O18 / O16', 
   'F176_177Hf': 'Hf176 / Hf177', 
-  'EpslHf': 'Epsilon Hf', 
-  'Zr': 'Zr - mass spectr.', 
-  'Hf': 'Hf - mass spectr.', 
-  'Nb': 'Nb - mass spectr.', 
-  'Lu': 'Lu - mass spectr.', 
   'F176Lu_177': 'Lu176 / Hr177', 
+  'EpslHf': 'Epsilon Hf', 
   'Delta_Epsl': 'Delta epsilon Nd', 
-  'fe2o3': 'Fe\u2082O\u2083', 
-  'feo': 'FeO', 
-  'mno': 'MnO', 
-  'cao': 'CaO', 
-  'na2o': 'Na\u2082O', 
-  'k2o': 'K\u2082O', 
-  'p2o5': 'P\u2082O\u2085',
-  'sum_': 'Sum - macro elem.', 
-  'mgo': 'MgO', 
-  'nbxrf': 'Nb - xrf', 
-  'yxrf': 'Y - xrf', 
-  'rbxrf': 'Rb - xrf', 
-  'pbxrf': 'Pb - xrf', 
-  'fcuxrf': 'Cu - xrf', 
-  'liicpms': 'Li - icpms', 
-  'scicpms': 'Sc - icpms', 
-  'vicpms': 'V - icpms', 
-  'coicpms': 'Co - icpms', 
-  'niicpms': 'Ni - icpms', 
-  'cuicpms': 'Cu - icpms', 
-  'znicpms': 'Zn - icpms', 
-  'rbicpms': 'Rb - icpms', 
-  'sricpms': 'Sr - icpms', 
-  'zricpms': 'Zr - icpms', 
-  'moicpms': 'Mo - icpms', 
-  'csicpms': 'Cs - icpms', 
-  'cdicpms': 'Cd - icpms', 
-  'baicpms': 'Ba - icpms', 
-  'wicpms': 'Wi - icpms', 
-  'F87_86Sr': 'Sr87 / Sr86', 
-  'Ta': 'Ta - mass spectr.', 
-  'Cu': 'Cu - mass spectr.', 
-  'delta_65Cu': 'Delta Cu65>', 
-  'cexrf': 'Ce - xrf', 
-  'Hfxrf': 'Hf - xrf', 
-  'Laxrf': 'La - xrf', 
-  'Moxrf': 'Mo - xrf', 
-  'Ndxrf': 'Nd - xrf', 
-  'Sxrf': 'S - xrf', 
-  'Smxrf': 'Sm - xrf', 
-  'Thxrf': 'Th - xrf', 
-  'Uxrf': 'U - xrf', 
-  'Ybxrf': 'Yb - xrf', 
-  'Clxrf': 'Cl - xrf', 
-  'Csxrf': 'Cs - xrf', 
-  'snicpms': 'Sn - icpms', 
-  'sbicpms': 'Sb - icpms', 
-  'Teicpms': 'Te - icpms', 
-  'Tiicpms': 'Ti - icpms', 
-  'Mnicpms': 'Mn - icpms', 
-  'Biicpms': 'Bi - icpms', 
-  'F87Rb_86Sr': 'Rb87 / Sr86', 
-  'Rb': 'Rb - mass spectr.', 
-  'Sr': 'Sr - mass spectr.', 
-  'Ba': 'Ba - mass spectr.', 
-  'cricpms': 'Cr - icpms', 
-  'inicpms': 'In - icpms',
-  'h2oplus': 'H\u2082O+', 
-  'h2ominus': 'H\u2082O-'
+  'delta_65Cu': 'Delta Cu65', 
+  
+  
+  
+  
+
+  // 'h2oplus': 'H\u2082O+', 
+  // 'h2ominus': 'H\u2082O-'
 };
 
 var axisDialog = document.getElementById("fields-selection"),
-    select_x = document.createElement('select'),
-    select_y = document.createElement('select'),
+    select_x_up = document.createElement('select'),
+    select_y_up = document.createElement('select'),
+    select_x_down = document.createElement('select'),
+    select_y_down = document.createElement('select'),
     select_area = document.createElement('input'),
     x = document.createElement('label'),
     area = document.createElement('label'),
     y = document.createElement('label');
+    devide = document.createElement('span');
 
 x.innerText = 'X: ';
 y.innerText = 'Y: ';
+devide.innerText = ' / '; ;
 area.innerText = 'Spatial query: ';
-
-sampleLayer.metadata(function (error, metadata) {
-  if (error) { return; }
-  metadata.fields.forEach(f => {
-    if ((f.actualType == "float" || f.actualType == "real") && !f.alias.includes('error')) {
-      select_x.add(new Option(names_vs_alias[f.name],f.name));
-      select_y.add(new Option(names_vs_alias[f.name],f.name));
-    }; })
+// Takes fields from the layer directly. How to handle the order? Since we are not set with the table stucture, I take it easy for now and write oprions fron the alias_vs_names array. To be redone after!!! 
+// sampleLayer.metadata(function (error, metadata) {
+//   if (error) { return; }
+//   metadata.fields.forEach(f => {
+//     if ((f.actualType == "float" || f.actualType == "real") && !f.alias.includes('error')) {
+//       select_x.add(new Option(names_vs_alias[f.name],f.name));
+//       select_y.add(new Option(names_vs_alias[f.name],f.name));
+//     }; })
+// });
+Object.keys(names_vs_alias).forEach(f => {
+  select_x_up.add(new Option(names_vs_alias[f],f));
+  select_y_up.add(new Option(names_vs_alias[f],f));
+  select_x_down.add(new Option(names_vs_alias[f],f));
+  select_y_down.add(new Option(names_vs_alias[f],f));
 });
 
 // var updateSpatialOptions = () => {
@@ -469,7 +484,7 @@ sampleLayer.metadata(function (error, metadata) {
 //   })
 // };
 
-[x, select_x, y, select_y, area, select_area ].forEach(
+[x, select_x_up, devide, select_x_down, document.createElement('br'), y, select_y_up, devide.cloneNode(true), select_y_down, area, select_area ].forEach(
   f  => axisDialog.appendChild(f)
 );
 
@@ -513,51 +528,53 @@ Chart.defaults.global.legend.display = false;
 
 const updateChartWrap = () => {
   if (!select_area.value) {
-    updateChart(select_x.value, select_y.value, sampleLayer, 'no_query');
+    updateChart(select_x_up.value, select_x_down.value, select_y_up.value, select_y_down.value, sampleLayer, 'no_query');
   } else {
     let a = drawnObjects.customGetLayer(select_area.value);
-    console.log(a);
     sampleLayer.query().within(a).run(function (error, featureCollection, response){
-      updateChart(select_x.value, select_y.value, featureCollection.features, 'query')
+      updateChart(select_x_up.value, select_x_down.value, select_y_up.value, select_y_down.value, featureCollection.features, 'query')
     });
   }
 };
 
-const updateChart = (x, y, layer, flag) => {
+const arrayToShow = (x_up, x_down, y_up, y_down, e, array) => {
+  let p = e.properties; p['1'] = 1;
+  if (p[x_up] != 0 && p[y_up] != 0 && p[x_down] != 0 && p[y_down] != 0) {
+    
+    array.push({
+      x: p[x_up]/p[x_down],
+      y: p[y_up]/p[y_down],
+      featureId: e.id,
+    });
+
+  };
+};
+const updateChart = (x_up, x_down, y_up, y_down, layer, flag) => {
   var scatterPlotDataArray = [];
   if (flag === 'query') {
     layer.forEach(e => {
-      var p = e.properties;
-      if (p[x] != 0 && p[y] != 0) {
-        scatterPlotDataArray.push({
-          x: p[x],
-          y: p[y],
-          featureId: e.id,
-        });
-
-      };
+      arrayToShow(x_up, x_down, y_up, y_down, e, scatterPlotDataArray);
     })
   } else {
     layer.eachFeature(function (e) {
-      var p = e.feature.properties;
-      if (p[x] != 0 && p[y] != 0) {
-        scatterPlotDataArray.push({
-          x: p[x],
-          y: p[y],
-          featureId: e.feature.id,
-        });
-  
-      };
+      arrayToShow(x_up, x_down, y_up, y_down, e.feature, scatterPlotDataArray);
     });
   }
   
   chart.data.datasets[0].data = scatterPlotDataArray;
   console.log(scatterPlotDataArray.length);
+
+  const handleOne = (up, down) => {
+    let exp = up + '/' + down;
+    return exp.replace('/1', '');
+  } 
   
-  if (names_vs_alias[x] !== undefined && names_vs_alias[y] !== undefined) {
-    chart.options.title.text = names_vs_alias[x] + '  |  ' + names_vs_alias[y];
-    chart.options.scales.xAxes[0].scaleLabel.labelString = names_vs_alias[x];
-    chart.options.scales.yAxes[0].scaleLabel.labelString = names_vs_alias[y];
+  if ([names_vs_alias[x_up], names_vs_alias[y_up], names_vs_alias[x_down], names_vs_alias[y_down]].some(x => x!== undefined)) {
+    xlabel = handleOne(names_vs_alias[x_up], names_vs_alias[x_down]);
+    ylabel = handleOne(names_vs_alias[y_up], names_vs_alias[y_down]);
+    chart.options.title.text = xlabel + '  vs  ' + ylabel;
+    chart.options.scales.xAxes[0].scaleLabel.labelString = xlabel;
+    chart.options.scales.yAxes[0].scaleLabel.labelString = ylabel;
   };
   chart.update();
 };
