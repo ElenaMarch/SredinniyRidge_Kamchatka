@@ -447,14 +447,14 @@ body {
 	width: 100%;
 }
 
-#fields-selection {
+.fields-selection {
 	font-family: Verdana;
 	font-size: 13px;
 	font-weight: bold;
 	padding-bottom: 15px;
 	padding-right: 10px;
 }
-#fields-selection select, #fields-selection input, .popupCustom input{
+.fields-selection select, .fields-selection input, .popupCustom input{
 	padding:  0px 5px;
 	margin-bottom: 15px;
 	height: 20px;
@@ -467,11 +467,11 @@ body {
 	box-shadow: none;
 	-webkit-box-shadow: none;
 }
-#fields-selection label {
+.fields-selection label {
 	padding-right: 15px;
 	padding-left: 0px;
 }
-#fields-selection input{
+.fields-selection input{
 	margin-right: 0px;
 	width: auto;
 }

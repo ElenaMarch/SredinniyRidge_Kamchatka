@@ -101,9 +101,10 @@ sidebar.setContent(sidebarContent);
 map.addControl(sidebar);
 sidebar.show();
 
-let charDiv = document.getElementById('chart-pane'); 
-charDiv.innerHTML = "<h2>Geological samples - charts</h2><form id='fields-selection' enctype='multipart/form-data'></form><div class='chart-container'><canvas id='chart'></canvas></div>";
-var contentChart = charDiv;
+// let charDiv = document.getElementById('chart-pane');
+// let charDiv = document.createElement('div');
+// charDiv.innerHTML = "<h2>Geological samples - charts</h2><form id='fields-selection' enctype='multipart/form-data'></form><div class='chart-container'><canvas id='chart'></canvas></div>";
+// var contentChart = charDiv;
 
 L.LayerGroup.include({
     customGetLayer: function (name) {

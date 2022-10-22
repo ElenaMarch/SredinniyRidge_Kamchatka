@@ -32,8 +32,6 @@ var sampleLayer = L.esri.Cluster.featureLayer({url: geo_database_URL,
       };
       contentGeosamples = setContentGeoSamples(feature.properties);
       activeTab = sidebar.setTab('tab-Geosamples', contentGeosamples);
-      var r = e.target.getRadius();
-      e.target.setRadius(parseInt(r)-4);
     })
     .on('mouseover', function(e) {
       var r = e.target.getRadius();
@@ -309,13 +307,21 @@ function handleClick(checkbox) {
       };
 }; 
 
-styleEditor.onAdd = function (map) {
-	return div_styleEditor;
+styleEditor.onAdd = function () {
+  this._div = div_styleEditor;
+  this._div.addEventListener('mouseover', function () {
+      map.dragging.disable();
+  });
+  this._div.addEventListener('mouseout', function () {
+      map.dragging.enable();
+  });
+	return this._div;
 };
 
 
 
 // CHART - Scatter plot
+
 names_vs_alias = {
   '1': '1',
   'age': 'Age', 
@@ -434,25 +440,31 @@ names_vs_alias = {
   'EpslHf': 'Epsilon Hf', 
   'Delta_Epsl': 'Delta epsilon Nd', 
   'delta_65Cu': 'Delta Cu65', 
-  
-  
-  
-  
-
   // 'h2oplus': 'H\u2082O+', 
   // 'h2ominus': 'H\u2082O-'
 };
+var contentChart;
+var chartArea = L.DomUtil.create('div', 'chart-container');
+var chartCanvas = L.DomUtil.create('canvas', 'chart');
+chartArea.appendChild(chartCanvas);
+let axisDialog = L.DomUtil.create('form', 'fields-selection');
+let charDiv = L.DomUtil.create('div', 'chart-pane');
+charDiv.innerHTML = "<h2>Geological samples - charts</h2>";
+[axisDialog, chartArea].forEach(
+  f  => charDiv.appendChild(f)
+);
+contentChart = charDiv;
 
-var axisDialog = document.getElementById("fields-selection"),
-    select_x_up = document.createElement('select'),
-    select_y_up = document.createElement('select'),
-    select_x_down = document.createElement('select'),
-    select_y_down = document.createElement('select'),
-    select_area = document.createElement('input'),
-    x = document.createElement('label'),
-    area = document.createElement('label'),
-    y = document.createElement('label');
-    devide = document.createElement('span');
+
+var select_x_up = document.createElement('select'),
+  select_y_up = document.createElement('select'),
+  select_x_down = document.createElement('select'),
+  select_y_down = document.createElement('select'),
+  select_area = document.createElement('input'),
+  x = document.createElement('label'),
+  area = document.createElement('label'),
+  y = document.createElement('label');
+  devide = document.createElement('span');
 
 x.innerText = 'X: ';
 y.innerText = 'Y: ';
@@ -474,19 +486,13 @@ Object.keys(names_vs_alias).forEach(f => {
   select_y_down.add(new Option(names_vs_alias[f],f));
 });
 
-// var updateSpatialOptions = () => {
-//   while (select_area.options.length > 1) {             
-//     select_area.remove(-1);
-//   };
-//   drawnObjects.getLayers().forEach ( f => {
-//     let n = f.feature.properties.name;
-//     select_area.add(new Option(n, n));
-//   })
-// };
-
 [x, select_x_up, devide, select_x_down, document.createElement('br'), y, select_y_up, devide.cloneNode(true), select_y_down, area, select_area ].forEach(
   f  => axisDialog.appendChild(f)
 );
+axisDialog.onchange = function () {
+  updateChartWrap();
+};
+
 
 var initialChartData = {
   datasets: [{
@@ -519,7 +525,7 @@ var chartOptions = {
   onHover: handleChartHover
 };
 
-var chart = new Chart('chart', {
+var chart = new Chart(chartCanvas, {
   type: 'scatter',
   data: initialChartData,
   options: chartOptions
@@ -599,9 +605,6 @@ function handleChartHover (e) {
   });
 };
 
-axisDialog.onchange = function () {
-  updateChartWrap();
-};
 
 
 
