@@ -1,4 +1,3 @@
-## SredinniyRidge_Kamchatka
 # Volcanoes in Cryosphere, Kuril-Kamchatka arc
 
 The web map over Kuril-Kamchatka glaciation and volcanoes is build in the Laboratory of Informatic Technologies and Geoecology of the Institute of Volcanology and Seismology, Russia. The url: https://elenamarch.github.io/SredinniyRidge_Kamchatka/
