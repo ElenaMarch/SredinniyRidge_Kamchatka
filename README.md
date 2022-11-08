@@ -1,7 +1,7 @@
 ## SredinniyRidge_Kamchatka
 # Volcanoes in Cryosphere, Kuril-Kamchatka arc
 
-The web map over Kuril-Kamchatka glaciation and volcanoes is build in the Laboratory of Informatic Technologies and Geoecology of the Institute of Volcanology and Seismology. 
+The web map over Kuril-Kamchatka glaciation and volcanoes is build in the Laboratory of Informatic Technologies and Geoecology of the Institute of Volcanology and Seismology, Russia. 
 
 It is aimed to be a complex multi-scaled GIS putting together available data on volcanic activity and glacialtion of the region. The map is a "work in progress" product. 
 
@@ -32,7 +32,7 @@ The map functionality allows:
     - Interactive scatter plots for chemical elements/ratios of chemical elements. Geographical queries of data on chart.
 
 # Credits
-The webb-map is built using the awesome open-source JS library Leaflet. 
+The web map is built using the awesome open-source JS library Leaflet. 
 Besides, it makes use of a set of Leaflet plugins (incl. ESRI for Leaflet) and ArcGIS basemaps - Topographic and Firefly Imagery. The basemaps are freely distributed for non-commercial use under Essentials Developer Plan (ESRI’s Terms of Use).
 
 # License
