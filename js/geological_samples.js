@@ -1,6 +1,6 @@
 // Geological darabase of Tatiana Churikova - visualisation
 
-var geo_database_URL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/rocksamples/FeatureServer/0";
+var geo_database_URL = "https://services8.arcgis.com/GSlumpjgzkVdp2PH/arcgis/rest/services/Geosamples_2023/FeatureServer/0";
 // var geo_database_URL = "json/Rock_samples_Churikova.geojson",
 var contentGeosamples = '<h2>Geological samples - data</h2>Choose a geological sample to see rock properties;';
 
@@ -19,7 +19,7 @@ var sampleLayer = L.esri.Cluster.featureLayer({url: geo_database_URL,
   pointToLayer: function (feature, latlng) {
     var marker = L.circleMarker(latlng, {
       radius: 6,
-      fillColor: sampleStyle_Composition(feature.properties.sio2, [41, 52, 57, 63, 69, 73]),
+      fillColor: sampleStyle_Composition(feature.properties.SiO2, [41, 52, 57, 63, 69, 73]),
       color: 'white',
       weight: 2,
       opacity: 1,
