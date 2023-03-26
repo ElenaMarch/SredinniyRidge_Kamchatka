@@ -475,6 +475,10 @@ body {
 	margin-right: 0px;
 	width: auto;
 }
+.red-text{
+	font-style: italic;
+	color: red;
+}
 
 
 

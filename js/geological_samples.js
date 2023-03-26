@@ -39,7 +39,7 @@ var sampleLayer = L.esri.Cluster.featureLayer({url: geo_database_URL,
     .on('mouseout', function(e) {
       var r = e.target.getRadius();
       e.target.setRadius(parseInt(r)-4);})
-    .bindTooltip(feature.properties.sample, {className: 'myLabels', permanent:false, offset: [10,-10]});
+    .bindTooltip(feature.properties.ID, {className: 'myLabels', permanent:false, offset: [10,-10]});
     return marker} }
 ); //.addTo(map)
 
@@ -48,12 +48,12 @@ function sampleStyle_Composition(field, array) {
   var color,
     rainbow = new Rainbow(); 
   rainbow.setNumberRange(1, array.length);
-  if (field > array[0] && field <= array[1]) { color = '#' + rainbow.colourAt(1)}
-  else if (field > array[1] && field <= array[2]) { color = '#' + rainbow.colourAt(2)}
-  else if (field > array[2] && field <= array[3]) { color = '#' + rainbow.colourAt(3)}
-  else if (field > array[3] && field <= array[4]) { color = '#' + rainbow.colourAt(4)}
-  else if (field > array[4] && field <= array[5]) { color = '#' + rainbow.colourAt(5)}
-  else if (field > array[5]) { color = '#' + rainbow.colourAt(6)}
+  if (field > array[0] && field <= array[1]) { color = `#${rainbow.colourAt(1)}`}
+  else if (field > array[1] && field <= array[2]) { color = `#${rainbow.colourAt(2)}`}
+  else if (field > array[2] && field <= array[3]) { color = `#${rainbow.colourAt(3)}`}
+  else if (field > array[3] && field <= array[4]) { color = `#${rainbow.colourAt(4)}`}
+  else if (field > array[4] && field <= array[5]) { color = `#${rainbow.colourAt(5)}`}
+  else if (field > array[5]) { color = `#${rainbow.colourAt(6)}`}
   else {color = "grey"};
   return color;
 };
@@ -81,121 +81,86 @@ function replaceNan(input){
 }
 
 function setContentGeoSamples(p) {
-  var ref;
-  if (p.refchem == p.refchem) {
-    ref = p.refchem;
-  } else {
-    ref = p.refchem + ', ' + p.refage;
-  }
+  var refFields = [p.Macroelemets__Me__publication, p.Microelements_1_µe1_publication, p.Isotope_publication, p.Age_publication],
+  ref = [...new Set(refFields)];
+  ref = ref.filter(x => x);
+  ref = ref.join(', ')
   
-  var c = '<h2>Geological samples - data</h2><h3 style="color: #641E16;line-height:20px"><u>' + p.sample + '</u> - '+ p.volcanoes + ', ' + p.pbdomain + '</h3>\
-  <table width="100%" class="geoTable">\
-  <tr><td width = 30%><b>Location</b></td><td width = 70%>' + p.structural_location + ': ' + p.location + ', ' + p.altitude + ' m asl</td></tr>\
-  <tr><td><b>Rocktype</b></td><td>' + p.rocktype + ', ' + p.rocktype_div +'</td></tr>\
-  <tr><td><b>Collector</b></td><td>' + p.Collector + '</td></tr>\
-  <tr><td><b>Geoage</b></td><td>' + p.geoage;
+  var c = `<h2>Geological samples - data</h2><h3 style="color: #641E16;line-height:20px">
+  <u>${p.ID}</u> - ${p.Volcano}, ${p.Volcanic_massif}, ${p.Volcanic_group}</h3>
+  <table width="100%" class="geoTable">
+  <tr><td width = 30%><b>Location</b></td><td width = 70%>, ${p.Morphology_of_object}, 
+  ${p.Common_description_of_object}, ${p.Location_of_object}, ${p.Altitude} m asl, ${p.Object_on_volcano}</td></tr>
+  <tr><td><b>Rocktype</b></td><td>${p.Rocktype}, ${p.Mineral_composition}</td></tr>
+  <tr><td><b>Owner of sample</b></td><td>${p.Owner_of_sample}</td></tr>`;
+  if (!isNaN(p.Sampling_date)) {
+    c += `<tr><td><b>Sampling date</b></td><td>${p.Sampling_date}</td></tr>`;
+  };
+  c += `<tr><td><b>Geoage</b></td><td>${p.geoage}`;
   if (!isNaN(p.age) && p.age > 0) {
-    c += ', ' + p.age + '&#177;' + p.age_error +' Ma</td></tr>'; 
+    c += `, ${p.age}&#177;${p.age_error} Ma</td></tr>`; 
   };
   if (!isNaN(p.agehist) && p.agehist > 0) {
-    c += '<tr><td><b>Eruption date</b></td><td>' + p.agehist +'</td></tr>';
+    c += `<tr><td><b>Eruption date</b></td><td>${p.agehist}</td></tr>`;
   };
-  c += '<tr><td><b>References</b></td><td>' + ref +'</td></tr>\
-  </table>\
-  <table width="100%" class="geoTable"><tr>\
-  <caption>Major elements, wt.%</caption>';
+  c += `<tr><td><b>References</b></td><td>${ref}</td></tr>
+  </table>
+  <table width="100%" class="geoTable"><tr>
+  <caption>Major elements, wt.%</caption>`;
 
-  var major_names = ['SiO<sub>2</sub>', 'TiO<sub>2</sub>', 'Al<sub>2</sub>O<sub>3</sub>', 'Fe<sub>2</sub>O<sub>3</sub>',
-  'FeO', 'MnO', 'MgO', 'CaO', 'Na<sub>2</sub>O', 'K<sub>2</sub>O', 'P<sub>2</sub>O<sub>5</sub>', 'H<sub>2</sub>O'];
-  var major_values = [p.sio2, p.tio2, p.al2o3, p.fe2o3, p.feo, p.mno, p.mgo, p.cao, p.na2o, p.k2o, p.p2o5, (p.loi + p.h2ominus + p.h2oplus)],
+  var major_names = ['SiO<sub>2</sub>', 'TiO<sub>2</sub>', 'Al<sub>2</sub>O<sub>3</sub>', 'Fe<sub>2</sub>O<sub>3</sub>', 'Fe<sub>2</sub>O<sub>3</sub><sup>Tot</sup>',
+  'FeO', 'FeO<sup>Tot</sup>','MnO', 'MgO', 'CaO', 'Na<sub>2</sub>O', 'K<sub>2</sub>O', 'P<sub>2</sub>O<sub>5</sub>', 'H<sub>2</sub>O', 'SO<sub>3</sub>'];
+  var major_values = [p.SiO2, p.TiO2, p.Al2O3, p.Fe2O3, p.Fe2O3_total, p.FeO, p.FeO_total, p.MnO, p.MgO, p.CaO, p.Na2O, p.K2O, p.P2O5, (p.LOI + p.H2Ominus + p.H2Oplus), p.SO3],
   n = 0;
   for (let i = 0; i < major_names.length; i++) {
     if (!isNaN(major_values[i]) && major_values[i] > 0) {
       n += 1;
-      c += '<td><b>' + major_names[i] + '</b></td><td>' + major_values[i] +'</td>';
+      c += `<td><b>${major_names[i]}</b></td><td>${major_values[i]}</td>`;
       if (n > 0 && n % 2 == 0) {
-        c += '</tr><tr>'
+        c += `</tr><tr>`
       } 
     }
   };
-  c += '</tr><tr style="background-color: #fff7ef;"><td></td><td></td><td><b>Sum</b></td><td>' + p.sum_ +'</td></tr></table>';
+  c += `</tr><tr style="background-color: #fff7ef;"><td></td><td></td><td><b>Sum</b></td><td>${p.Sum}</td></tr></table>`;
 
-  var trace_names = ['Ba', 'Be', 'Bi', 'Cd', 'Ce', 'Cl', 'Co', 'Cr', 'Cs', 'Cu', 'Dy', 'Er', 'Ga', 'Gd', 'Hf', 'Ho', 'In',
-  'La', 'Li', 'Lu', 'Mn', 'Mo', 'Nb', 'Nd', 'Ni', 'Pb', 'Pr', 'Rb', 'Sb', 'Sc', 'Sm', 'Sn', 'Sr', 'Sx', 'Ta', 'Tb', 
-  'Te', 'Th', 'Ti', 'Tl', 'Tm', 'U', 'V', 'W', 'Y', 'Yb', 'Zn', 'Zr']
-
-  var trace_values = [
-    [p.baxrf, p.baicpms, p.Ba],
-    [null, p.beicpms,], 
-    [null, p.bicpms], 
-    [null, p.cdicpms], 
-    [p.cexrf, p.ceicpms],	
-    [p.Clxrf, null],
-    [p.coxrf, p.coicpms],
-    [p.crxrf, p.cricpms],
-    [p.Csxrf, p.csicpms],
-    [p.fcuxrf, p.cuicpms, p.Cu],
-    [null, p.dyicpms],
-    [null, p.ericpms],
-    [p.gaxrf, null],
-    [null, p.gdicpms],
-    [p.Hfxrf, p.hficpms, p.Hf], 
-    [null, p.hoicpms],
-    [null, p.inicpms],
-    [p.Laxrf, p.laicpms],
-    [null, p.liicpms], 
-    [null, p.luicpms, p.Lu],
-    [null, p.mnicpms], 
-    [p.Moxrf, p.moicpms], 
-    [p.nbxrf, p.nbicpms, p.Nb], 
-    [p.Ndxrf, p.ndicpms], 
-    [p.nixrf, p.niicpms],
-    [p.pbxrf, p.pbicpms],	
-    [null, p.pricpms],	
-    [p.rbxrf, p.rbicpms, p.Rb],	
-    [null, p.sbicpms],
-    [p.scxrf, p.scicpms], 
-    [p.Smxrf, p.smicpms],
-    [null, p.snicpms],
-    [p.fisrxrf, p.sricpms, p.Sr],
-    [p.Sxrf, null],
-    [null, p.taicpms, p.Ta],
-    [null, p.tbicpms],
-    [null, p.teicpms],
-    [p.Thxrf, p.thicpms],	
-    [null, p.ticpms],
-    [null, p.tlicpms],
-    [null, p.tmicpms],
-    [p.Uxrf, p.uicpms],
-    [p.vxrf, p.vicpms],
-    [null, p.wicpms],
-    [p.yxrf, p.yicpms],	
-    [p.Ybxrf, p.ybicpms],	
-    [p.znxrf, p.znicpms], 
-    [p.zrxrf, p.zricpms, p.Zr], 
-    ];
+  var trace_names = ['Ag', 'As', 'Au', 'B', 'Ba', 'Be', 'Bi', 'Br', 'CO2', 'Cd', 'Ce', 'Cl', 'Co', 'Cr', 'Cs', 'Cu', 'Dy', 'Er', 'Eu', 
+  'F', 'Ga', 'Gd', 'Ge', 'H2O', 'Hf', 'Hg', 'Ho', 'In', 'Ir', 'K', 'La', 'Li', 'Lu', 'Mn', 'Mo', 'Na', 'Nb', 'Nd', 'Ni', 
+  'Os', 'P', 'Pb', 'Pd', 'Pr', 'Pt', 'Rb', 'Re', 'Rh', 'Ru', 'S', 'Sb', 'Sc', 'Se', 'Sm', 'Sn', 'Sr', 'Ta', 'Tb', 'Te', 'Th', 'Ti', 'Tl', 
+  'Tm', 'U', 'V', 'W', 'Y', 'Yb', 'Zn', 'Zr']
+  var attr = Object.keys(p), trace_values=[];
+  for (let i = 0; i < trace_names.length; i++) {
+    let t = trace_names[i], x = [];
+    for (let n of [1,2]) {
+      let elementcontains = (attr.indexOf(`${t}_${n}`) > -1);
+      if (elementcontains) {
+        x.push(p[`${t}_${n}`]);
+      } else {
+        x.push(null);
+      };
+    };
+    trace_values.push(x);
+  };
+  trace_names = trace_names.map(i => i == 'H2O' ? 'H<sub>2</sub>O' : i);
+  trace_names = trace_names.map(i => i == 'CO2' ? 'CO<sub>2</sub>' : i);
 
   if (trace_values.some(x => x.some(y => !isNaN(y) && y > 0))) {
 
-    c += '<table width="100%" class="geoTable">\
-      <caption>Trace elements, ppm</caption>\
-      <tr><td width = 25%></td><td width = 25%>XRF</td><td width = 25%>ICPMS</td><td width = 25%>Mass spectrometer</td></tr>';
+    c += `<table width="100%" class="geoTable">
+      <caption>Trace elements, ppm</caption>
+      <tr><td width = 33%></td><td width = 33%>${p.µe1_method}</td><td width = 33%>${p.µe2_method}</td></tr>`;
 
     let cc = '';
     for (let i = 0; i < trace_names.length; i++) {
       let t = trace_values[i]; 
       if (t.some(x => !isNaN(x) && x > 0)) {
-        cc += '<tr><td><b>' + trace_names[i] + '</b></td>';
-        if (t.length < 3) {
-          t.push(null);
-        };
+        cc += `<tr><td><b>${trace_names[i]}</b></td>`;
         for (let ii = 0; ii < t.length; ii++) {
-          cc += '<td>' + t[ii] +'</td>';
+          cc += `<td>${t[ii]}</td>`;
         };
         cc += '</tr>';
       }
     };
-    c += cc + '</table>'; 
+    c += `${cc}</table>`; 
   } else {
     c += '<p>No trace elements data are available for the sample.</p>'
   };
@@ -208,7 +173,7 @@ function setContentGeoSamples(p) {
     
     for (let i = 0; i < trace_ratios_names.length; i++) {
       if (!isNaN(trace_ratios_values[i])) {
-        c += '<td><b>' + trace_ratios_names[i] + '</b></td><td>' + trace_ratios_values[i] +'</td>';
+        c += `<td><b>${trace_ratios_names[i]}</b></td><td>${trace_ratios_values[i]}'</td>`;
         if (i > 0 && i % 2 != 0) {
           c += '</tr><tr>'
         } 
@@ -219,22 +184,33 @@ function setContentGeoSamples(p) {
   } else {
     c += '<p>No ratios of trace elements are available for the sample.</p>'
   };
+
   
-  
-  var isotopes_names = ['Sr<sup>87</sup>/Sr<sup>86</sup>', 'Nd<sup>143</sup>/Nd<sup>144</sup>', 'Pb<sup>206</sup>/Pb<sup>204</sup>',
-    'Pb<sup>207</sup>/Pb<sup>204</sup>', 'Pb<sup>208</sup>/Pb<sup>204</sup>', 'Rb<sup>87</sup>/Sr<sup>86</sup>', 'O<sup>18</sup>/O<sup>16</sup>', 
-    'Hf<sup>176</sup>/Hf<sup>177</sup>', '&#949;Hf', 'Lu<sup>176</sup>/Hr<sup>177</sup>', '&#916;Cu<sup>65</sup>', '&#916;&#949;Nd'];
-  var isotopes_values = [p.F87_86Sr, p.F143_144Nd, p.F206_204Pb, p.F207_204Pb, p.F208_204Pb, p.F87Rb_86Sr, p.F18_16O, p.F176_177Hf,  p.EpslHf, p.F176Lu_177, p.delta_65Cu, p.Delta_Epsl];
-  var isotopes_errors = [p.F87_86Sr_e, p.F143_144_1, p.F206_204_1, p.F207_204_1, p.F208_204_1, p.F87Rb_86_1, null, p.F176_177_1, null, null, p.F65Cu_erro, null]
+  var isotopes_names = ['B-Isotope', '&#948;<sup>11</sup>B', '<sup>18</sup>O', 'd<sup>18</sup>O-ol', 'd<sup>18</sup>O-cpx', 'd<sup>18</sup>O-pl',
+    'd<sup>18</sup>O-amf', 'd<sup>18</sup>O-gl', 'd<sup>65</sup>Cu', 'Rb-Isotope', '<sup>87</sup>Rb/<sup>86</sup>Sr', 'SR-Isotope',
+    '<sup>87</sup>Sr/<sup>86</sup>Sr', '<sup>87</sup>Sr/<sup>86</sup>Sr-Initial', '<sup>143</sup>Nd/<sup>144</sup>Nd', '&#949;Nd', '&#916;&#949;Nd',
+    '<sup>176</sup>Lu/<sup>177</sup>Hf', '<sup>176</sup>Hf/<sup>177</sup>Hf', '&#949;Hf', '<sup>187</sup>Re/<sup>188</sup>Os',
+    '<sup>184</sup>Os/<sup>188</sup>Os', '<sup>206</sup>Pb/<sup>204</sup>Pb', '<sup>207</sup>Pb/<sup>204</sup>Pb', 
+    '<sup>208</sup>Pb/<sup>204</sup>Pb', '<sup>226</sup>Ra', '<sup>226</sup>Ra/<sup>230</sup>Th', '<sup>230</sup>Ra/<sup>232</sup>Th',
+    '<sup>230</sup>Ra/<sup>238</sup>U', '<sup>238</sup>U/<sup>232</sup>Th', 'Pa', '<sup>231</sup>Pa/<sup>235</sup>Th',
+    '<sup>234</sup>U/<sup>238</sup>U'];
+  var isotopes_values = [p.B_Isotope, p.Delta_11B, p.F18O, p.Delta_18O_ol, p.Delta_18O_cpx, p.Delta_18O_pl, p.Delta_18O_amf, p.Delta_18O_gl, 
+    p.Delta_65Cu, p.Rb_Isotope, p.F87Rb_86Sr, p.SR_Isotope, p.F87_86Sr, p.F87_86Sr_ini, p.F143_144Nd, p.Epsl_Nd, p.DeltaEpsl_Nd, 
+    p.F176Lu_177Hf, p.F176_177Hf, p.Epsl_Hf, p.F187Re_188Os, p.F184_188Os, p.F187_188Os, p.F206_204Pb, p.F207_204Pb, p.F208_204Pb, 
+    p.F226Ra_isotopes, p.F226Ra_230Th, p.F230Ra_232Th, p.F230Ra_238U, p.F238U_232Th, p.Pa_isotopes, p.F231Pa_235U, p.F234_238U];
+  var isotopes_errors = [null, p.Delta_11B_e, null, null, null, null, null, null,
+    p.Delta_65Cu_e, null, p.F87Rb_86Sr_e, null, p.F87_86Sr_e, null, p.F143_144Nd_e, null, null, 
+    null, p.F176_177Hf_e, null, null, null, null, p.F206_204Pb_e, p.F207_204Pb_e, p.F208_204Pb_e, 
+    null, null, null, null, null, null, null, null];
   
   if (isotopes_values.some(x => !isNaN(x) && x > 0)) {
     c += '<table width="100%" class="geoTable"><caption>Isotopes</caption><tr>';
     
     for (let i = 0; i < isotopes_names.length; i++) {
       if (!isNaN(isotopes_values[i]) && isotopes_values[i] > 0) {
-        c += '<td><b>' + isotopes_names[i] + '</b></td><td>' + isotopes_values[i];
+        c += `<td><b>${isotopes_names[i]}</b></td><td>${isotopes_values[i]}`;
         if (!isNaN(isotopes_errors[i]) && isotopes_errors[i] > 0) {
-          c += ' &#177 ' + isotopes_errors[i] +'</td></tr>';
+          c += ` &#177 ${isotopes_errors[i]}</td></tr>`;
         } else {
           c += '</td></tr>';
         }
@@ -245,7 +221,11 @@ function setContentGeoSamples(p) {
   } else {
     c += '<p>No isotopes data are available for the sample.</p>'
   };
+  if (!isNaN(p.Notes)) {
+    c += `<p><b>Note:</b> ${p.Notes}.</p>`
+  };
 
+  c = c.replaceAll('Sample location is approximate!','<span class="red-text">Sample location is approximate!</span>');
   return replaceNan(c);
 };
 
@@ -300,10 +280,10 @@ tooltips_control.innerHTML = '<br><label for="tooltips-control">\
 function handleClick(checkbox) {
   if (checkbox.checked) {
     sampleLayer.eachFeature(function (l) {
-      l.unbindTooltip().bindTooltip(l.feature.properties.sample, {className: 'myLabels', permanent:true, offset: [10,-10]}); });
+      l.unbindTooltip().bindTooltip(l.feature.properties.ID, {className: 'myLabels', permanent:true, offset: [10,-10]}); });
   } else {
     sampleLayer.eachFeature(function (l) {
-      l.unbindTooltip().bindTooltip(l.feature.properties.sample, {className: 'myLabels', permanent:false, offset: [10,-10]}); });
+      l.unbindTooltip().bindTooltip(l.feature.properties.ID, {className: 'myLabels', permanent:false, offset: [10,-10]}); });
       };
 }; 
 
@@ -571,14 +551,14 @@ const updateChart = (x_up, x_down, y_up, y_down, layer, flag) => {
   console.log(scatterPlotDataArray.length);
 
   const handleOne = (up, down) => {
-    let exp = up + '/' + down;
+    let exp = `${up}/${down}`;
     return exp.replace('/1', '');
   } 
   
   if ([names_vs_alias[x_up], names_vs_alias[y_up], names_vs_alias[x_down], names_vs_alias[y_down]].some(x => x!== undefined)) {
     xlabel = handleOne(names_vs_alias[x_up], names_vs_alias[x_down]);
     ylabel = handleOne(names_vs_alias[y_up], names_vs_alias[y_down]);
-    chart.options.title.text = xlabel + '  vs  ' + ylabel;
+    chart.options.title.text = `${xlabel}  vs  ${ylabel}`;
     chart.options.scales.xAxes[0].scaleLabel.labelString = xlabel;
     chart.options.scales.yAxes[0].scaleLabel.labelString = ylabel;
   };
