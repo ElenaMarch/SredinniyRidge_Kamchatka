@@ -135,7 +135,7 @@ function setContentGeoSamples(p) {
   'Os', 'P', 'Pb', 'Pd', 'Pr', 'Pt', 'Rb', 'Re', 'Rh', 'Ru', 'S', 'Sb', 'Sc', 'Se', 'Sm', 'Sn', 'Sr', 'Ta', 'Tb', 'Te', 'Th', 'Ti', 'Tl', 
   'Tm', 'U', 'V', 'W', 'Y', 'Yb', 'Zn', 'Zr']
   var attr = Object.keys(p), trace_values=[];
-  console.log(attr);
+
   for (let i = 0; i < trace_names.length; i++) {
     let t = trace_names[i], x = [];
     for (let n of [1,2]) {
@@ -381,8 +381,8 @@ exceptions = {
   "Pa_isotopes": 'Pa - isotopes',
   "F231Pa_235U": '\u00B2\u00B3\u2071Pa / \u00B2\u00B3\u2075U',
   "F234_238U": '\u00B2\u00B3\u2074U / \u00B2\u00B3\u2078U',
-  // 'h2oplus': 'H\u2082O+', 
-  // 'h2ominus': 'H\u2082O-'
+  'H2Oplus': 'H\u2082O+', 
+  'H2Ominus': 'H\u2082O-'
 };
 
 for (let f in exceptions){
