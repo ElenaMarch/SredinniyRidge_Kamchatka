@@ -104,7 +104,7 @@ function setContentGeoSamples(p) {
     c += `<tr><td><b>Sampling date</b></td><td>${p.Sampling_date}</td></tr>`;
   };
   c += `<tr><td><b>Geoage</b></td><td>${p.geoage}`;
-  if (!isNaN(p.age) && p.age > 0 && p.age !== null) {
+  if (!isNaN(p.age) && p.age > 0 || p.age !== null) {
     c += `, ${p.age}&#177;${p.age_error} Ma</td></tr>`; 
   };
   if (!isNaN(p.agehist) && p.agehist > 0) {
@@ -135,6 +135,7 @@ function setContentGeoSamples(p) {
   'Os', 'P', 'Pb', 'Pd', 'Pr', 'Pt', 'Rb', 'Re', 'Rh', 'Ru', 'S', 'Sb', 'Sc', 'Se', 'Sm', 'Sn', 'Sr', 'Ta', 'Tb', 'Te', 'Th', 'Ti', 'Tl', 
   'Tm', 'U', 'V', 'W', 'Y', 'Yb', 'Zn', 'Zr']
   var attr = Object.keys(p), trace_values=[];
+  console.log(attr);
   for (let i = 0; i < trace_names.length; i++) {
     let t = trace_names[i], x = [];
     for (let n of [1,2]) {
@@ -154,7 +155,7 @@ function setContentGeoSamples(p) {
     if (p.µe1_method === null) {
       p.µe1_method = `XRF`;
     };
-    if (p.µe1_method === null) {
+    if (p.µe2_method === null) {
       p.µe2_method = `ICP-MC`;
     };
 
@@ -317,11 +318,11 @@ styleEditor.onAdd = function () {
 
 names_vs_alias = {
   '1': '1',
-  'age': 'Age', 
-  'longitude': 'Longitude', 
-  'latitude' : 'Latitude', 
-  'sio2': 'SiO\u2082', 
-  'tio2': 'TiO\u2082', 
+  // 'age': 'Age', 
+  'Longitude': 'Longitude', 
+  'Latitude' : 'Latitude', 
+  'SiO2': 'SiO\u2082', 
+  'TiO2': 'TiO\u2082', 
   'al2o3': 'Al\u2082O\u2083',
   'fe2o3': 'Fe\u2082O\u2083', 
   'feo': 'FeO', 
