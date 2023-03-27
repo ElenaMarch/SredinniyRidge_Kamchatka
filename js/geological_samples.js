@@ -89,10 +89,11 @@ function setContentGeoSamples(p) {
   var c = `<h2>Geological samples - data</h2><h3 style="color: #641E16;line-height:20px">
   <u>${p.ID}</u> - ${p.Volcano}, ${p.Volcanic_massif}, ${p.Volcanic_group}</h3>
   <table width="100%" class="geoTable">
-  <tr><td width = 30%><b>Location</b></td><td width = 70%>, ${p.Morphology_of_object}, 
+  <tr><td width = 30%><b>Location</b></td><td width = 70%>${p.Morphology_of_object}, 
   ${p.Common_description_of_object}, ${p.Location_of_object}, ${p.Altitude} m asl, ${p.Object_on_volcano}</td></tr>
   <tr><td><b>Rocktype</b></td><td>${p.Rocktype}, ${p.Mineral_composition}</td></tr>
   <tr><td><b>Owner of sample</b></td><td>${p.Owner_of_sample}</td></tr>`;
+  console.log(p.Sampling_date);
   if (!isNaN(p.Sampling_date)) {
     c += `<tr><td><b>Sampling date</b></td><td>${p.Sampling_date}</td></tr>`;
   };
@@ -122,6 +123,7 @@ function setContentGeoSamples(p) {
     }
   };
   c += `</tr><tr style="background-color: #fff7ef;"><td></td><td></td><td><b>Sum</b></td><td>${p.Sum}</td></tr></table>`;
+  console.log(p.Sum);
 
   var trace_names = ['Ag', 'As', 'Au', 'B', 'Ba', 'Be', 'Bi', 'Br', 'CO2', 'Cd', 'Ce', 'Cl', 'Co', 'Cr', 'Cs', 'Cu', 'Dy', 'Er', 'Eu', 
   'F', 'Ga', 'Gd', 'Ge', 'H2O', 'Hf', 'Hg', 'Ho', 'In', 'Ir', 'K', 'La', 'Li', 'Lu', 'Mn', 'Mo', 'Na', 'Nb', 'Nd', 'Ni', 
@@ -148,7 +150,8 @@ function setContentGeoSamples(p) {
     c += `<table width="100%" class="geoTable">
       <caption>Trace elements, ppm</caption>
       <tr><td width = 33%></td><td width = 33%>${p.µe1_method}</td><td width = 33%>${p.µe2_method}</td></tr>`;
-
+    console.log(p.µe1_method);
+    console.log(p.µe2_method);
     let cc = '';
     for (let i = 0; i < trace_names.length; i++) {
       let t = trace_values[i]; 
@@ -173,7 +176,7 @@ function setContentGeoSamples(p) {
     
     for (let i = 0; i < trace_ratios_names.length; i++) {
       if (!isNaN(trace_ratios_values[i])) {
-        c += `<td><b>${trace_ratios_names[i]}</b></td><td>${trace_ratios_values[i]}'</td>`;
+        c += `<td><b>${trace_ratios_names[i]}</b></td><td>${trace_ratios_values[i]}</td>`;
         if (i > 0 && i % 2 != 0) {
           c += '</tr><tr>'
         } 
@@ -221,11 +224,12 @@ function setContentGeoSamples(p) {
   } else {
     c += '<p>No isotopes data are available for the sample.</p>'
   };
+  console.log(p.Notes);
   if (!isNaN(p.Notes)) {
-    c += `<p><b>Note:</b> ${p.Notes}.</p>`
+    c += `<p><b>Note:</b> ${p.Notes}.</p>`;
   };
 
-  c = c.replaceAll('Sample location is approximate!','<span class="red-text">Sample location is approximate!</span>');
+  c = c.replaceAll('Sample location is approximate!','<br><span class="red-text">Sample location is approximate!</span>');
   return replaceNan(c);
 };
 
