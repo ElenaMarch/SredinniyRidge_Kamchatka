@@ -84,21 +84,27 @@ function setContentGeoSamples(p) {
   var refFields = [p.Macroelemets__Me__publication, p.Microelements_1_µe1_publication, p.Isotope_publication, p.Age_publication],
   ref = [...new Set(refFields)];
   ref = ref.filter(x => x);
-  ref = ref.join(', ')
+  ref = ref.join(', ');
   
+  var desc = [p.Morphology_of_object, p.Common_description_of_object, p.Location_of_object, p.Altitude, p.Object_on_volcano]; 
+  desc = desc.filter(x => x);
+  desc = desc.join(', ');
+  if (!isNaN(p.Altitude) && p.Altitude > 0 && p.Altitude !== null) {
+    desc = desc.replace(p.Altitude, `${p.Altitude} m asl`); 
+  };
   var c = `<h2>Geological samples - data</h2><h3 style="color: #641E16;line-height:20px">
   <u>${p.ID}</u> - ${p.Volcano}, ${p.Volcanic_massif}, ${p.Volcanic_group}</h3>
   <table width="100%" class="geoTable">
-  <tr><td width = 30%><b>Location</b></td><td width = 70%>${p.Morphology_of_object}, 
-  ${p.Common_description_of_object}, ${p.Location_of_object}, ${p.Altitude} m asl, ${p.Object_on_volcano}</td></tr>
-  <tr><td><b>Rocktype</b></td><td>${p.Rocktype}, ${p.Mineral_composition}</td></tr>
-  <tr><td><b>Owner of sample</b></td><td>${p.Owner_of_sample}</td></tr>`;
-  console.log(p.Sampling_date);
-  if (!isNaN(p.Sampling_date)) {
+  <tr><td width = 30%><b>Location</b></td><td width = 70%>${desc}</td></tr>
+  <tr><td><b>Rocktype</b></td><td>${p.Rocktype}, ${p.Mineral_composition}</td></tr>`;
+  if (p.Owner_of_sample !== null) {
+    c += `<tr><td><b>Owner of sample</b></td><td>${p.Owner_of_sample}</td></tr>`;
+  };
+  if (p.Sampling_date !== null) {
     c += `<tr><td><b>Sampling date</b></td><td>${p.Sampling_date}</td></tr>`;
   };
   c += `<tr><td><b>Geoage</b></td><td>${p.geoage}`;
-  if (!isNaN(p.age) && p.age > 0) {
+  if (!isNaN(p.age) && p.age > 0 && p.age !== null) {
     c += `, ${p.age}&#177;${p.age_error} Ma</td></tr>`; 
   };
   if (!isNaN(p.agehist) && p.agehist > 0) {
@@ -122,8 +128,7 @@ function setContentGeoSamples(p) {
       } 
     }
   };
-  c += `</tr><tr style="background-color: #fff7ef;"><td></td><td></td><td><b>Sum</b></td><td>${p.Sum}</td></tr></table>`;
-  console.log(p.Sum);
+  c += `</tr><tr style="background-color: #fff7ef;"><td></td><td></td><td><b>Sum</b></td><td>${p.Sum_}</td></tr></table>`;
 
   var trace_names = ['Ag', 'As', 'Au', 'B', 'Ba', 'Be', 'Bi', 'Br', 'CO2', 'Cd', 'Ce', 'Cl', 'Co', 'Cr', 'Cs', 'Cu', 'Dy', 'Er', 'Eu', 
   'F', 'Ga', 'Gd', 'Ge', 'H2O', 'Hf', 'Hg', 'Ho', 'In', 'Ir', 'K', 'La', 'Li', 'Lu', 'Mn', 'Mo', 'Na', 'Nb', 'Nd', 'Ni', 
@@ -146,12 +151,17 @@ function setContentGeoSamples(p) {
   trace_names = trace_names.map(i => i == 'CO2' ? 'CO<sub>2</sub>' : i);
 
   if (trace_values.some(x => x.some(y => !isNaN(y) && y > 0))) {
+    if (p.µe1_method === null) {
+      p.µe1_method = `XRF`;
+    };
+    if (p.µe1_method === null) {
+      p.µe2_method = `ICP-MC`;
+    };
 
     c += `<table width="100%" class="geoTable">
       <caption>Trace elements, ppm</caption>
-      <tr><td width = 33%></td><td width = 33%>${p.µe1_method}</td><td width = 33%>${p.µe2_method}</td></tr>`;
-    console.log(p.µe1_method);
-    console.log(p.µe2_method);
+      <tr><td width = 33%>Method</td><td width = 33%>${p.µe1_method}</td><td width = 33%>${p.µe2_method}</td></tr>`;
+    
     let cc = '';
     for (let i = 0; i < trace_names.length; i++) {
       let t = trace_values[i]; 
@@ -224,8 +234,7 @@ function setContentGeoSamples(p) {
   } else {
     c += '<p>No isotopes data are available for the sample.</p>'
   };
-  console.log(p.Notes);
-  if (!isNaN(p.Notes)) {
+  if (p.Notes !== null) {
     c += `<p><b>Note:</b> ${p.Notes}.</p>`;
   };
 
