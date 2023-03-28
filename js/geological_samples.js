@@ -494,6 +494,7 @@ const updateChartWrap = () => {
 const arrayToShow = (x_up, x_down, y_up, y_down, e, array) => {
   let p = e.properties; p['1'] = 1;
   if (p[x_up] && p[y_up] && p[x_down] && p[y_down]) {
+    console.log(p[x_up]);
     array.push({
       x: p[x_up]/p[x_down],
       y: p[y_up]/p[y_down],
