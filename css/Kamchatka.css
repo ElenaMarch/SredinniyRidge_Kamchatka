@@ -306,7 +306,7 @@ body {
 	cursor: pointer;
 	padding: 5px 10px;
 	transition: 0.3s;
-	width: 20%;
+	width: 15%;
 	margin: 1px;
 }
 #sidebar .tab button:hover {
