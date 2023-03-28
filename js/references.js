@@ -147,7 +147,7 @@ Besides, it makes use of a set of Leaflet plugins (incl. <a href=”https://esri
 Topographic and <a href="https://hub.arcgis.com/datasets/39858979a6ba4cfd96005bbe9bd4cf82" target="_blank">Firefly Imagery</a>. The latter provides a mosaic of satellite and aerial images for the entire world with up to 0.5 m resolution (TerraColor, SPOT and Maxar). 
 The basemaps are freely distributed for non-commercial use under Essentials Developer Plan (<a href=”https://github.com/esri/esri-leaflet#terms” target="_blank">ESRI's Terms of Use</a>).</p>\
 <br><hr>
-<p class="lorem">&copy; 2018-2023 Elena Marchenko<br>PhD Goesciences, Research fellow<br><a href="mailto:eklmnk@gmail.com">eklmnk@gmail.com<>/a<br>
+<p class="lorem">&copy; 2018-2023 Elena Marchenko<br>PhD Goesciences, Research fellow<br><a href="mailto:eklmnk@gmail.com">eklmnk@gmail.com</a><br>
 Laboratory of Informatic Technologies and Geoecology<br>
 <a href="http://www.kscnet.ru/ivs/ target="_blank"">Institute of Volcanology and Seismology</a><br>Far Eastern Branch of Russian Academy of Sciences</p>`;
 
