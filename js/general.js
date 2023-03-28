@@ -89,7 +89,7 @@ getActiveTab = (id) => {
 }
 
 var sidebar = L.control.sidebar('sidebar', {position: 'right', autoPan: false}),
-	tabList = {'Legend': 'layers', 'References': 'book', 'Geosamples': 'hammer-rock-small', 'Chart':'chart'};
+	tabList = {'Legend': 'layers', 'Geosamples': 'hammer-rock-small', 'Chart':'chart', 'References': 'book', 'Credits': 'star'};
 	sidebarContent = '<div id="tabs-list" class="tab">';
 for (i in tabList){
 	sidebarContent += '<button class="tablinks" id="tab-'+ i +'" onclick="sidebar.setTab(this.id, content'+ i +');getActiveTab(this.id);" title="'+ i +'"><img src="button/'+ tabList[i] +'.png"></button>';
