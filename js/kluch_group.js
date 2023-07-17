@@ -86,21 +86,20 @@ conesPobochLayer.bindPopup(function (layer) {
 	return L.Util.template(Cones_attr, Con(layer)); }, {'className':'popupCustom'});
 
 function conesStyle(feature) {
-	// switch (feature.properties.Type_map) {
-    //   case 'large': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'};
-    //   case 'small': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'}; 
-    //   case 'shield': return {"color": "#595959", 'shape': "x", 'radius': 5, "weight":2, "fillOpacity": 0.75, 'pane': 'Local3'};    }
+	switch (feature.properties.Type_map) {
+      case 'large': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'};
+      case 'small': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'}; 
+      case 'shield': return {"color": "#595959", 'shape': "x", 'radius': 5, "weight":2, "fillOpacity": 0.75, 'pane': 'Local3'};    }
 };
 
-var conesPobochPointsLayer;
-// var conesPobochPointsLayer = new L.GeoJSON.AJAX("json/cones_poboch_point.geojson",
-//     {pointToLayer: function (feature, latlng) {
-//       var marker = L.shapeMarker(latlng, conesStyle(feature));
-//       (map.getZoom() >= 12
-//         ? marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:true})
-//         : marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:false} ));
-//       return marker} 
-//     });
+var conesPobochPointsLayer = new L.GeoJSON.AJAX("json/cones_poboch_point.geojson",
+    {pointToLayer: function (feature, latlng) {
+      var marker = L.shapeMarker(latlng, conesStyle(feature));
+      (map.getZoom() >= 12
+        ? marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:true})
+        : marker.bindTooltip(feature.properties.Name_eng, {className: 'avolcLabels', permanent:false} ));
+      return marker} 
+    });
 
 // Glaciers
 var shapeI = new L.PatternCircle({ x: 1, y: 1, radius: 1, fill: true, color: '#00A1DE', spaceColor: "transparent", weight: 0.5}); 
