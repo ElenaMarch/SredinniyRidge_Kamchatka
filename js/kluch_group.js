@@ -92,7 +92,7 @@ function conesStyle(feature) {
     //   case 'shield': return {"color": "#595959", 'shape': "x", 'radius': 5, "weight":2, "fillOpacity": 0.75, 'pane': 'Local3'};    }
 };
 
-// var conesPobochPointsLayer;
+var conesPobochPointsLayer;
 // var conesPobochPointsLayer = new L.GeoJSON.AJAX("json/cones_poboch_point.geojson",
 //     {pointToLayer: function (feature, latlng) {
 //       var marker = L.shapeMarker(latlng, conesStyle(feature));
