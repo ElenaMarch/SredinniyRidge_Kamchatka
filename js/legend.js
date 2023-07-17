@@ -26,8 +26,8 @@ var baseLayers = {
 	  	"Glaciers": Group_gl2016
 	},
 	"Kluchevskaya group of volcanoes": {
-		'Eruptive centers': conesPobochPointsLayer,
-		"Cinder cones, lava flows": new L.layerGroup([lavaVershinLayer, lavaPobochLayer, conesPobochLayer, lavaShishLayer]),
+		//'Eruptive centers': conesPobochPointsLayer,
+		"Cinder cones, lava flows": kluchGroup,
 		"Glaciers<i hidden>A</i>": glKluchGroup,
 		"Shelters": houseLayer
 	},
