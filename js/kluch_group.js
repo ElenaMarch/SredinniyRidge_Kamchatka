@@ -87,9 +87,9 @@ conesPobochLayer.bindPopup(function (layer) {
 
 function conesStyle(feature) {
 	switch (feature.properties.Type_map) {
-      case 'large': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'};
-      case 'small': return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'}; 
-      case 'shield': return {"color": "#595959", 'shape': "x", 'radius': 5, "weight":2, "fillOpacity": 0.75, 'pane': 'Local3'};    }
+      case 2: return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'};
+      case 1: return {"color": "#595959", 'shape': "triangle", 'radius': 2.5, "fillOpacity": 1, "weight":1, 'pane': 'Local3'}; 
+      case 3: return {"color": "#595959", 'shape': "x", 'radius': 5, "weight":2, "fillOpacity": 0.75, 'pane': 'Local3'};    }
 };
 
 var conesPobochPointsLayer = new L.GeoJSON.AJAX("json/cones_poboch_point.geojson",
